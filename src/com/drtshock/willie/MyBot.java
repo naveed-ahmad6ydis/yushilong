@@ -24,7 +24,14 @@ public class MyBot extends PircBot {
     public void onMessage(String channel, String sender,
             String login, String hostname, String message) {
         if (channel.equalsIgnoreCase(ch)) {
-            if (message.equalsIgnoreCase(".od")) {
+            if(message.equalsIgnoreCase("willie")) {
+                sendMessage(ch, "Hello :3");
+            }
+            else if(message.equalsIgnoreCase(".repo")) {
+                sendMessage(ch, Colors.CYAN + "Contribute if you feel so led: "
+                        + "https://github.com/drtshock/willie");
+            }
+            else if (message.equalsIgnoreCase(".od")) {
                 sendMessage(ch, Colors.PURPLE + "ObsidianDestroyer http://dev.bukkit.org/server-mods/obsidiandestroyer"
                         + Colors.DARK_GRAY + " Blow up obsidian and other non explosive blocks with TNT. Define the durability of blocks"
                         + " in the config.");
