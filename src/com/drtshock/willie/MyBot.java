@@ -57,9 +57,9 @@ public class MyBot extends PircBot {
                     sendMessage(ch, Colors.RED + "Check latest BukkitDev version of a plugin by doing .latest <slug>");
                 }
                 else {
-                    String slug = message.replaceAll(".latest ", "");
+                    String[] slug = message.split(" ");
                     try {
-                        sendMessage(ch, Colors.DARK_GREEN + "Latest version: " + CheckUpdate.getUpdate(slug));
+                        sendMessage(ch, Colors.DARK_GREEN + "Latest version: " + CheckUpdate.getUpdate(slug.toString()));
                     } catch (Exception ex) {
                         sendMessage(ch, Colors.RED + "I couldn't find that project.");
                     }
