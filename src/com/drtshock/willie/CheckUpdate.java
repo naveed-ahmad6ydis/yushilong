@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.drtshock.willie;
 
 import java.io.BufferedReader;
@@ -21,12 +22,13 @@ public class CheckUpdate {
 
     public static String[] getUpdate(String slug) throws IOException {
         slug = slug.toLowerCase();
-        String[] ret = new String[2];
+        String[] ret = new String[3];
         URL url = new URL("http://api.bukget.org/3/plugins/bukkit/" + slug + "/latest");
         BufferedReader in = null;
         try {
             in = new BufferedReader(new InputStreamReader(url.openStream()));
-        } catch (UnknownHostException e) {
+        }
+        catch(UnknownHostException e) {
             throw new IOException();
         }
         JSONObject json;
@@ -34,7 +36,7 @@ public class CheckUpdate {
             json = new JSONObject(in.readLine()).getJSONArray("versions").getJSONObject(0);
             ret[0] = json.getString("dbo_version");
             ret[1] = json.getString("link");
-        } catch (JSONException e) {
+        } catch(JSONException e) {
             throw new IOException();
         }
         in.close();

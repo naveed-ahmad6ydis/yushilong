@@ -1,6 +1,7 @@
 package com.drtshock.willie;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,6 +75,18 @@ public class Willie extends ListenerAdapter implements Listener {
                     event.getChannel().sendMessage(Colors.PURPLE + "http://dev.bukkit.org/server-mods/" + args[1].toLowerCase() + "/");
                 } catch (IOException ex) {
                     event.getChannel().sendMessage(Colors.RED + "No project with that slug exists.");
+                }
+            }
+        } else if (args[0].equalsIgnoreCase(".issues") || args[0].equalsIgnoreCase(".i")) {
+            if(args.length == 1) {
+                event.getChannel().sendMessage(Colors.RED + "Look up issues on one of your github repos with .issues <repo>");
+            } else {
+                try {
+                    CheckIssues.check(event.getUser().toString(), args[1]);
+                } catch (MalformedURLException ex) {
+                    event.getChannel().sendMessage(Colors.RED + "Couldn't find that repo.");
+                } catch (IOException ex) {
+                    event.getChannel().sendMessage(Colors.RED + "Something went wrong :(");
                 }
             }
         }
