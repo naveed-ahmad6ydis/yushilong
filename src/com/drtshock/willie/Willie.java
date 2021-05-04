@@ -11,11 +11,21 @@ import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.events.DisconnectEvent;
+import org.pircbotx.hooks.events.JoinEvent;
 import org.pircbotx.hooks.events.MessageEvent;
 
 @SuppressWarnings("rawtypes")
 public class Willie extends ListenerAdapter implements Listener {
+
+    private boolean drtIsAwesome = true;
+    
+    @Override
+    public void onJoin(JoinEvent event) {
+        if(event.getChannel().equals("#drtshock-private")) {
+            Thread thread = new Thread(new IssueTask());
+            thread.start();
+        }
+    }
 
     @Override
     public void onMessage(MessageEvent event) {
@@ -77,23 +87,11 @@ public class Willie extends ListenerAdapter implements Listener {
                     event.getChannel().sendMessage(Colors.RED + "No project with that slug exists.");
                 }
             }
-        } else if (args[0].equalsIgnoreCase(".issues") || args[0].equalsIgnoreCase(".i")) {
-            if(args.length == 1) {
-                event.getChannel().sendMessage(Colors.RED + "Look up issues on one of your github repos with .issues <repo>");
-            } else {
-                try {
-                    CheckIssues.check(event.getUser().toString(), args[1]);
-                } catch (MalformedURLException ex) {
-                    event.getChannel().sendMessage(Colors.RED + "Couldn't find that repo.");
-                } catch (IOException ex) {
-                    event.getChannel().sendMessage(Colors.RED + "Something went wrong :(");
-                }
-            }
         }
     }
 
     public static void main(String[] args) throws IOException, IrcException, NickAlreadyInUseException {
-        String[] channels = {"#drtshock"};
+        String[] channels = {"#drtshock-private"};
         PircBotX bot = new PircBotX();
         bot.setName("Willie");
         bot.setVerbose(true);
@@ -104,4 +102,5 @@ public class Willie extends ListenerAdapter implements Listener {
             bot.joinChannel(c);
         }
     }
+
 }
