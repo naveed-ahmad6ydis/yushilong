@@ -1,9 +1,7 @@
 package com.drtshock.willie;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.pircbotx.Channel;
 
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
@@ -18,12 +16,14 @@ import org.pircbotx.hooks.events.MessageEvent;
 public class Willie extends ListenerAdapter implements Listener {
 
     private boolean drtIsAwesome = true;
+    public static Channel chan;
     
     @Override
     public void onJoin(JoinEvent event) {
         if(event.getChannel().equals("#drtshock-private")) {
             Thread thread = new Thread(new IssueTask());
             thread.start();
+            chan = event.getChannel();
         }
     }
 
@@ -87,6 +87,9 @@ public class Willie extends ListenerAdapter implements Listener {
                     event.getChannel().sendMessage(Colors.RED + "No project with that slug exists.");
                 }
             }
+        } else if(args[0].equalsIgnoreCase(".issue")) {
+            IssueData dat = new IssueData(null, null, null, null, chan);
+            event.getChannel().sendMessage(Colors.RED + "Checking issues.");
         }
     }
 
