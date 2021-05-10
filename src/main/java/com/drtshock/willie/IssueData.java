@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.drtshock.willie;
 
 import java.io.BufferedReader;
@@ -15,10 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.pircbotx.Channel;
 
-/**
- *
- * @author drtshock
- */
 public class IssueData {
 
     private static HashMap<Integer, IssueData> data = new HashMap<>();

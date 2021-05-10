@@ -1,9 +1,5 @@
 package com.drtshock.willie;
 
-/**
- *
- * @author drtshock
- */
 public class IssueTask implements Runnable {
 
     private boolean drtIsAwesome = true;

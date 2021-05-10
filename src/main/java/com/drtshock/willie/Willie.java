@@ -1,21 +1,17 @@
 package com.drtshock.willie;
 
 import java.io.IOException;
-import org.pircbotx.Channel;
 
+import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
-import org.pircbotx.exception.IrcException;
-import org.pircbotx.exception.NickAlreadyInUseException;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.JoinEvent;
 import org.pircbotx.hooks.events.MessageEvent;
 
-@SuppressWarnings("rawtypes")
 public class Willie extends ListenerAdapter implements Listener {
 
-    private boolean drtIsAwesome = true;
     public static Channel chan;
     
     @Override
@@ -93,15 +89,16 @@ public class Willie extends ListenerAdapter implements Listener {
         }
     }
 
-    public static void main(String[] args) throws IOException, IrcException, NickAlreadyInUseException {
-        String[] channels = {"#drtshock-private"};
+    public static void main(String[] args){
         PircBotX bot = new PircBotX();
+        
         bot.setName("Willie");
         bot.setVerbose(true);
         bot.getListenerManager().addListener(new Willie());
         bot.connect("irc.esper.net");
         bot.setAutoReconnectChannels(true);
-        for (String c : channels) {
+        
+        for (String c : new String[]{"#drtshock-private"}) {
             bot.joinChannel(c);
         }
     }
