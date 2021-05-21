@@ -1,10 +1,8 @@
 package com.drtshock.willie;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 import org.pircbotx.Channel;
-import org.pircbotx.Colors;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -32,7 +30,7 @@ public class CommandListener extends ListenerAdapter<Willie> implements Listener
 	public void onMessage(MessageEvent<Willie> event){
 		String message = event.getMessage();
 		
-		if (message.isEmpty() || message.charAt(0) == '.'){
+		if (message.isEmpty() || message.charAt(0) != '.'){
 			return;
 		}
 		
