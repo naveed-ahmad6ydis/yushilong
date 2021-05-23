@@ -11,7 +11,7 @@ public class Willie extends PircBotX {
 	private Willie(String[] channels) throws NickAlreadyInUseException, IOException, IrcException{
 		super();
 		
-		this.setName("Willie");
+		this.setName("Willie2");
 		this.setVerbose(true);
 		this.getListenerManager().addListener(new CommandListener());
 		this.connect("irc.esper.net");
@@ -24,7 +24,7 @@ public class Willie extends PircBotX {
 	
 	public static void main(String[] args){
 		try{
-			new Willie(new String[]{"#drtshock-private"});
+			new Willie(new String[]{"#scbottest"});
 		}catch (Exception e){
 			e.printStackTrace();
 		}
