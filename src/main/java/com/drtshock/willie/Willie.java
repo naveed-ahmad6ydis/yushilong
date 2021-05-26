@@ -12,7 +12,7 @@ public class Willie extends PircBotX {
 		super();
 		
 		this.setName("Willie2");
-		this.setVerbose(true);
+		this.setVerbose(false);
 		this.getListenerManager().addListener(new CommandListener());
 		this.connect("irc.esper.net");
 		this.setAutoReconnectChannels(true);
