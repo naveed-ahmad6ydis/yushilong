@@ -15,15 +15,17 @@ import com.drtshock.willie.command.RepoCommandHandler;
 
 public class CommandListener extends ListenerAdapter<Willie> implements Listener<Willie> {
 	
+	private Willie bot;
 	private HashMap<String, CommandHandler> handlers;
 	
-	public CommandListener(){
+	public CommandListener(Willie bot){
+		this.bot = bot;
 		this.handlers = new HashMap<String, CommandHandler>();
 		
 		this.handlers.put("repo", new RepoCommandHandler());
 		this.handlers.put("latest", new LatestCommandHandler());
 		this.handlers.put("plugin", new PluginCommandHandler());
-		this.handlers.put("issues", new IssuesCommandHandler());
+		this.handlers.put("issues", new IssuesCommandHandler(bot));
 	}
 	
 	@Override
