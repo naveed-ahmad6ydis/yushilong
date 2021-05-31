@@ -7,10 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
-
 public class JenkinsServer {
 	
 	private String baseURL;

@@ -61,13 +61,20 @@ public class JenkinsJob {
 	}
 	
 	public GitHubIssue[] getIssues() throws IOException {
-		URL url = new URL("https://api.github.com/repos/" + this.getGitHubUrl().substring(19) + "issues");
+		String gitUrl = this.getGitHubUrl();
+		
+		if (gitUrl == null){
+			return new GitHubIssue[0];
+		}
+		
+		URL url = new URL("https://api.github.com/repos/" + gitUrl.substring(19) + "issues");
 		
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		connection.setConnectTimeout(5000);
 		connection.setReadTimeout(5000);
 		connection.setUseCaches(false);
+		connection.setRequestProperty("Authorization", Willie.GIT_AUTH);
 		
 		BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		
