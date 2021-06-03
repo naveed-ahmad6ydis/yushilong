@@ -42,7 +42,7 @@ public class Willie extends PircBotX {
 		
 		this.jenkins = new JenkinsServer("http://ci.drtshock.com/");
 		
-		this.setName("Jaceks_Willie");
+		this.setName("Willie");
 		this.setVerbose(true);
 		this.getListenerManager().addListener(new CommandListener(this));
 		this.connect("irc.esper.net");
@@ -57,7 +57,7 @@ public class Willie extends PircBotX {
 	
 	public static void main(String[] args){
 		try{
-			new Willie(new String[]{"#scbottest"});
+			new Willie(new String[]{"#drtshock"});
 		}catch (Exception e){
 			e.printStackTrace();
 		}
