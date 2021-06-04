@@ -43,7 +43,7 @@ public class Willie extends PircBotX {
 		this.jenkins = new JenkinsServer("http://ci.drtshock.com/");
 		
 		this.setName("Willie");
-		this.setVerbose(true);
+		this.setVerbose(false);
 		this.getListenerManager().addListener(new CommandListener(this));
 		this.connect("irc.esper.net");
 		this.setAutoReconnectChannels(true);

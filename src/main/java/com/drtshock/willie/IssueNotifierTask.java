@@ -46,8 +46,6 @@ public class IssueNotifierTask extends TimerTask {
 	
 	@Override
 	public void run(){
-		System.out.println("Updating issues");
-		
 		try{
 			for (JenkinsJobEntry job : this.bot.jenkins.getJobs()){
 				GitHubIssue[] issues = this.bot.jenkins.getJob(job.getName()).getIssues();
