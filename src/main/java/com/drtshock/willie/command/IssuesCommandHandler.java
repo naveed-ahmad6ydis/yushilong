@@ -57,7 +57,7 @@ public class IssuesCommandHandler implements CommandHandler {
 				return;
 			}
 			
-			channel.sendMessage(job.getDisplayName() + " has " + issues.length + " open issue(s) page " + page + " of " + pages);
+			channel.sendMessage(Colors.BLUE + job.getDisplayName() + Colors.NORMAL + " has " + Colors.RED + issues.length + Colors.NORMAL + " open issue(s) page " + page + " of " + pages);
 			
 			for (int i = start; i < end; ++i){
 				channel.sendMessage(" #" + issues[i].getNumber() + " - " + issues[i].getTitle());
@@ -66,7 +66,6 @@ public class IssuesCommandHandler implements CommandHandler {
 			channel.sendMessage(Colors.RED + "No such job");
 		}catch (IOException e){
 			channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
-			e.printStackTrace();
 		}
 	}
 	
