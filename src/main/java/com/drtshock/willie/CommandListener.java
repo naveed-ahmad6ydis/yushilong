@@ -1,5 +1,6 @@
 package com.drtshock.willie;
 
+import com.drtshock.willie.command.CICommandHandler;
 import java.util.HashMap;
 
 import org.pircbotx.Channel;
@@ -12,6 +13,7 @@ import com.drtshock.willie.command.IssuesCommandHandler;
 import com.drtshock.willie.command.LatestCommandHandler;
 import com.drtshock.willie.command.PluginCommandHandler;
 import com.drtshock.willie.command.RepoCommandHandler;
+import com.drtshock.willie.command.RulesCommandHandler;
 
 public class CommandListener extends ListenerAdapter<Willie> implements Listener<Willie> {
 	
@@ -26,6 +28,8 @@ public class CommandListener extends ListenerAdapter<Willie> implements Listener
 		this.handlers.put("latest", new LatestCommandHandler());
 		this.handlers.put("plugin", new PluginCommandHandler());
 		this.handlers.put("issues", new IssuesCommandHandler(bot));
+                this.handlers.put("ci", new CICommandHandler());
+                this.handlers.put("rules", new RulesCommandHandler());
 	}
 	
 	@Override
