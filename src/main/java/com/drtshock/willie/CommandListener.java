@@ -9,9 +9,11 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.command.HelpCommandHandler;
 import com.drtshock.willie.command.IssuesCommandHandler;
 import com.drtshock.willie.command.LatestCommandHandler;
 import com.drtshock.willie.command.PluginCommandHandler;
+import com.drtshock.willie.command.PopcornCommandHandler;
 import com.drtshock.willie.command.RepoCommandHandler;
 import com.drtshock.willie.command.RulesCommandHandler;
 
@@ -30,13 +32,15 @@ public class CommandListener extends ListenerAdapter<Willie> implements Listener
 		this.handlers.put("issues", new IssuesCommandHandler(bot));
                 this.handlers.put("ci", new CICommandHandler());
                 this.handlers.put("rules", new RulesCommandHandler());
+                this.handlers.put("help", new HelpCommandHandler());
+                this.handlers.put("p", new PopcornCommandHandler());
 	}
 	
 	@Override
 	public void onMessage(MessageEvent<Willie> event){
 		String message = event.getMessage();
 		
-		if (message.isEmpty() || message.charAt(0) != '.'){
+		if (message.isEmpty() || message.charAt(0) != '!'){
 			return;
 		}
 		
