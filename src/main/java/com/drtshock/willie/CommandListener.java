@@ -16,6 +16,7 @@ import com.drtshock.willie.command.PluginCommandHandler;
 import com.drtshock.willie.command.PopcornCommandHandler;
 import com.drtshock.willie.command.RepoCommandHandler;
 import com.drtshock.willie.command.RulesCommandHandler;
+import com.drtshock.willie.command.TWSSCommandHandler;
 
 public class CommandListener extends ListenerAdapter<Willie> implements Listener<Willie> {
 	
@@ -34,6 +35,7 @@ public class CommandListener extends ListenerAdapter<Willie> implements Listener
                 this.handlers.put("rules", new RulesCommandHandler());
                 this.handlers.put("help", new HelpCommandHandler());
                 this.handlers.put("p", new PopcornCommandHandler());
+                this.handlers.put("twss", new TWSSCommandHandler());
 	}
 	
 	@Override
