@@ -9,6 +9,7 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.command.DonateCommandHandler;
 import com.drtshock.willie.command.HelpCommandHandler;
 import com.drtshock.willie.command.IssuesCommandHandler;
 import com.drtshock.willie.command.LatestCommandHandler;
@@ -36,6 +37,7 @@ public class CommandListener extends ListenerAdapter<Willie> implements Listener
                 this.handlers.put("help", new HelpCommandHandler());
                 this.handlers.put("p", new PopcornCommandHandler());
                 this.handlers.put("twss", new TWSSCommandHandler());
+                this.handlers.put("donate", new DonateCommandHandler());
 	}
 	
 	@Override

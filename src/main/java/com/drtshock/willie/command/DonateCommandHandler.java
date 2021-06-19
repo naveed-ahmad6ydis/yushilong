@@ -1,0 +1,18 @@
+package com.drtshock.willie.command;
+
+import org.pircbotx.Channel;
+import org.pircbotx.User;
+
+/**
+ *
+ * @author drtshock
+ */
+public class DonateCommandHandler implements CommandHandler
+{
+
+    @Override
+    public void handle(Channel channel, User sender, String[] args) {
+        channel.sendMessage("All donations are appreciated :3 http://tinyurl.com/drtdonate");
+    }
+
+}
