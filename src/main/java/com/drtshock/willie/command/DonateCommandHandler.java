@@ -1,6 +1,7 @@
 package com.drtshock.willie.command;
 
 import org.pircbotx.Channel;
+import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 /**
@@ -12,7 +13,7 @@ public class DonateCommandHandler implements CommandHandler
 
     @Override
     public void handle(Channel channel, User sender, String[] args) {
-        channel.sendMessage("All donations are appreciated :3 http://tinyurl.com/drtdonate");
+        channel.sendMessage(Colors.CYAN + "Buy me food :3 http://tinyurl.com/drtdonate");
     }
 
 }
