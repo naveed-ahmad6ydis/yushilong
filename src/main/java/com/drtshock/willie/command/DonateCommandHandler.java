@@ -18,11 +18,9 @@ public class DonateCommandHandler implements CommandHandler {
         int num = getRandom(1, 4);
         if (num == 4) {
             channel.sendMessage(Colors.DARK_GREEN + "Buy me food :3 http://tinyurl.com/drtdonate");
-        }
-        if (num == 3) {
+        } else if (num == 3) {
             channel.sendMessage(Colors.DARK_GREEN + "Donations are nice. http://tinyurl.com/drtdonate");
-        }
-        if (num == 2) {
+        } else if (num == 2) {
             channel.sendMessage(Colors.DARK_GREEN + "Hey there http://tinyurl.com/drtdonate");
         } else {
             channel.sendMessage(Colors.DARK_GREEN + "Buy dirt for drt http://tinyurl.com/drtdonate");
