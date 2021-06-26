@@ -32,12 +32,12 @@ public class CommandListener extends ListenerAdapter<Willie> implements Listener
 		this.handlers.put("latest", new LatestCommandHandler());
 		this.handlers.put("plugin", new PluginCommandHandler());
 		this.handlers.put("issues", new IssuesCommandHandler(bot));
-                this.handlers.put("ci", new CICommandHandler());
-                this.handlers.put("rules", new RulesCommandHandler());
-                this.handlers.put("help", new HelpCommandHandler());
-                this.handlers.put("p", new PopcornCommandHandler());
-                this.handlers.put("twss", new TWSSCommandHandler());
-                this.handlers.put("donate", new DonateCommandHandler());
+		this.handlers.put("ci", new CICommandHandler());
+		this.handlers.put("rules", new RulesCommandHandler());
+		this.handlers.put("help", new HelpCommandHandler());
+		this.handlers.put("p", new PopcornCommandHandler());
+		this.handlers.put("twss", new TWSSCommandHandler());
+		this.handlers.put("donate", new DonateCommandHandler());
 	}
 	
 	@Override
