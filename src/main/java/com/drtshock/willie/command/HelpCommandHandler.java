@@ -3,17 +3,15 @@ package com.drtshock.willie.command;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
+import com.drtshock.willie.Willie;
+
 public class HelpCommandHandler implements CommandHandler {
 	
 	@Override
-	public void handle(Channel channel, User sender, String[] args){
-		sender.sendMessage(".ci - shows Jenkins info");
-		sender.sendMessage(".issues <job_name> [page] - check github issues for jobs on http://ci.drtshock.com");
-		sender.sendMessage(".latest <plugin_name> - Get latest file for plugin on BukkitDev");
-		sender.sendMessage(".plugin <name> - looks up a plugin on BukkitDev");
-		sender.sendMessage(".repo - show Willie's repo");
-		sender.sendMessage(".rules - show channel rules");
-		sender.sendMessage(".p - pop some popcorn!");
+	public void handle(Willie bot, Channel channel, User sender, String[] args){
+		for (Command command : bot.commandManager.getCommands()){
+			sender.sendMessage("." + command.getName() + " - " + command.getHelp());
+		}
 	}
 	
 }

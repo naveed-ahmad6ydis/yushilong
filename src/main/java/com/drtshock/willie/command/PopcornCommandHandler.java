@@ -4,12 +4,14 @@ import java.util.Random;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
+import com.drtshock.willie.Willie;
+
 public class PopcornCommandHandler implements CommandHandler {
 	
 	private final Random rand = new Random();
 	
 	@Override
-	public void handle(Channel channel, User sender, String[] args){
+	public void handle(Willie bot, Channel channel, User sender, String[] args){
 		int num = getRandom(1, 4);
 		
 		if (num == 4){
