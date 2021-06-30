@@ -1,6 +1,8 @@
 package com.drtshock.willie.command;
 
+import java.util.ArrayList;
 import java.util.Random;
+
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
@@ -8,25 +10,22 @@ import com.drtshock.willie.Willie;
 
 public class PopcornCommandHandler implements CommandHandler {
 	
-	private final Random rand = new Random();
+	private Random rand;
+	private ArrayList<String> messages;
+	
+	public PopcornCommandHandler(){
+		this.rand = new Random();
+		this.messages = new ArrayList<String>();
+		
+		this.messages.add("pops some plain popcorn.");
+		this.messages.add("pops some popcorn with butter.");
+		this.messages.add("pops some popcorn with salt and butter!");
+		this.messages.add("pops some kettle corn.");
+	}
 	
 	@Override
 	public void handle(Willie bot, Channel channel, User sender, String[] args){
-		int num = getRandom(1, 4);
-		
-		if (num == 4){
-			channel.getBot().sendAction(channel, "pops some plain popcorn.");
-		}else if (num == 3){
-			channel.getBot().sendAction(channel, "pops some popcorn with butter.");
-		}else if (num == 2){
-			channel.getBot().sendAction(channel, "pops some popcorn with salt and butter!");
-		}else{
-			channel.getBot().sendAction(channel, "pops some kettle corn.");
-		}
-	}
-	
-	private int getRandom(int min, int max){
-		return rand.nextInt(max - min) + min;
+		bot.sendAction(channel, this.messages.get(this.rand.nextInt(this.messages.size())));
 	}
 	
 }

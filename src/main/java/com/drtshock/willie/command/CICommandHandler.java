@@ -10,7 +10,7 @@ public class CICommandHandler implements CommandHandler {
 	
 	@Override
 	public void handle(Willie bot, Channel channel, User sender, String[] args){
-		channel.sendMessage(Colors.BLUE + "Get dev builds at http://ci.drtshock.com " + "If you're interesting in hosting a project there, talk to drtshock or blha303.");
+		channel.sendMessage(Colors.BLUE + "Get dev builds at http://ci.drtshock.com If you're interesting in hosting a project there, talk to drtshock or blha303.");
 	}
 	
 }
