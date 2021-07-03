@@ -10,7 +10,7 @@ public class HelpCommandHandler implements CommandHandler {
 	@Override
 	public void handle(Willie bot, Channel channel, User sender, String[] args){
 		for (Command command : bot.commandManager.getCommands()){
-			sender.sendMessage("." + command.getName() + " - " + command.getHelp());
+			sender.sendMessage(bot.commandManager.getCommandChar() + command.getName() + " - " + command.getHelp());
 		}
 	}
 	
