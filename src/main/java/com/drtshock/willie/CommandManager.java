@@ -13,21 +13,15 @@ import com.drtshock.willie.command.Command;
 public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
 	
 	private Willie bot;
-	private char commandChar;
 	private HashMap<String, Command> commands;
 	
 	public CommandManager(Willie bot){
 		this.bot = bot;
-		this.commandChar = '!';
 		this.commands = new HashMap<String, Command>();
 	}
 	
 	public void registerCommand(Command command){
 		this.commands.put(command.getName(), command);
-	}
-	
-	public char getCommandChar(){
-		return this.commandChar;
 	}
 	
 	public Collection<Command> getCommands(){
@@ -38,7 +32,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 	public void onMessage(MessageEvent<Willie> event){
 		String message = event.getMessage();
 		
-		if (message.isEmpty() || message.charAt(0) != this.commandChar){
+		if (message.isEmpty() || message.charAt(0) != '!'){
 			return;
 		}
 		
