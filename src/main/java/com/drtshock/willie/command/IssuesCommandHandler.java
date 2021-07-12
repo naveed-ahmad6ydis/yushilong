@@ -42,7 +42,7 @@ public class IssuesCommandHandler implements CommandHandler {
 			GitHubIssue[] issues = job.getIssues();
 			
 			if (issues.length == 0){
-				channel.sendMessage(Colors.DARK_GREEN + job.getDisplayName() + " has no open issues \\o/");
+				channel.sendMessage(Colors.GREEN + job.getDisplayName() + " has no open issues \\o/");
 				return;
 			}
 			
