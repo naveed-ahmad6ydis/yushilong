@@ -14,9 +14,11 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 	
 	private Willie bot;
 	private HashMap<String, Command> commands;
-	
+	private String cmdPrefix;
+
 	public CommandManager(Willie bot){
 		this.bot = bot;
+        this.cmdPrefix = bot.getConfig().getCommandPrefix();
 		this.commands = new HashMap<String, Command>();
 	}
 	
@@ -27,12 +29,16 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 	public Collection<Command> getCommands(){
 		return this.commands.values();
 	}
+
+    public void setCommandPrefix(String prefix) {
+        this.cmdPrefix = prefix;
+    }
 	
 	@Override
 	public void onMessage(MessageEvent<Willie> event){
 		String message = event.getMessage();
 		
-		if (message.isEmpty() || message.charAt(0) != '!'){
+		if (!message.startsWith(cmdPrefix)) {
 			return;
 		}
 		
