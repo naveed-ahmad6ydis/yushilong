@@ -41,15 +41,18 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 		if (!message.startsWith(cmdPrefix)) {
 			return;
 		}
-		
+
 		String[] parts = message.substring(1).split(" ");
 		Channel channel = event.getChannel();
 		
 		String commandName = parts[0].toLowerCase();
 		String[] args = new String[parts.length - 1];
 		System.arraycopy(parts, 1, args, 0, args.length);
-		
+
 		Command command = this.commands.get(commandName);
+        if(command.isAdminOnly() && !bot.getConfig().getAdmins().contains(event.getUser().getNick())) {
+            return;
+        }
 		
 		if (command != null){
 			command.getHandler().handle(this.bot, channel, event.getUser(), args);
