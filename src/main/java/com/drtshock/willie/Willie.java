@@ -58,6 +58,8 @@ public class Willie extends PircBotX {
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("reload", "Reloads willie", new ReloadCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("save", "Saves configuration", new SaveCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("admin", "add <user> | del <user> | list - Modifies the bot admin list.", new AdminCommandHandler(), true));
 		
 		this.setName(willieConfig.getNick());
 		this.setVerbose(false);
@@ -124,6 +126,17 @@ public class Willie extends PircBotX {
                 partChannel(getChannel(channel));
             }
         }
+    }
+
+    public void save() {
+        // Save channels
+        willieConfig.getChannels().clear();
+        for(Channel channel : getChannels()) {
+            willieConfig.getChannels().add(channel.getName());
+        }
+
+        willieConfig.update();
+        willieConfig.save(CONFIG_FILE);
     }
 
     public WillieConfig getConfig() {

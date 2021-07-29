@@ -9,24 +9,27 @@ import java.io.PrintWriter;
 import java.util.*;
 import java.util.logging.Logger;
 
-/**
- * @author B2OJustin
- */
+
 @SuppressWarnings("unchecked")
 public class WillieConfig {
     private static final Logger logger = Logger.getLogger(WillieConfig.class.getName());
     private LinkedHashMap<String, Object> configMap = new LinkedHashMap<>();
     private ArrayList<String> botAdmins = new ArrayList<>();
     private ArrayList<String> botChannels = new ArrayList<>();
+    ArrayList<String> jenkinsAdmins = new ArrayList<>();
 
     public WillieConfig() {
         // Default configuration
         botAdmins.add("drtshock");
         botChannels.add("#drtshock");
 
+        jenkinsAdmins.add("drtshock");
+        jenkinsAdmins.add("blha303");
+
         configMap.put("github-username", "change-me");
         configMap.put("github-password", "change-me");
         configMap.put("jenkins-server", "http://ci.drtshock.com/");
+        configMap.put("jenkins-admins", jenkinsAdmins);
         configMap.put("bot-source-url", "https://github.com/drtshock/willie");
         configMap.put("donate-url", "http://tinyurl.com/drtdonate");
         configMap.put("bot-admins", botAdmins);
@@ -43,6 +46,7 @@ public class WillieConfig {
     public WillieConfig update() {
         botChannels = (ArrayList<String>) configMap.get("channels");
         botAdmins = (ArrayList<String>) configMap.get("bot-admins");
+        jenkinsAdmins = (ArrayList<String>) configMap.get("jenkins-admins");
         return this;
     }
 
@@ -50,8 +54,11 @@ public class WillieConfig {
     public void save(String fileName) {
         update();
         try {
+
             File file = new File(fileName);
-            if(!file.exists()) file.createNewFile();
+            if(file.exists()) file.delete();
+            file.createNewFile();
+
             PrintWriter printWriter = new PrintWriter(file);
 
             Yaml yml = new Yaml();
@@ -78,8 +85,8 @@ public class WillieConfig {
         } catch (FileNotFoundException e) {
             logger.info("Sorry, could not find configuration file at: " + fileName);
             logger.info("Saving default configuration...");
-            willieConfig.save(fileName);
         }
+        willieConfig.save(fileName);
         return willieConfig;
     }
 
@@ -193,5 +200,9 @@ public class WillieConfig {
     public WillieConfig setDonateUrl(String donateUrl) {
         configMap.put("donate-url", donateUrl);
         return this;
+    }
+
+    public ArrayList<String> getJenkinsAdmins() {
+        return jenkinsAdmins;
     }
 }

@@ -19,7 +19,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 	public CommandManager(Willie bot){
 		this.bot = bot;
         this.cmdPrefix = bot.getConfig().getCommandPrefix();
-		this.commands = new HashMap<String, Command>();
+		this.commands = new HashMap<>();
 	}
 	
 	public void registerCommand(Command command){
