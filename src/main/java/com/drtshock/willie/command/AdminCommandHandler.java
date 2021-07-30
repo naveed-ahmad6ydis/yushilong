@@ -8,6 +8,9 @@ import org.pircbotx.User;
 public class AdminCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
+        if(args.length == 0) {
+            args = new String[]{"list"};
+        }
         switch(args[0].toLowerCase()) {
             case "add":
                 if(args.length != 2) return;
