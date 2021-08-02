@@ -2,27 +2,31 @@ package com.drtshock.willie.command;
 
 import com.drtshock.willie.Willie;
 import org.pircbotx.Channel;
+import org.pircbotx.Colors;
 import org.pircbotx.User;
-
-import java.awt.*;
 
 public class LeaveCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         // Prevent leaving the last channel.
-        if(bot.getChannels().size() == 1) {
-            channel.sendMessage(Color.RED + "Please don't make me leave!");
+        if(args.length > 0 && !args[0].startsWith("#")) args[0] = "#" + args[0];
+        if(args.length == 0 && bot.getChannels().size() == 1) {
+            channel.sendMessage(Colors.RED + "Please don't make me leave!");
             return;
         }
 
-        if(args.length != 0 && !channel.getName().equals(args[0])) {
-            channel.sendMessage(Color.RED + String.format("Leaving channel %s", args[0]));
-            channel = bot.getChannel(args[0]);
+        if(args.length > 0 && !bot.getChannelsNames().contains(args[0])) {
+            channel.sendMessage(Colors.RED + "Was I supposed to be in there?");
+            return;
         }
-        else {
-            channel.sendMessage(Color.RED + String.format("%s says I don't belong here...", sender.getNick()));
+
+        if(args.length > 0 && !channel.getName().equals(args[0])) {
+            channel.sendMessage(Colors.RED + String.format("Leaving channel %s", args[0]));
         }
-        bot.partChannel(channel);
-        bot.getConfig().removeChannel(channel.getName());
+
+        Channel oldChannel = bot.getChannel(args[0]);
+        oldChannel.sendMessage(Colors.RED + String.format("%s says I don't belong here...", sender.getNick()));
+        bot.partChannel(oldChannel);
+        bot.getConfig().removeChannel(oldChannel.getName());
     }
 }

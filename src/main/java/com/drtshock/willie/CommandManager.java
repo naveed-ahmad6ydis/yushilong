@@ -1,14 +1,14 @@
 package com.drtshock.willie;
 
-import java.util.Collection;
-import java.util.HashMap;
-
+import com.drtshock.willie.command.Command;
 import org.pircbotx.Channel;
+import org.pircbotx.Colors;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import com.drtshock.willie.command.Command;
+import java.util.Collection;
+import java.util.HashMap;
 
 public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
 	
@@ -50,13 +50,12 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 		System.arraycopy(parts, 1, args, 0, args.length);
 
 		Command command = this.commands.get(commandName);
-        if(command.isAdminOnly() && !bot.getConfig().getAdmins().contains(event.getUser().getNick())) {
+        if(command.isAdminOnly() && !bot.getAuth(event.getUser()).isAdmin) {
+            channel.sendMessage(Colors.RED + String.format(
+                    "%s, you aren't an admin. Maybe you forgot to identify yourself?", event.getUser().getNick()));
             return;
         }
-		
-		if (command != null){
-			command.getHandler().handle(this.bot, channel, event.getUser(), args);
-		}
+	    command.getHandler().handle(this.bot, channel, event.getUser(), args);
 	}
 	
 }
