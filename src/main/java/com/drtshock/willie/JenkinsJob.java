@@ -74,7 +74,7 @@ public class JenkinsJob {
 		connection.setConnectTimeout(5000);
 		connection.setReadTimeout(5000);
 		connection.setUseCaches(false);
-		connection.setRequestProperty("Authorization", Willie.GIT_AUTH);
+		//connection.setRequestProperty("Authorization", Willie.GIT_AUTH);
 		connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
                 
 		BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));

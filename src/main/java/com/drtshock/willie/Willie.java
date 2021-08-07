@@ -22,7 +22,7 @@ public class Willie extends PircBotX {
 	public static final Logger logger = Logger.getLogger(Willie.class.getName());
     public static final Gson gson = new Gson();
 	public static final JsonParser parser = new JsonParser();
-	public static String GIT_AUTH;
+	//public static String GIT_AUTH;
     private static String CONFIG_FILE = "config.yml";
 
 	public JenkinsServer jenkins;
@@ -37,7 +37,7 @@ public class Willie extends PircBotX {
         super();
         this.willieConfig = config;
 		
-		GIT_AUTH = "Basic " + Base64.encodeToString((willieConfig.getGitHubUsername() + ":" + willieConfig.getGitHubPassword()).getBytes(), false);
+		//GIT_AUTH = "Basic " + Base64.encodeToString((willieConfig.getGitHubUsername() + ":" + willieConfig.getGitHubPassword()).getBytes(), false);
 		
 		this.jenkins = new JenkinsServer(willieConfig.getJenkinsServer());
 		this.commandManager = new CommandManager(this);
