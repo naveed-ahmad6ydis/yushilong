@@ -83,6 +83,25 @@ public class Willie extends PircBotX {
         }
     }
 
+    @Override
+    public Channel getChannel(String string) {
+        for(Channel channel : getUserBot().getChannels()) {
+            if(channel.getName().equalsIgnoreCase(string)) {
+                return channel;
+            }
+        }
+        return super.getChannel(string);
+    }
+
+    public boolean isOnChannel(String channel) {
+        for(Channel chan : getUserBot().getChannels()) {
+            if(chan.getName().equalsIgnoreCase(channel)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public class AuthResponse {
         public boolean isValid = false;
         public boolean isLoggedIn = false;
@@ -163,7 +182,7 @@ public class Willie extends PircBotX {
     public void save() {
         // Save channels
         willieConfig.getChannels().clear();
-        for(Channel channel : getChannels()) {
+        for(Channel channel : getUserBot().getChannels()) {
             willieConfig.getChannels().add(channel.getName());
         }
 
