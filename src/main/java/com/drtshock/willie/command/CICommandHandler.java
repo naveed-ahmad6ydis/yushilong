@@ -49,7 +49,7 @@ public class CICommandHandler implements CommandHandler {
             }
 
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.sendMessage(Colors.RED + "Sorry, I don't know anything about that project.");
         }
     }
 
