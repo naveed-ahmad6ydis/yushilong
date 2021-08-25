@@ -3,14 +3,14 @@ package com.drtshock.willie;
 import com.drtshock.willie.command.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.PircBotX;
-import org.pircbotx.User;
+import org.pircbotx.*;
 import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
+import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.WaitForQueue;
+import org.pircbotx.hooks.events.ConnectEvent;
 import org.pircbotx.hooks.events.NoticeEvent;
+import org.pircbotx.hooks.events.PrivateMessageEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +28,28 @@ public class Willie extends PircBotX {
     public JenkinsServer jenkins;
     public CommandManager commandManager;
     private WillieConfig willieConfig;
+
+    // Could be moved into it's own class if it gets crowded in here.
+    private ListenerAdapter<Willie> nickAuthListener = new ListenerAdapter<Willie>() {
+        @Override
+        public void onNotice(NoticeEvent<Willie> event) throws Exception {
+            if(event.getUser().getNick().equalsIgnoreCase("nickserv")) {
+                getListenerManager().removeListener(this);
+                logger.info("Removed nickserv listener.");
+
+                WaitForQueue queue = new WaitForQueue(event.getBot());
+                event.getUser().sendMessage("IDENTIFY " + event.getBot().getConfig().getAccountPass());
+                NoticeEvent rEvent = queue.waitFor(NoticeEvent.class);
+                if(rEvent.getNotice().contains("identified")) {
+                    logger.info("Identified with nickserv.");
+                }
+                else {
+                    logger.info("Got unexpected response from nickserv: " + rEvent.getNotice());
+                }
+                queue.close();
+            }
+        }
+    };
 
     public Willie() {
         this(new WillieConfig());
@@ -69,6 +91,10 @@ public class Willie extends PircBotX {
             this.connect(willieConfig.getServer());
             this.setAutoReconnectChannels(true);
             logger.info("Connected to '" + willieConfig.getServer() + "'");
+
+            if(!willieConfig.getAccountPass().isEmpty()) {
+                getListenerManager().addListener(nickAuthListener);
+            }
 
             for (String channel : willieConfig.getChannels()) {
                 this.joinChannel(channel);
@@ -147,7 +173,7 @@ public class Willie extends PircBotX {
 
         // Nick
         if (!willieConfig.getNick().equals(getNick())) {
-            setNick(willieConfig.getNick());
+            changeNick(willieConfig.getNick());
             logger.info("Nick updated.");
         }
 
