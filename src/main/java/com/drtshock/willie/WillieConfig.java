@@ -37,6 +37,7 @@ public class WillieConfig {
         configMap.put("donate-url", "http://tinyurl.com/drtdonate");
         configMap.put("bot-admins", botAdmins);
         configMap.put("bot-nick", "Willie");
+        configMap.put("account-pass", "");
         configMap.put("server", "irc.esper.net");
         configMap.put("channels", botChannels);
         configMap.put("command-prefix", "!");
@@ -146,6 +147,15 @@ public class WillieConfig {
 
     public WillieConfig setNick(String botNick) {
         configMap.put("bot-nick", botNick);
+        return this;
+    }
+
+    public String getAccountPass() {
+        return (String) configMap.get("account-pass");
+    }
+
+    public WillieConfig setAccountPass(String pass) {
+        configMap.put("account-pass", pass);
         return this;
     }
 
