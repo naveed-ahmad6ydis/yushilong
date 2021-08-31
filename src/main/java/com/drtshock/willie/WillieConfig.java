@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 @SuppressWarnings("unchecked")
 public class WillieConfig {
+
     private static final Logger logger = Logger.getLogger(WillieConfig.class.getName());
     private LinkedHashMap<String, Object> configMap = new LinkedHashMap<>();
     private ArrayList<String> botAdmins = new ArrayList<>();
@@ -60,18 +61,18 @@ public class WillieConfig {
         try {
 
             File file = new File(fileName);
-            if (file.exists()) file.delete();
+            if (file.exists()) {
+                file.delete();
+            }
             file.createNewFile();
-
-            PrintWriter printWriter = new PrintWriter(file);
-
-            Yaml yml = new Yaml();
-            printWriter.write(yml.dump(configMap));
-            printWriter.close();
+            try (PrintWriter printWriter = new PrintWriter(file)) {
+                Yaml yml = new Yaml();
+                printWriter.write(yml.dump(configMap));
+            }
         } catch (FileNotFoundException ignored) {
-            logger.warning("Could not create configuration file at '" + fileName + "'");
+            logger.log(Level.WARNING, "Could not create configuration file at ''{0}''", fileName);
         } catch (IOException e) {
-            logger.warning("Could not write configuration to file '" + fileName + "'");
+            logger.log(Level.WARNING, "Could not write configuration to file ''{0}''", fileName);
         }
     }
 
@@ -87,7 +88,7 @@ public class WillieConfig {
             willieConfig.update();
 
         } catch (FileNotFoundException e) {
-            logger.info("Sorry, could not find configuration file at: " + fileName);
+            logger.log(Level.INFO, "Sorry, could not find configuration file at: {0}", fileName);
             logger.info("Saving default configuration...");
         }
         willieConfig.save(fileName);

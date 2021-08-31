@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
 @SuppressWarnings("unchecked")
-public class YamlHelper {
+public final class YamlHelper {
     private static final Logger logger = Logger.getLogger(YamlHelper.class.getName());
     private LinkedHashMap<String, Object> dataMap;
     private Yaml yaml = new Yaml();
@@ -31,7 +31,6 @@ public class YamlHelper {
         try {
             fileStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return this;
     }

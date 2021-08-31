@@ -15,7 +15,7 @@ public class DonateCommandHandler implements CommandHandler {
 
     public DonateCommandHandler() {
         this.rand = new Random();
-        this.messages = new ArrayList<String>();
+        this.messages = new ArrayList<>();
 
         this.messages.add(Colors.DARK_GREEN + "Buy me food :3 %s");
         this.messages.add(Colors.DARK_GREEN + "Donations are nice. %s");

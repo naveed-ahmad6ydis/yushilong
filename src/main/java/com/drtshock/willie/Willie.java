@@ -8,14 +8,13 @@ import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.WaitForQueue;
-import org.pircbotx.hooks.events.ConnectEvent;
 import org.pircbotx.hooks.events.NoticeEvent;
-import org.pircbotx.hooks.events.PrivateMessageEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Timer;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Willie extends PircBotX {
@@ -36,17 +35,16 @@ public class Willie extends PircBotX {
             if(event.getUser().getNick().equalsIgnoreCase("nickserv")) {
                 getListenerManager().removeListener(this);
                 logger.info("Removed nickserv listener.");
-
-                WaitForQueue queue = new WaitForQueue(event.getBot());
-                event.getUser().sendMessage("IDENTIFY " + event.getBot().getConfig().getAccountPass());
-                NoticeEvent rEvent = queue.waitFor(NoticeEvent.class);
-                if(rEvent.getNotice().contains("identified")) {
-                    logger.info("Identified with nickserv.");
+                try (WaitForQueue queue = new WaitForQueue(event.getBot())) {
+                    event.getUser().sendMessage("IDENTIFY " + event.getBot().getConfig().getAccountPass());
+                    NoticeEvent rEvent = queue.waitFor(NoticeEvent.class);
+                    if(rEvent.getNotice().contains("identified")) {
+                        logger.info("Identified with nickserv.");
+                    }
+                    else {
+                        logger.log(Level.INFO, "Got unexpected response from nickserv: {0}", rEvent.getNotice());
+                    }
                 }
-                else {
-                    logger.info("Got unexpected response from nickserv: " + rEvent.getNotice());
-                }
-                queue.close();
             }
         }
     };
@@ -74,6 +72,8 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("p", "pop some popcorn!", new PopcornCommandHandler()));
         this.commandManager.registerCommand(new Command("twss", "that's what she said!", new TWSSCommandHandler()));
         this.commandManager.registerCommand(new Command("donate", "shows donation info", new DonateCommandHandler()));
+        this.commandManager.registerCommand(new Command("drink", "<name> - gives someone a drink!", new DrinkCommandHandler()));
+
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
@@ -90,7 +90,7 @@ public class Willie extends PircBotX {
         try {
             this.connect(willieConfig.getServer());
             this.setAutoReconnectChannels(true);
-            logger.info("Connected to '" + willieConfig.getServer() + "'");
+            logger.log(Level.INFO, "Connected to ''{0}''", willieConfig.getServer());
 
             if(!willieConfig.getAccountPass().isEmpty()) {
                 getListenerManager().addListener(nickAuthListener);
@@ -98,14 +98,13 @@ public class Willie extends PircBotX {
 
             for (String channel : willieConfig.getChannels()) {
                 this.joinChannel(channel);
-                logger.info("Joined channel '" + channel + "'");
+                logger.log(Level.INFO, "Joined channel ''{0}''", channel);
             }
 
             (new Timer()).schedule(new IssueNotifierTask(this), 300000, 300000); // 5 minutes
         } catch (NickAlreadyInUseException e) {
             logger.severe("That nickname is already in use!");
         } catch (IrcException | IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -194,14 +193,14 @@ public class Willie extends PircBotX {
         for (String channel : willieConfig.getChannels()) {
             if (!oldChannels.contains(channel)) {
                 joinChannel(channel);
-                logger.info("Joined new channel " + channel);
+                logger.log(Level.INFO, "Joined new channel {0}", channel);
                 getChannel(channel).sendMessage(Colors.GREEN + "Someone told me I belong here.");
             }
         }
         for (String channel : oldChannels) {
             if (!newChannels.contains(channel)) {
                 getChannel(channel).sendMessage(Colors.RED + "Looks like I don't belong here...");
-                logger.info("Leaving channel " + channel);
+                logger.log(Level.INFO, "Leaving channel {0}", channel);
                 partChannel(getChannel(channel));
             }
         }

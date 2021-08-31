@@ -1,0 +1,12 @@
+github-username: change-me
+github-password: change-me
+jenkins-server: http://ci.drtshock.com/
+jenkins-admins: [drtshock, blha303]
+bot-source-url: https://github.com/drtshock/willie
+donate-url: http://tinyurl.com/drtdonate
+bot-admins: [drtshock]
+bot-nick: Oscar
+account-pass: ''
+server: irc.esper.net
+channels: ['#drtshock-private']
+command-prefix: '!'
