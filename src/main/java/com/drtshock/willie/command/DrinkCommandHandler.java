@@ -29,8 +29,8 @@ public class DrinkCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         String message;
-        if (args[1] != null) {
-            message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), args[1]);
+        if (args.length > 0) {
+            message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), args[0]);
         } else {
             message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), "");
         }
