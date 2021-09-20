@@ -51,26 +51,6 @@ public class Willie extends PircBotX {
     public CommandManager commandManager;
     private WillieConfig willieConfig;
 
-    // Could be moved into it's own class if it gets crowded in here.
-    private ListenerAdapter<Willie> nickAuthListener = new ListenerAdapter<Willie>() {
-        @Override
-        public void onNotice(NoticeEvent<Willie> event) throws Exception {
-            if(event.getUser().getNick().equalsIgnoreCase("nickserv")) {
-                getListenerManager().removeListener(this);
-                logger.info("Removed nickserv listener.");
-                try (WaitForQueue queue = new WaitForQueue(event.getBot())) {
-                    event.getUser().sendMessage("IDENTIFY " + event.getBot().getConfig().getAccountPass());
-                    NoticeEvent rEvent = queue.waitFor(NoticeEvent.class);
-                    if(rEvent.getNotice().contains("identified")) {
-                        logger.info("Identified with nickserv.");
-                    }
-                    else {
-                        logger.log(Level.INFO, "Got unexpected response from nickserv: {0}", rEvent.getNotice());
-                    }
-                }
-            }
-        }
-    };
 
     public Willie() {
         this(new WillieConfig());
@@ -118,7 +98,7 @@ public class Willie extends PircBotX {
             logger.log(Level.INFO, "Connected to ''{0}''", willieConfig.getServer());
 
             if(!willieConfig.getAccountPass().isEmpty()) {
-                getListenerManager().addListener(nickAuthListener);
+                getUser("nickserv").sendMessage("IDENTIFY " + willieConfig.getAccountPass());
             }
 
             for (String channel : willieConfig.getChannels()) {
