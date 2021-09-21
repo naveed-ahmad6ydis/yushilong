@@ -13,5 +13,6 @@ public class ReloadCommandHandler implements CommandHandler {
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         channel.sendMessage(Colors.GREEN + String.format("Yes master %s! Reloading!", sender.getNick()));
         bot.reload();
+        channel.sendMessage(Colors.GREEN + "Configuration Reloaded.");
     }
 }

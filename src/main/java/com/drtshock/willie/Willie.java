@@ -194,7 +194,6 @@ public class Willie extends PircBotX {
         // Channels
         ArrayList<String> newChannels = willieConfig.getChannels();
         Set<String> oldChannels = getChannelsNames();
-        for (Channel channel : getChannels()) channel.sendMessage(Colors.RED + "Reloading...");
         for (String channel : willieConfig.getChannels()) {
             if (!oldChannels.contains(channel)) {
                 joinChannel(channel);
