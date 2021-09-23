@@ -41,6 +41,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
 public class Willie extends PircBotX {
+    private static Willie instance;
+
     public static final Logger logger = Logger.getLogger(Willie.class.getName());
     public static final Gson gson = new Gson();
     public static final JsonParser parser = new JsonParser();
@@ -51,13 +53,17 @@ public class Willie extends PircBotX {
     public CommandManager commandManager;
     private WillieConfig willieConfig;
 
+    public static Willie getInstance() {
+        return instance;
+    }
 
-    public Willie() {
+    private Willie() {
         this(new WillieConfig());
     }
 
-    public Willie(WillieConfig config) {
+    private Willie(WillieConfig config) {
         super();
+        Willie.instance = this;
         this.willieConfig = config;
 
         GIT_AUTH = "Basic " + Base64.encodeToString((willieConfig.getGitHubUsername() + ":" + willieConfig.getGitHubPassword()).getBytes(), false);
