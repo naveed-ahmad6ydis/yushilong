@@ -1,6 +1,8 @@
 package com.drtshock.willie.command;
 
 import com.drtshock.willie.Willie;
+import com.drtshock.willie.auth.Auth;
+import com.drtshock.willie.auth.AuthResponse;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -21,7 +23,7 @@ public class AdminCommandHandler implements CommandHandler {
                 } else if (bot.getConfig().getAdmins().contains(args[1])) {
                     channel.sendMessage(Colors.GREEN + String.format("%s is already an admin.", args[1]));
                 } else {
-                    Willie.AuthResponse auth = bot.getAuth(user);
+                    AuthResponse auth = Auth.checkAuth(user);
                     if (auth.isLoggedIn) {
                         bot.getConfig().addAdmin(auth.accountName);
                         channel.sendMessage(Colors.GREEN + String.format("Added %s as an admin!", args[1]));

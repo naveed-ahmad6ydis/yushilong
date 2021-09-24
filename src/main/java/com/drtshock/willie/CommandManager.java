@@ -1,5 +1,6 @@
 package com.drtshock.willie;
 
+import com.drtshock.willie.auth.Auth;
 import com.drtshock.willie.command.Command;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
@@ -50,7 +51,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
         System.arraycopy(parts, 1, args, 0, args.length);
 
         Command command = this.commands.get(commandName);
-        if (command.isAdminOnly() && !bot.getAuth(event.getUser()).isAdmin) {
+        if (command.isAdminOnly() && !Auth.checkAuth(event.getUser()).isAdmin) {
             channel.sendMessage(Colors.RED + String.format(
                     "%s, you aren't an admin. Maybe you forgot to identify yourself?", event.getUser().getNick()));
             return;
