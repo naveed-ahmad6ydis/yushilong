@@ -1,5 +1,6 @@
-package com.drtshock.willie.command;
+package com.drtshock.willie.command.fun;
 
+import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 

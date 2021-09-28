@@ -1,7 +1,8 @@
-package com.drtshock.willie.command;
+package com.drtshock.willie.command.utility;
 
 import com.drtshock.willie.JenkinsJob;
 import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
