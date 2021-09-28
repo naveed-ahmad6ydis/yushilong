@@ -1,4 +1,7 @@
-package com.drtshock.willie;
+package com.drtshock.willie.jenkins;
+
+import com.drtshock.willie.github.GitHubIssue;
+import com.drtshock.willie.Willie;
 
 import java.io.BufferedReader;
 import java.io.IOException;

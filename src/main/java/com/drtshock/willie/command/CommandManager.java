@@ -1,5 +1,6 @@
-package com.drtshock.willie;
+package com.drtshock.willie.command;
 
+import com.drtshock.willie.Willie;
 import com.drtshock.willie.auth.Auth;
 import com.drtshock.willie.command.Command;
 import org.pircbotx.Channel;

@@ -1,4 +1,4 @@
-package com.drtshock.willie;
+package com.drtshock.willie.jenkins;
 
 public class JenkinsJobEntry {
 

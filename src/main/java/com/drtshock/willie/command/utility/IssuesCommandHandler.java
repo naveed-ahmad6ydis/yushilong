@@ -1,7 +1,7 @@
 package com.drtshock.willie.command.utility;
 
-import com.drtshock.willie.GitHubIssue;
-import com.drtshock.willie.JenkinsJob;
+import com.drtshock.willie.github.GitHubIssue;
+import com.drtshock.willie.jenkins.JenkinsJob;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;

@@ -7,6 +7,9 @@ import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.drtshock.willie.command.CommandManager;
+import com.drtshock.willie.github.IssueNotifierTask;
+import com.drtshock.willie.jenkins.JenkinsServer;
 import org.pircbotx.Base64;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;

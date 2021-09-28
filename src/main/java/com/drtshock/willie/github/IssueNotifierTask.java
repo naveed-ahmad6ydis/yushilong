@@ -1,5 +1,7 @@
-package com.drtshock.willie;
+package com.drtshock.willie.github;
 
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.jenkins.JenkinsJobEntry;
 import org.pircbotx.Channel;
 
 import java.io.FileNotFoundException;

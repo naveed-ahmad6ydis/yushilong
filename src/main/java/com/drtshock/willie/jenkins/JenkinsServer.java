@@ -1,4 +1,8 @@
-package com.drtshock.willie;
+package com.drtshock.willie.jenkins;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.jenkins.JenkinsJob;
+import com.drtshock.willie.jenkins.JenkinsJobEntry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
