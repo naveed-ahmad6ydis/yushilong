@@ -104,7 +104,7 @@ public class Willie extends PircBotX {
             logger.log(Level.INFO, "Connected to ''{0}''", willieConfig.getServer());
 
             if(!willieConfig.getAccountPass().isEmpty()) {
-                getUser("nickserv").sendMessage("IDENTIFY " + willieConfig.getAccountPass());
+                identify(willieConfig.getAccountPass());
             }
 
             for (String channel : willieConfig.getChannels()) {
