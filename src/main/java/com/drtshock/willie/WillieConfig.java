@@ -31,8 +31,7 @@ public class WillieConfig {
         jenkinsAdmins.add("drtshock");
         jenkinsAdmins.add("blha303");
 
-        configMap.put("github-username", "change-me");
-        configMap.put("github-password", "change-me");
+        configMap.put("github-api-key", "change-me");
         configMap.put("jenkins-server", "http://ci.drtshock.com/");
         configMap.put("jenkins-admins", jenkinsAdmins);
         configMap.put("bot-source-url", "https://github.com/drtshock/willie");
@@ -96,22 +95,8 @@ public class WillieConfig {
         return willieConfig;
     }
 
-    public String getGitHubUsername() {
-        return (String) configMap.get("github-username");
-    }
-
-    public WillieConfig setGitHubUsername(String username) {
-        configMap.put("github-username", username);
-        return this;
-    }
-
-    public String getGitHubPassword() {
-        return (String) configMap.get("github-password");
-    }
-
-    public WillieConfig setGitHubPassword(String password) {
-        configMap.put("github-password", password);
-        return this;
+    public String getGitHubApiKey() {
+        return (String) configMap.get("github-api-key");
     }
 
     public String getJenkinsServer() {

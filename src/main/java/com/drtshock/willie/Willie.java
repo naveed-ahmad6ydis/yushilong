@@ -66,7 +66,7 @@ public class Willie extends PircBotX {
 
         this.willieConfig = config;
 
-        GIT_AUTH = "Basic " + Base64.encodeToString((willieConfig.getGitHubUsername() + ":" + willieConfig.getGitHubPassword()).getBytes(), false);
+        GIT_AUTH = "TOKEN " + willieConfig.getGitHubApiKey();
 
         this.jenkins = new JenkinsServer(willieConfig.getJenkinsServer());
         this.commandManager = new CommandManager(this);
