@@ -9,6 +9,7 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 import com.drtshock.willie.Willie;
+import org.pircbotx.hooks.events.MessageEvent;
 
 /**
  *
@@ -30,7 +31,7 @@ public class DrinkCommandHandler implements CommandHandler {
     }
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(MessageEvent<Willie> event, Willie bot, Channel channel, User sender, String[] args) {
         String message;
         message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), (args.length > 0) ? args[0] : "");
         bot.sendAction(channel, message);

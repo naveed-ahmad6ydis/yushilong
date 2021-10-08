@@ -5,6 +5,7 @@ import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,9 +26,9 @@ public class DonateCommandHandler implements CommandHandler {
     }
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(MessageEvent<Willie> event, Willie bot, Channel channel, User sender, String[] args) {
         String message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), bot.getConfig().getDonateUrl());
-        channel.sendMessage(message);
+        event.respond(message);
     }
 
 }

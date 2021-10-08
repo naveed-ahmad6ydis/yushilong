@@ -5,16 +5,17 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import com.drtshock.willie.Willie;
+import org.pircbotx.hooks.events.MessageEvent;
 
 
 public class FixCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(MessageEvent<Willie> event, Willie bot, Channel channel, User sender, String[] args) {
         if(args.length != 1) {
-            channel.sendMessage("Fix it!");
+            event.respond("Fix it!");
         } else {
-            channel.sendMessage(String.format("Fix it %s!", args[0]));
+            event.respond(String.format("Fix it %s!", args[0]));
         }
     }
 

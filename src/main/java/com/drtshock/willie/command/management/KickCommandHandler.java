@@ -5,11 +5,12 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import com.drtshock.willie.Willie;
+import org.pircbotx.hooks.events.MessageEvent;
 
 public class KickCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(MessageEvent<Willie> event, Willie bot, Channel channel, User sender, String[] args) {
         if(args.length != 0) {
             if(channel.getVoices().contains(sender) || channel.getOps().contains(sender)) {
                 if(channel.getUsers().contains(bot.getUser(args[0]))) {

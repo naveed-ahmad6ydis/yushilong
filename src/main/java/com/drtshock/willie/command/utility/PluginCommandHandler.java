@@ -5,6 +5,7 @@ import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
+import org.pircbotx.hooks.events.MessageEvent;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,9 +18,9 @@ import java.net.URL;
 public class PluginCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(MessageEvent<Willie> event, Willie bot, Channel channel, User sender, String[] args) {
         if (args.length != 1) {
-            channel.sendMessage(Colors.RED + "Look up a plugin with .plugin <name>");
+            event.respond(Colors.RED + "Look up a plugin with .plugin <name>");
             return;
         }
 
@@ -54,15 +55,15 @@ public class PluginCommandHandler implements CommandHandler {
             int downloads = Integer.parseInt(page.substring(dlPos, page.indexOf('"', dlPos)));
             String lastUpdate = page.substring(updatePos, page.indexOf('"', updatePos));
 
-            channel.sendMessage("Name: " + name + " (" + connection.getURL().toExternalForm() + ")");
-            channel.sendMessage("Downloads: " + downloads);
-            channel.sendMessage("Last Update: " + lastUpdate);
+            event.respond("Name: " + name + " (" + connection.getURL().toExternalForm() + ")");
+            event.respond("Downloads: " + downloads);
+            event.respond("Last Update: " + lastUpdate);
         } catch (FileNotFoundException e) {
-            channel.sendMessage(Colors.RED + "Project not found");
+            event.respond(Colors.RED + "Project not found");
         } catch (MalformedURLException e) {
-            channel.sendMessage(Colors.RED + "Unable to find that plugin!");
+            event.respond(Colors.RED + "Unable to find that plugin!");
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            event.respond(Colors.RED + "Failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
