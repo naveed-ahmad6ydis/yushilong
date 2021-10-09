@@ -7,7 +7,6 @@ import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
-import org.pircbotx.hooks.events.MessageEvent;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,9 +14,9 @@ import java.io.IOException;
 public class IssuesCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(MessageEvent<Willie> event, Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length == 0) {
-            event.respond(Colors.RED + "Usage: .issues <job_name> [page]");
+            channel.sendMessage(Colors.RED + "Usage: .issues <job_name> [page]");
             return;
         }
 
@@ -27,12 +26,12 @@ public class IssuesCommandHandler implements CommandHandler {
             try {
                 page = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
-                event.respond(Colors.RED + "Invalid page number");
+                channel.sendMessage(Colors.RED + "Invalid page number");
                 return;
             }
 
             if (page < 1) {
-                event.respond(Colors.RED + "Invalid page number");
+                channel.sendMessage(Colors.RED + "Invalid page number");
                 return;
             }
         }
@@ -43,7 +42,7 @@ public class IssuesCommandHandler implements CommandHandler {
             GitHubIssue[] issues = job.getIssues();
 
             if (issues.length == 0) {
-                event.respond(Colors.GREEN + job.getDisplayName() + " has no open issues \\o/");
+                channel.sendMessage(Colors.GREEN + job.getDisplayName() + " has no open issues \\o/");
                 return;
             }
 
@@ -53,19 +52,19 @@ public class IssuesCommandHandler implements CommandHandler {
             int end = Math.min(issues.length, start + perPage);
 
             if (start >= end) {
-                event.respond(Colors.RED + "Invalid page number");
+                channel.sendMessage(Colors.RED + "Invalid page number");
                 return;
             }
 
-            event.respond(Colors.BLUE + job.getDisplayName() + Colors.NORMAL + " has " + Colors.RED + issues.length + Colors.NORMAL + " open issue(s) page " + page + " of " + pages);
+            channel.sendMessage(Colors.BLUE + job.getDisplayName() + Colors.NORMAL + " has " + Colors.RED + issues.length + Colors.NORMAL + " open issue(s) page " + page + " of " + pages);
 
             for (int i = start; i < end; ++i) {
-                event.respond(" #" + issues[i].getNumber() + " - " + issues[i].getTitle());
+                channel.sendMessage(" #" + issues[i].getNumber() + " - " + issues[i].getTitle());
             }
         } catch (FileNotFoundException e) {
-            event.respond(Colors.RED + "No such job");
+            channel.sendMessage(Colors.RED + "No such job");
         } catch (IOException e) {
-            event.respond(Colors.RED + "Failed: " + e.getMessage());
+            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
         }
     }
 

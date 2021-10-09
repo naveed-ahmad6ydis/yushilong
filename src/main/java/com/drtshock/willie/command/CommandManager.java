@@ -2,6 +2,7 @@ package com.drtshock.willie.command;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.auth.Auth;
+import com.drtshock.willie.command.Command;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.hooks.Listener;
@@ -52,11 +53,11 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
         Command command = this.commands.get(commandName);
         if (command.isAdminOnly() && !Auth.checkAuth(event.getUser()).isAdmin) {
-            event.respond(Colors.RED + String.format(
+            channel.sendMessage(Colors.RED + String.format(
                     "%s, you aren't an admin. Maybe you forgot to identify yourself?", event.getUser().getNick()));
             return;
         }
-        command.getHandler().handle(event, bot, channel, event.getUser(), args);
+        command.getHandler().handle(this.bot, channel, event.getUser(), args);
     }
 
 }

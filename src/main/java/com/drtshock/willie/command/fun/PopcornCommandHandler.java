@@ -4,7 +4,6 @@ import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
-import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,7 +24,7 @@ public class PopcornCommandHandler implements CommandHandler {
     }
 
     @Override
-    public void handle(MessageEvent<Willie> event, Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(Willie bot, Channel channel, User sender, String[] args) {
         bot.sendAction(channel, this.messages.get(this.rand.nextInt(this.messages.size())));
     }
 

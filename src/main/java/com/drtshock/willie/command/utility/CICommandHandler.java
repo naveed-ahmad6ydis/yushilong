@@ -6,21 +6,20 @@ import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
-import org.pircbotx.hooks.events.MessageEvent;
 
 import java.io.IOException;
 
 public class CICommandHandler implements CommandHandler {
 
     @Override
-    public void handle(MessageEvent<Willie> event, Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length != 1) {
             String message = String.format(Colors.BLUE + "Get dev builds at %s If you're interesting in hosting a project there, talk to %s",
                     bot.getConfig().getJenkinsServer(), bot.getConfig().getJenkinsAdmins());
-            event.respond(message);
+            channel.sendMessage(message);
         } else try {
             JenkinsJob job = bot.jenkins.getJob(args[0]);
-            event.respond(String.format("Project %s %s -", job.getDisplayName(), job.getUrl()));
+            channel.sendMessage(String.format("Project %s %s -", job.getDisplayName(), job.getUrl()));
 
             // Health report
             for (JenkinsJob.HealthReport report : job.getHealthReports()) {
@@ -37,21 +36,21 @@ public class CICommandHandler implements CommandHandler {
                         break;
                 }
                 String msg[] = report.description.split(":");
-                event.respond(msg[0] + ":" + color + msg[1]);
+                channel.sendMessage(msg[0] + ":" + color + msg[1]);
             }
 
             // Repository url
             if (!job.getGitHubUrl().isEmpty()) {
-                event.respond("Repository: " + job.getGitHubUrl());
+                channel.sendMessage("Repository: " + job.getGitHubUrl());
             }
 
             // Issues
             if (job.getIssues().length != 0) {
-                event.respond("Total issues: " + Colors.RED + job.getIssues().length);
+                channel.sendMessage("Total issues: " + Colors.RED + job.getIssues().length);
             }
 
         } catch (IOException e) {
-            event.respond(Colors.RED + "Sorry, I don't know anything about that project.");
+            channel.sendMessage(Colors.RED + "Sorry, I don't know anything about that project.");
         }
     }
 
