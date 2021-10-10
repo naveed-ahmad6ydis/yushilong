@@ -112,7 +112,7 @@ public class Willie extends PircBotX {
                 logger.log(Level.INFO, "Joined channel ''{0}''", channel);
             }
 
-            (new Timer()).schedule(new IssueNotifierTask(this), 300000, 300000); // 5 minutes
+            //(new Timer()).schedule(new IssueNotifierTask(this), 300000, 300000); // 5 minutes
         } catch (NickAlreadyInUseException e) {
             logger.severe("That nickname is already in use!");
         } catch (IrcException | IOException e) {
