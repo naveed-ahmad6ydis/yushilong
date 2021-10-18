@@ -12,7 +12,7 @@ import com.google.gson.JsonParser;
 public enum Dictionary {
     
     URBAN_DICTIONARY("http://api.urbandictionary.com/v0/define?term=%WORD%", 0, "Urban Dictionary"),
-    DUCK_DUCK_GO("http://api.duckduckgo.com/?q=define+%WORD%&format=json", 1, "Duck Duck Go");
+    DUCK_DUCK_GO("http://api.duckduckgo.com/?q=%WORD%&format=json", 1, "Duck Duck Go");
 
     private String url, name;
     private int id;
@@ -57,6 +57,8 @@ public enum Dictionary {
             JsonObject obj = new JsonParser().parse(WebHelper.readURLToString(this.getFormattedURL(word))).getAsJsonObject();
             if(!obj.get("AbstractText").getAsString().equals(""))
                 return new Dictionary.Definition(obj.get("AbstractText").getAsString(), WebHelper.shortenURL("http://www.thefreedictionary.com/" + word));
+            if(!obj.get("Definition").getAsString().equals(""))
+                return new Dictionary.Definition(obj.get("Definition").getAsString().substring(word.length() + 15), WebHelper.shortenURL("http://www.thefreedictionary.com/" + word));
         }
         return null;
     }
