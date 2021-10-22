@@ -73,8 +73,8 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("drink", "<name> - gives someone a drink!", new DrinkCommandHandler()));
         this.commandManager.registerCommand(new Command("fix", "[name] - Yell at someone to fix something", new FixCommandHandler()));
         this.commandManager.registerCommand(new Command("kick", "<name> - Kick a user", new KickCommandHandler()));
-        this.commandManager.registerCommand(new Command("define", "<word (spaces as underscores)> - defines a word", new DefineCommandHandler()));
-        this.commandManager.registerCommand(new Command("urban", "<word (spaces as underscores)> - defines a word using the urban dictionary", new UrbanCommandHandler()));
+        this.commandManager.registerCommand(new Command("define", "<word|phrase> - defines a word", new DefineCommandHandler()));
+        this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
