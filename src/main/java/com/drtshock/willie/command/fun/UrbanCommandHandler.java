@@ -13,12 +13,18 @@ public class UrbanCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        if(args.length != 1) {
-            channel.sendMessage(Colors.RED + "Usage: .urban <word (underscores as spaces)>");
+        if(args.length == 0) {
+            channel.sendMessage(Colors.RED + "Usage: !urban <word|phrase>");
         } else {
+            StringBuilder sb = new StringBuilder();
+            for(String arg:args) {
+                sb.append(arg).append("+");
+            }
+            String query = sb.toString();
+            query = query.substring(0, query.length() - 1);
             Dictionary.Definition def;
             try {
-                def = Dictionary.URBAN_DICTIONARY.getDefinition(args[1].replace('_', ' '));
+                def = Dictionary.URBAN_DICTIONARY.getDefinition(query);
             } catch (IOException e) {
                 def = null;
             }
@@ -28,8 +34,8 @@ public class UrbanCommandHandler implements CommandHandler {
                 return;
             }
 
-            channel.sendMessage("Word: " + Colors.CYAN + args[1]);
-            channel.sendMessage("Definition: " + Colors.CYAN + def.getDefinition());
+            channel.sendMessage("Word: " + Colors.BLUE + query.replace('+', ' '));
+            channel.sendMessage("Definition: " + def.getDefinition());
             channel.sendMessage("For a full definition visit: " + def.getUrl());
         }
     }
