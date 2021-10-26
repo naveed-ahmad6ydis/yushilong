@@ -1,16 +1,16 @@
 package com.drtshock.willie.command;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.auth.Auth;
-import com.drtshock.willie.command.Command;
+import java.util.Collection;
+import java.util.HashMap;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import java.util.Collection;
-import java.util.HashMap;
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.auth.Auth;
 
 public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
 

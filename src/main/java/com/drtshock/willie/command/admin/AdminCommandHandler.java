@@ -1,12 +1,13 @@
 package com.drtshock.willie.command.admin;
 
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.auth.Auth;
 import com.drtshock.willie.auth.AuthResponse;
 import com.drtshock.willie.command.CommandHandler;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
 
 public class AdminCommandHandler implements CommandHandler {
     @Override

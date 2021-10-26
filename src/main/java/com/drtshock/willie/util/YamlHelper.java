@@ -1,7 +1,5 @@
 package com.drtshock.willie.util;
 
-import org.yaml.snakeyaml.Yaml;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;
+
+import org.yaml.snakeyaml.Yaml;
 
 @SuppressWarnings("unchecked")
 public final class YamlHelper {

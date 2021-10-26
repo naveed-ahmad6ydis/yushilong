@@ -1,12 +1,13 @@
 package com.drtshock.willie.github;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.jenkins.JenkinsJobEntry;
-import org.pircbotx.Channel;
-
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.TimerTask;
+
+import org.pircbotx.Channel;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.jenkins.JenkinsJobEntry;
 
 public class IssueNotifierTask extends TimerTask {
 
