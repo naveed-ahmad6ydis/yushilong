@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -60,10 +61,23 @@ public class PluginCommandHandler implements CommandHandler {
 			Document document = Jsoup.parse(page);
 			
 			String name = document.getElementsByTag("h1").get(1).ownText().trim();
+			StringBuilder authors = new StringBuilder();
 			long lastUpdate = Long.parseLong(document.getElementsByClass("standard-date").get(1).attr("data-epoch"));
 			int downloads = Integer.parseInt(document.getElementsByAttribute("data-value").first().attr("data-value"));
 			
+			Elements containers = document.getElementsByClass("user-container");
+			
+			if (!containers.isEmpty()){
+				authors.append(containers.get(0).text().trim());
+			}
+			
+			for (int i = 1; i < containers.size(); ++i){
+				authors.append(", ");
+				authors.append(containers.get(i).text().trim());
+			}
+			
 			channel.sendMessage(name + " (" + connection.getURL().toExternalForm() + ")");
+			channel.sendMessage("Authors: " + authors.toString());
 			channel.sendMessage("Downloads: " + downloads);
 			channel.sendMessage("Last Update: " + this.dateFormat.format(new Date(lastUpdate * 1000)));
 		}catch (FileNotFoundException e){
