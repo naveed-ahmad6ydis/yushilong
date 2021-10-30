@@ -31,7 +31,7 @@ public class PluginCommandHandler implements CommandHandler {
 	@Override
 	public void handle(Willie bot, Channel channel, User sender, String[] args){
 		if (args.length != 1){
-			channel.sendMessage(Colors.RED + "Look up a plugin with .plugin <name>");
+			channel.sendMessage(Colors.RED + "Look up a plugin with !plugin <name>");
 			return;
 		}
 		
