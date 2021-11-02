@@ -31,7 +31,7 @@ public class UrbanCommandHandler implements CommandHandler {
             }
 
             if(def == null) {
-                channel.sendMessage(Colors.RED + "I couldn't not lookup that definition. Sorry.");
+                channel.sendMessage(Colors.RED + "I couldn't lookup that definition. D:");
                 return;
             }
 
