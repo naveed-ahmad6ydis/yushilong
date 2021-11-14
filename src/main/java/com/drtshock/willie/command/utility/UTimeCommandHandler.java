@@ -24,7 +24,7 @@ public class UTimeCommandHandler implements CommandHandler{
 			}
 			long realTime = System.currentTimeMillis();
 			String lowerTime = time.toLowerCase();
-			long multiplier = 10000;
+			long multiplier = 1000;
 			if(lowerTime.endsWith("ms")){
 				time = time.substring(0, time.length() - 2);
 				multiplier = 1;
