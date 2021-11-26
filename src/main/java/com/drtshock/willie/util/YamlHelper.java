@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 import org.yaml.snakeyaml.Yaml;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings ("unchecked")
 public final class YamlHelper {
     private static final Logger logger = Logger.getLogger(YamlHelper.class.getName());
     private LinkedHashMap<String, Object> dataMap;
@@ -36,13 +36,15 @@ public final class YamlHelper {
     }
 
     public Object getObject(String path) throws ClassCastException {
-        if (path.isEmpty()) return dataMap;
+        if (path.isEmpty())
+            return dataMap;
         LinkedHashMap<String, Object> currentMap = dataMap;
         String[] pathArray = path.split("\\.");
         for (int i = 0; i < pathArray.length; i++) {
             if (i == pathArray.length - 1) {
                 return currentMap.get(pathArray[i]);
-            } else currentMap = (LinkedHashMap) currentMap.get(pathArray[i]);
+            } else
+                currentMap = (LinkedHashMap) currentMap.get(pathArray[i]);
         }
         return null;
     }

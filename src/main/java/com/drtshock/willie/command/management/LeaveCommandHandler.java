@@ -16,7 +16,8 @@ public class LeaveCommandHandler implements CommandHandler {
             return;
         }
         if (args.length >= 1) {
-            if (!args[0].startsWith("#")) args[0] = "#" + args[0];
+            if (!args[0].startsWith("#"))
+                args[0] = "#" + args[0];
             leaveChannel = bot.getChannel(args[0]);
 
             if (!bot.isOnChannel(args[0])) {

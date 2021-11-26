@@ -105,7 +105,7 @@ public class Willie extends PircBotX {
             this.setAutoReconnectChannels(true);
             logger.log(Level.INFO, "Connected to ''{0}''", willieConfig.getServer());
 
-            if(!willieConfig.getAccountPass().isEmpty()) {
+            if (!willieConfig.getAccountPass().isEmpty()) {
                 identify(willieConfig.getAccountPass());
             }
 
@@ -185,7 +185,7 @@ public class Willie extends PircBotX {
     public void save() {
         // Save channels
         willieConfig.getChannels().clear();
-        for(Channel channel:getUserBot().getChannels()) {
+        for (Channel channel : getUserBot().getChannels()) {
             willieConfig.getChannels().add(channel.getName());
         }
 

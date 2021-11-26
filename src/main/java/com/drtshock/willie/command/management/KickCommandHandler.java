@@ -10,15 +10,15 @@ public class KickCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        if(args.length != 0) {
-            if(channel.getVoices().contains(sender) || channel.getOps().contains(sender)) {
-                if(channel.getUsers().contains(bot.getUser(args[0]))) {
-                    if(args.length == 1) {
+        if (args.length != 0) {
+            if (channel.getVoices().contains(sender) || channel.getOps().contains(sender)) {
+                if (channel.getUsers().contains(bot.getUser(args[0]))) {
+                    if (args.length == 1) {
                         bot.kick(channel, bot.getUser(args[0]));
                     } else {
                         StringBuilder sb = new StringBuilder();
-                        for(String arg:args) {
-                            if(arg != args[0]) {
+                        for (String arg : args) {
+                            if (arg != args[0]) {
                                 sb.append(arg).append(" ");
                             }
                         }

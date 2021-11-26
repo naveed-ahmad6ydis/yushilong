@@ -10,8 +10,10 @@ import com.drtshock.willie.command.CommandHandler;
 public class JoinCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        if (args.length < 1) return;
-        if (!args[0].startsWith("#")) args[0] = ("#" + args[0]).toLowerCase();
+        if (args.length < 1)
+            return;
+        if (!args[0].startsWith("#"))
+            args[0] = ("#" + args[0]).toLowerCase();
 
         if (bot.isOnChannel(args[0])) {
             channel.sendMessage(String.format(Colors.GREEN + "Already there!"));

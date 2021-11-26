@@ -11,7 +11,7 @@ import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 
 /**
- *
+ * 
  * @author drtshock
  */
 public class DrinkCommandHandler implements CommandHandler {

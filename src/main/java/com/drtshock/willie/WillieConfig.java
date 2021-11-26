@@ -15,7 +15,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.drtshock.willie.util.YamlHelper;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings ("unchecked")
 public class WillieConfig {
 
     private static final Logger logger = Logger.getLogger(WillieConfig.class.getName());
@@ -56,7 +56,7 @@ public class WillieConfig {
         return this;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressWarnings ("ResultOfMethodCallIgnored")
     public void save(String fileName) {
         update();
         try {
