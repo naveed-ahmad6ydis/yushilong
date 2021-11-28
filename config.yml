@@ -1,6 +1,5 @@
-github-username: change-me
-github-password: change-me
-jenkins-server: http://ci.drtshock.com/
+github-api-key: change-me
+jenkins-server: http://ci.drtshock.net/
 jenkins-admins: [drtshock, blha303]
 bot-source-url: https://github.com/drtshock/willie
 donate-url: http://tinyurl.com/drtdonate
@@ -10,3 +9,5 @@ account-pass: ''
 server: irc.esper.net
 channels: ['#drtshock-private']
 command-prefix: '!'
+github-username: change-me
+github-password: change-me

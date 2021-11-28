@@ -27,13 +27,13 @@ public class WillieConfig {
     public WillieConfig() {
         // Default configuration
         botAdmins.add("drtshock");
-        botChannels.add("#drtshock");
+        botChannels.add("#willie");
 
         jenkinsAdmins.add("drtshock");
         jenkinsAdmins.add("blha303");
 
         configMap.put("github-api-key", "change-me");
-        configMap.put("jenkins-server", "http://ci.drtshock.com/");
+        configMap.put("jenkins-server", "http://ci.drtshock.net/");
         configMap.put("jenkins-admins", jenkinsAdmins);
         configMap.put("bot-source-url", "https://github.com/drtshock/willie");
         configMap.put("donate-url", "http://tinyurl.com/drtdonate");
