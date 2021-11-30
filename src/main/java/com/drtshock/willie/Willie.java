@@ -25,6 +25,7 @@ import com.drtshock.willie.command.fun.UrbanCommandHandler;
 import com.drtshock.willie.command.management.JoinCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.management.LeaveCommandHandler;
+import com.drtshock.willie.command.management.ShutdownCommandHandler;
 import com.drtshock.willie.command.misc.DonateCommandHandler;
 import com.drtshock.willie.command.misc.HelpCommandHandler;
 import com.drtshock.willie.command.misc.RulesCommandHandler;
@@ -91,6 +92,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
         this.commandManager.registerCommand(new Command("reload", "Reloads willie", new ReloadCommandHandler(), true));
         this.commandManager.registerCommand(new Command("save", "Saves configuration", new SaveCommandHandler(), true));
