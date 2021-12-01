@@ -4,10 +4,12 @@ jenkins-admins: [drtshock, blha303]
 bot-source-url: https://github.com/drtshock/willie
 donate-url: http://tinyurl.com/drtdonate
 bot-admins: [drtshock]
-bot-nick: Oscar
+bot-nick: Willie
 account-pass: ''
-server: irc.esper.net
-channels: ['#drtshock-private']
+server-pass: change
+server: drtshock.com
+port: 5555
+channels: ['#drtshock']
 command-prefix: '!'
 github-username: change-me
 github-password: change-me

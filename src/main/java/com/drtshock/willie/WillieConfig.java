@@ -15,7 +15,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.drtshock.willie.util.YamlHelper;
 
-@SuppressWarnings ("unchecked")
+@SuppressWarnings("unchecked")
 public class WillieConfig {
 
     private static final Logger logger = Logger.getLogger(WillieConfig.class.getName());
@@ -40,7 +40,9 @@ public class WillieConfig {
         configMap.put("bot-admins", botAdmins);
         configMap.put("bot-nick", "Willie");
         configMap.put("account-pass", "");
-        configMap.put("server", "irc.esper.net");
+        configMap.put("server-pass", "");
+        configMap.put("server", "drtshock.com");
+        configMap.put("port", "5555");
         configMap.put("channels", botChannels);
         configMap.put("command-prefix", "!");
     }
@@ -56,7 +58,7 @@ public class WillieConfig {
         return this;
     }
 
-    @SuppressWarnings ("ResultOfMethodCallIgnored")
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void save(String fileName) {
         update();
         try {
@@ -149,6 +151,24 @@ public class WillieConfig {
 
     public String getServer() {
         return (String) configMap.get("server");
+    }
+
+    public int getPort() {
+        return (int) configMap.get("port");
+    }
+
+    public WillieConfig setPort(int port) {
+        configMap.put("port", port);
+        return this;
+    }
+
+    public String getPassword() {
+        return (String) configMap.get("server-pass");
+    }
+
+    public WillieConfig setServerPass(String pass) {
+        configMap.put("server-pass", pass);
+        return this;
     }
 
     public WillieConfig setServer(String server) {
