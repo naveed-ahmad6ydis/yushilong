@@ -1,4 +1,4 @@
-github-api-key: change-me
+github-api-key: change
 jenkins-server: http://ci.drtshock.net/
 jenkins-admins: [drtshock, blha303]
 bot-source-url: https://github.com/drtshock/willie
@@ -11,5 +11,5 @@ server: drtshock.com
 port: 5555
 channels: ['#drtshock']
 command-prefix: '!'
-github-username: change-me
-github-password: change-me
+github-username: change
+github-password: change
