@@ -12,57 +12,57 @@ import org.pircbotx.hooks.events.MessageEvent;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.auth.Auth;
 
-public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
+public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie>{
 
-    private Willie bot;
-    private HashMap<String, Command> commands;
-    private String cmdPrefix;
+	private Willie bot;
+	private HashMap<String, Command> commands;
+	private String cmdPrefix;
 
-    public CommandManager(Willie bot) {
-        this.bot = bot;
-        this.cmdPrefix = bot.getConfig().getCommandPrefix();
-        this.commands = new HashMap<>();
-    }
+	public CommandManager(Willie bot){
+		this.bot = bot;
+		this.cmdPrefix = bot.getConfig().getCommandPrefix();
+		this.commands = new HashMap<>();
+	}
 
-    public void registerCommand(Command command) {
-        this.commands.put(command.getName(), command);
-    }
+	public void registerCommand(Command command){
+		this.commands.put(command.getName(), command);
+	}
 
-    public Collection<Command> getCommands() {
-        return this.commands.values();
-    }
+	public Collection<Command> getCommands(){
+		return this.commands.values();
+	}
 
-    public void setCommandPrefix(String prefix) {
-        this.cmdPrefix = prefix;
-    }
+	public void setCommandPrefix(String prefix){
+		this.cmdPrefix = prefix;
+	}
 
-    @Override
-    public void onMessage(MessageEvent<Willie> event) {
-        String message = event.getMessage();
-        
-        if(message.equalsIgnoreCase("o/")) {
-            event.getChannel().sendMessage("\\o");
-            return;
-        }
+	@Override
+	public void onMessage(MessageEvent<Willie> event){
+		String message = event.getMessage().trim();
 
-        if (!message.startsWith(cmdPrefix)) {
-            return;
-        }
+		if(message.toLowerCase().endsWith("o/")){
+			event.getChannel().sendMessage("\\o");
+			return;
+		}
 
-        String[] parts = message.substring(1).split(" ");
-        Channel channel = event.getChannel();
+		if(!message.startsWith(cmdPrefix)){
+			return;
+		}
 
-        String commandName = parts[0].toLowerCase();
-        String[] args = new String[parts.length - 1];
-        System.arraycopy(parts, 1, args, 0, args.length);
+		String[] parts = message.substring(1).split(" ");
+		Channel channel = event.getChannel();
 
-        Command command = this.commands.get(commandName);
-        if (command.isAdminOnly() && !Auth.checkAuth(event.getUser()).isAdmin) {
-            channel.sendMessage(Colors.RED + String.format(
-                    "%s, you aren't an admin. Maybe you forgot to identify yourself?", event.getUser().getNick()));
-            return;
-        }
-        command.getHandler().handle(this.bot, channel, event.getUser(), args);
-    }
+		String commandName = parts[0].toLowerCase();
+		String[] args = new String[parts.length - 1];
+		System.arraycopy(parts, 1, args, 0, args.length);
+
+		Command command = this.commands.get(commandName);
+		if(command.isAdminOnly() && !Auth.checkAuth(event.getUser()).isAdmin){
+			channel.sendMessage(Colors.RED + String.format(
+					"%s, you aren't an admin. Maybe you forgot to identify yourself?", event.getUser().getNick()));
+			return;
+		}
+		command.getHandler().handle(this.bot, channel, event.getUser(), args);
+	}
 
 }
