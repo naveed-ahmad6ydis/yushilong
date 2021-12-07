@@ -43,7 +43,8 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 		if(message.toLowerCase().endsWith("o/")){
 			event.getChannel().sendMessage("\\o");
 			return;
-		}else if(message.equalsIgnoreCase("\\o/")){
+		}
+		if(message.equalsIgnoreCase("\\o/")){
 			event.getChannel().sendMessage("\\o/ Woo!");
 			return;
 		}
