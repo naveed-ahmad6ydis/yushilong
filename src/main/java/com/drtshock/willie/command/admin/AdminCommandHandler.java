@@ -21,7 +21,7 @@ public class AdminCommandHandler implements CommandHandler {
                 return;
             User user = bot.getUser(args[1]);
             if (sender.getNick().toLowerCase().equals(args[1].toLowerCase())) {
-                channel.sendMessage(Colors.BLUE + "Huh?");
+                channel.sendMessage("Huh?");
                 return;
             } else if (bot.getConfig().getAdmins().contains(args[1])) {
                 channel.sendMessage(Colors.GREEN + String.format("%s is already an admin.", args[1]));

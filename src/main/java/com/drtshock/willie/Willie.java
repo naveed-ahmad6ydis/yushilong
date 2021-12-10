@@ -22,10 +22,14 @@ import com.drtshock.willie.command.fun.FixCommandHandler;
 import com.drtshock.willie.command.fun.PopcornCommandHandler;
 import com.drtshock.willie.command.fun.TWSSCommandHandler;
 import com.drtshock.willie.command.fun.UrbanCommandHandler;
+import com.drtshock.willie.command.fun.WhipCommandHandler;
 import com.drtshock.willie.command.management.JoinCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.management.LeaveCommandHandler;
 import com.drtshock.willie.command.management.ShutdownCommandHandler;
+import com.drtshock.willie.command.minecraft.PlayersCommandHandler;
+import com.drtshock.willie.command.minecraft.PluginsCommandHandler;
+import com.drtshock.willie.command.minecraft.ServerCommandHandler;
 import com.drtshock.willie.command.misc.DonateCommandHandler;
 import com.drtshock.willie.command.misc.HelpCommandHandler;
 import com.drtshock.willie.command.misc.RulesCommandHandler;
@@ -42,14 +46,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
 public class Willie extends PircBotX {
-    private static Willie instance;
 
+    private static Willie instance;
     public static final Logger logger = Logger.getLogger(Willie.class.getName());
     public static final Gson gson = new Gson();
     public static final JsonParser parser = new JsonParser();
     public static String GIT_AUTH;
     private static String CONFIG_FILE = "config.yml";
-
     public JenkinsServer jenkins;
     public CommandManager commandManager;
     private WillieConfig willieConfig;
@@ -90,6 +93,10 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
         this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
         this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
+        this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
+        this.commandManager.registerCommand(new Command("plugins", "<IP> get a server's plugins", new PluginsCommandHandler()));
+        this.commandManager.registerCommand(new Command("players", "<IP> get a server's players", new PlayersCommandHandler()));
+        this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
@@ -205,5 +212,4 @@ public class Willie extends PircBotX {
         Willie willie = new Willie(WillieConfig.loadFromFile("config.yml"));
         willie.connect();
     }
-
 }

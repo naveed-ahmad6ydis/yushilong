@@ -11,7 +11,6 @@ public class RulesCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        channel.sendMessage(Colors.RED + "Don't be an annoying douche. Ask Chester if you have help");
+        channel.sendMessage(Colors.RED + "Don't be an annoying douche. Ask Chester if you have help.");
     }
-
 }
