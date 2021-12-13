@@ -33,6 +33,7 @@ import com.drtshock.willie.command.minecraft.ServerCommandHandler;
 import com.drtshock.willie.command.misc.DonateCommandHandler;
 import com.drtshock.willie.command.misc.HelpCommandHandler;
 import com.drtshock.willie.command.misc.RulesCommandHandler;
+import com.drtshock.willie.command.misc.PokeCommandHandler;
 import com.drtshock.willie.command.utility.CICommandHandler;
 import com.drtshock.willie.command.utility.DefineCommandHandler;
 import com.drtshock.willie.command.utility.IssuesCommandHandler;
@@ -97,6 +98,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("plugins", "<IP> get a server's plugins", new PluginsCommandHandler()));
         this.commandManager.registerCommand(new Command("players", "<IP> get a server's players", new PlayersCommandHandler()));
         this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
+        this.commandManager.registerCommand(new Command("poke", "[person] pokes people", new PokeCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
