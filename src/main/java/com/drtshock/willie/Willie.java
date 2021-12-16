@@ -15,6 +15,7 @@ import org.pircbotx.exception.NickAlreadyInUseException;
 import com.drtshock.willie.command.Command;
 import com.drtshock.willie.command.CommandManager;
 import com.drtshock.willie.command.admin.AdminCommandHandler;
+import com.drtshock.willie.command.admin.PrefixCommandHandler;
 import com.drtshock.willie.command.admin.ReloadCommandHandler;
 import com.drtshock.willie.command.admin.SaveCommandHandler;
 import com.drtshock.willie.command.fun.DrinkCommandHandler;
@@ -98,7 +99,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("plugins", "<IP> get a server's plugins", new PluginsCommandHandler()));
         this.commandManager.registerCommand(new Command("players", "<IP> get a server's players", new PlayersCommandHandler()));
         this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
-        this.commandManager.registerCommand(new Command("poke", "[person] pokes people", new PokeCommandHandler()));
+        this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
@@ -106,6 +107,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("reload", "Reloads willie", new ReloadCommandHandler(), true));
         this.commandManager.registerCommand(new Command("save", "Saves configuration", new SaveCommandHandler(), true));
         this.commandManager.registerCommand(new Command("admin", "add <user> | del <user> | list - Modifies the bot admin list.", new AdminCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("prefix", "<prefix> changes command prefix for bot.", new PrefixCommandHandler(), true));
 
         this.setName(willieConfig.getNick());
         this.setVerbose(false);
