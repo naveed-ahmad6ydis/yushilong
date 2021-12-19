@@ -24,7 +24,7 @@ public class WhipCommandHandler implements CommandHandler {
                     sb.append(arg).append(" ");
                 }
             }
-            bot.sendAction(channel, String.format("whips %s for ", args[0], sb.toString()));
+            bot.sendAction(channel, String.format("whips " + args[0] + " for " + sb.toString()));
         }
     }
 }
