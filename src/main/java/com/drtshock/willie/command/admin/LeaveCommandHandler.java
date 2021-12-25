@@ -1,4 +1,4 @@
-package com.drtshock.willie.command.management;
+package com.drtshock.willie.command.admin;
 
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
