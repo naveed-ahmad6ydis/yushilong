@@ -28,8 +28,6 @@ import com.drtshock.willie.command.admin.JoinCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.admin.LeaveCommandHandler;
 import com.drtshock.willie.command.admin.ShutdownCommandHandler;
-import com.drtshock.willie.command.minecraft.PlayersCommandHandler;
-import com.drtshock.willie.command.minecraft.PluginsCommandHandler;
 import com.drtshock.willie.command.minecraft.ServerCommandHandler;
 import com.drtshock.willie.command.misc.DonateCommandHandler;
 import com.drtshock.willie.command.misc.HelpCommandHandler;
@@ -96,8 +94,6 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
         this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
         this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
-        this.commandManager.registerCommand(new Command("plugins", "<IP> get a server's plugins", new PluginsCommandHandler()));
-        this.commandManager.registerCommand(new Command("players", "<IP> get a server's players", new PlayersCommandHandler()));
         this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
         this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
 
