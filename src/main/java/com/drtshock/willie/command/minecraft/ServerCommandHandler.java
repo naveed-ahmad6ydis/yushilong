@@ -28,12 +28,12 @@ public class ServerCommandHandler implements CommandHandler {
                 int max = new MinecraftPing().getPing(args[0]).getOnlinePlayers();
                 int players = new MinecraftPing().getPing(args[0]).getMaxPlayers(); // appear to be backwards lol
                 String version = new MinecraftPing().getPing(args[0]).getVersion();
-                
+
                 channel.sendMessage("(" + args[0] + ") " + motd + " - " + version + " - " + players + "/" + max + " players");
             } catch (IOException ex) {
                 channel.sendMessage(Colors.RED + "Failed to ping that server.");
             }
-            
+
         }
     }
 }

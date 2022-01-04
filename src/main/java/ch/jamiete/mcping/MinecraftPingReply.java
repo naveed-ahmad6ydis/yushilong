@@ -29,19 +29,34 @@
 package ch.jamiete.mcping;
 
 public class MinecraftPingReply {
-    /** The IP of the server */
+
+    /**
+     * The IP of the server
+     */
     private final String ip;
-    /** The port of the server */
+    /**
+     * The port of the server
+     */
     private final int port;
-    /** The MOTD of the server */
+    /**
+     * The MOTD of the server
+     */
     private final String motd;
-    /** The protocol version of the server */
+    /**
+     * The protocol version of the server
+     */
     private final String protocolVersion;
-    /** The game version of the server */
+    /**
+     * The game version of the server
+     */
     private final String version;
-    /** The max player count of the server */
+    /**
+     * The max player count of the server
+     */
     private final int maxPlayers;
-    /** The current online player count of the server */
+    /**
+     * The current online player count of the server
+     */
     private final int onlinePlayers;
 
     protected MinecraftPingReply(final String ip, final int port, final String motd, final int maxPlayers, final int onlinePlayers) {
@@ -60,16 +75,16 @@ public class MinecraftPingReply {
 
     /**
      * Gets the server's IP
-     * 
+     *
      * @return the server's IP
      */
     public String getIp() {
         return this.ip;
     }
 
-    /** 
+    /**
      * Gets the server's maximum player count
-     * 
+     *
      * @return the server's maximum player count
      */
     public int getMaxPlayers() {
@@ -78,7 +93,7 @@ public class MinecraftPingReply {
 
     /**
      * Gets the server's MOTD
-     * 
+     *
      * @return the server's MOTD
      */
     public String getMotd() {
@@ -87,7 +102,7 @@ public class MinecraftPingReply {
 
     /**
      * Gets the server's current online player count
-     * 
+     *
      * @return the server's current online player count
      */
     public int getOnlinePlayers() {
@@ -96,7 +111,7 @@ public class MinecraftPingReply {
 
     /**
      * Gets the server's port
-     * 
+     *
      * @return the server's port
      */
     public int getPort() {
@@ -105,7 +120,7 @@ public class MinecraftPingReply {
 
     /**
      * Gets the server's protocol version
-     * 
+     *
      * @return the server's protocol version
      */
     public String getProtocolVersion() {
@@ -114,7 +129,7 @@ public class MinecraftPingReply {
 
     /**
      * Gets the server's game version
-     * 
+     *
      * @return the server's game version
      */
     public String getVersion() {
@@ -122,7 +137,8 @@ public class MinecraftPingReply {
     }
 
     /**
-     * Returns a JSON representation of the data contained within this ping reply.
+     * Returns a JSON representation of the data contained within this ping
+     * reply.
      */
     @Override
     public String toString() {
