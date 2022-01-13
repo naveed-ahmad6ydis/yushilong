@@ -24,6 +24,7 @@ import com.drtshock.willie.command.fun.PopcornCommandHandler;
 import com.drtshock.willie.command.fun.TWSSCommandHandler;
 import com.drtshock.willie.command.fun.UrbanCommandHandler;
 import com.drtshock.willie.command.fun.WhipCommandHandler;
+import com.drtshock.willie.command.fun.AgreeDisagreeCommandHandler;
 import com.drtshock.willie.command.admin.JoinCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.admin.LeaveCommandHandler;
@@ -96,6 +97,8 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
         this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
         this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
+        this.commandManager.registerCommand(new Command("agree", "agree!", new AgreeDisagreeCommandHandler(true)));
+        this.commandManager.registerCommand(new Command("disagree", "disagree!", new AgreeDisagreeCommandHandler(false)));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
