@@ -26,9 +26,7 @@ public class AgreeDisagreeCommandHandler implements CommandHandler{
 		}else{
 			StringBuilder sb = new StringBuilder();
 			for(String arg : args){
-				if(arg == null ? args[0] != null : !arg.equals(args[0])){
-					sb.append(arg).append(" ");
-				}
+				sb.append(arg).append(" ");
 			}
 			bot.sendAction(channel, (!yes ? "dis" : "") + "agrees to " + sb.toString());
 		}
