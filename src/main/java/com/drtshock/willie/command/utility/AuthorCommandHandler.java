@@ -109,6 +109,7 @@ public class AuthorCommandHandler implements CommandHandler {
                 while (it.hasNext() && i < amount) {
                     Plugin plugin = it.next();
                     channel.sendMessage("- " + plugin.name + " (" + formatDate(plugin.lastUpdate) + ")");
+                    i++;
                 }
             }
         } catch (MalformedURLException e) {
