@@ -158,7 +158,7 @@ public class AuthorCommandHandler implements CommandHandler {
     }
 
     private void nope(Channel channel) {
-        channel.sendMessage(Colors.RED + "Look up an author with !author <name> [amount}");
+        channel.sendMessage(Colors.RED + "Look up an author with !author <name> [amount]");
     }
 
     private String formatDate(long date) {
