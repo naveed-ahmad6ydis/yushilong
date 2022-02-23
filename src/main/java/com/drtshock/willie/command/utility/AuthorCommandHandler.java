@@ -117,6 +117,9 @@ public class AuthorCommandHandler implements CommandHandler {
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            channel.sendMessage(Colors.RED + "Malformed page received, update Willie?");
+            e.printStackTrace();
         }
     }
 
