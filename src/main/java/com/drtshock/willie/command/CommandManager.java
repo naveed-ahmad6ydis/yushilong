@@ -14,6 +14,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
@@ -83,7 +84,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             String msg = "Exception catched when " + event.getUser().getNick() + " used the command " + commandName +
                          ". I pasted the exception there: " + GistHelper.gist(stackTrace);
             channel.sendMessage(Colors.RED + msg);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
             logger.severe(msg);
 
         }
