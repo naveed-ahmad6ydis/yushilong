@@ -43,6 +43,7 @@ import org.pircbotx.exception.NickAlreadyInUseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -116,6 +117,7 @@ public class Willie extends PircBotX {
 
         try {
             Logger.getGlobal().addHandler(new FileHandler("Willie.log"));
+            Logger.getGlobal().addHandler(new ConsoleHandler());
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
