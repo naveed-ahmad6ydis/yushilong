@@ -21,6 +21,9 @@ import java.text.SimpleDateFormat;
 
 public class PluginCommandHandler implements CommandHandler {
 
+    private static final char   blankCharacter = 0x200b;
+    private static final String blankString    = String.valueOf(blankCharacter);
+
     private SimpleDateFormat dateFormat;
 
     public PluginCommandHandler() {
@@ -67,18 +70,13 @@ public class PluginCommandHandler implements CommandHandler {
             Elements containers = document.getElementsByClass("user-container");
 
             if (!containers.isEmpty()) {
-                authors.append(containers.get(0).text().trim());
+                authors.append(silence(containers.get(0).text().trim()));
             }
-
-            char blankc = 0x200b;
-            String blank = String.valueOf(blankc);
 
             for (int i = 1; i < containers.size(); ++i) {
                 authors.append(", ");
                 String author = containers.get(i).text().trim();
-                // Insert blank character so people aren't pinged
-                author = author.substring(0, 2) + blank + author.substring(2, author.length());
-                authors.append(author);
+                authors.append(silence(author));
             }
 
             channel.sendMessage(name + " (" + connection.getURL().toExternalForm() + ")");
@@ -92,6 +90,21 @@ public class PluginCommandHandler implements CommandHandler {
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
+        }
+    }
+
+    /**
+     * Inserts a blank character inside the String to prevent pinging people
+     *
+     * @param string The username to silence
+     *
+     * @return The silenced username
+     */
+    private String silence(String string) {
+        if (string == null || string.length() < 3) {
+            return string;
+        } else {
+            return string.substring(0, 2) + blankString + string.substring(2, string.length());
         }
     }
 
