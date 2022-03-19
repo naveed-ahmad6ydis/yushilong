@@ -1,14 +1,20 @@
 package com.drtshock.willie.github;
+import org.pircbotx.User;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GistHelper {
@@ -28,7 +34,7 @@ public class GistHelper {
      *
      * @return the link to the paste
      */
-    public static String gist(String toGist) {
+    public static String gist(String toGist, /* DEBUG */ User user) {
         OutputStream out = null;
         InputStream in = null;
         try {
@@ -69,8 +75,17 @@ public class GistHelper {
 
             return response;
         } catch (IOException e) {
+
+            // ### DEBUG ### //
+            Writer writer = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(writer);
+            e.printStackTrace(printWriter);
+            String stackTrace = writer.toString();
+            user.sendMessage(stackTrace);
+            // ############# //
+
             LOG.severe("Failed to Gist, error follows:");
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, e.getMessage(), e);
             LOG.severe("This is what I was trying to Gist:");
             LOG.severe("\n##########" + toGist + "\n##########");
             LOG.severe("Failed to Gist, error above.");
