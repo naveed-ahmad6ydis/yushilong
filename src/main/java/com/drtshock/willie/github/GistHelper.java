@@ -1,4 +1,6 @@
 package com.drtshock.willie.github;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import org.pircbotx.User;
 
 import java.io.BufferedReader;
@@ -119,25 +121,16 @@ public class GistHelper {
         public GistCreationJsonRequestFile[] files;
 
         public String toJsonString() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append("{\"description\":\"");
-            builder.append(description);
-            builder.append("\",\"public\":");
-            builder.append(isPublic);
-            builder.append(",\"files\":{");
-            for (int i = 0; i < files.length; i++) {
-                GistCreationJsonRequestFile file = files[i];
-                builder.append('"');
-                builder.append(file.fileName);
-                builder.append("\":{\"content\":\"");
-                builder.append(escape(file.fileContent));
-                builder.append("\"}");
-                if (i != files.length - 1) {
-                    builder.append(',');
-                }
+            JsonObject res = new JsonObject();
+            res.add("description", new JsonPrimitive(description));
+            res.add("public", new JsonPrimitive(isPublic));
+
+            JsonObject fileList = new JsonObject();
+            for (GistCreationJsonRequestFile file : files) {
+                fileList.add(file.fileName, new JsonPrimitive(file.fileContent));
             }
-            builder.append("}}");
-            return builder.toString();
+            res.add("files", fileList);
+            return res.getAsString();
         }
     }
 
@@ -145,52 +138,5 @@ public class GistHelper {
 
         public String fileName;
         public String fileContent;
-    }
-
-    /** Escape a String for JSON */
-    private static String escape(String s) {
-        final StringBuilder sb = new StringBuilder();
-        final int len = s.length();
-        for (int i = 0; i < len; i++) {
-            char ch = s.charAt(i);
-            switch (ch) {
-                case '"':
-                    sb.append("\\\"");
-                    break;
-                case '\\':
-                    sb.append("\\\\");
-                    break;
-                case '\b':
-                    sb.append("\\b");
-                    break;
-                case '\f':
-                    sb.append("\\f");
-                    break;
-                case '\n':
-                    sb.append("\\n");
-                    break;
-                case '\r':
-                    sb.append("\\r");
-                    break;
-                case '\t':
-                    sb.append("\\t");
-                    break;
-                case '/':
-                    sb.append("\\/");
-                    break;
-                default:
-                    if ((ch >= '\u0000' && ch <= '\u001F') || (ch >= '\u007F' && ch <= '\u009F') || (ch >= '\u2000' && ch <= '\u20FF')) {
-                        String ss = Integer.toHexString(ch);
-                        sb.append("\\u");
-                        for (int k = 0; k < 4 - ss.length(); k++) {
-                            sb.append('0');
-                        }
-                        sb.append(ss.toUpperCase());
-                    } else {
-                        sb.append(ch);
-                    }
-            }
-        }
-        return sb.toString();
     }
 }
