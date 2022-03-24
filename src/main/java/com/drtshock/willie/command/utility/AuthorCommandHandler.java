@@ -65,10 +65,15 @@ public class AuthorCommandHandler implements CommandHandler {
 
                 // Check if we will have to look at another page
                 Elements pages = document.getElementsByClass("listing-pagination-pages").get(0).children();
-                Element lastLink = pages.get(pages.size() - 1).child(0);
-                if (lastLink.ownText().trim().startsWith("Next")) {
-                    hasNextPage = true;
-                    nextPageLink = devBukkitLink + lastLink.attr("href");
+                if (pages.size() > 1) {
+                    Element lastLink = pages.get(pages.size() - 1).child(0);
+                    if (lastLink.ownText().trim().startsWith("Next")) {
+                        hasNextPage = true;
+                        nextPageLink = devBukkitLink + lastLink.attr("href");
+                    } else {
+                        hasNextPage = false;
+                        nextPageLink = null;
+                    }
                 } else {
                     hasNextPage = false;
                     nextPageLink = null;
