@@ -116,8 +116,12 @@ public class Willie extends PircBotX {
         this.getListenerManager().addListener(this.commandManager);
 
         try {
-            Logger.getLogger("").addHandler(new FileHandler("Willie.log"));
-            Logger.getLogger("").addHandler(new ConsoleHandler());
+            FileHandler handler1 = new FileHandler("Willie.log");
+            handler1.setLevel(Level.ALL);
+            ConsoleHandler handler2 = new ConsoleHandler();
+            handler2.setLevel(Level.ALL);
+            Logger.getGlobal().addHandler(handler1);
+            Logger.getGlobal().addHandler(handler2);
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
