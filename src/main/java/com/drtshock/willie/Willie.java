@@ -122,6 +122,7 @@ public class Willie extends PircBotX {
             handler2.setLevel(Level.ALL);
             Logger.getGlobal().addHandler(handler1);
             Logger.getGlobal().addHandler(handler2);
+            Logger.getGlobal().setLevel(Level.ALL);
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
