@@ -45,20 +45,21 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Willie extends PircBotX {
 
     private static Willie instance;
-    public static final Logger logger = Logger.getLogger(Willie.class.getName());
-    public static final Gson gson = new Gson();
+    public static final Logger     logger = Logger.getLogger(Willie.class.getName());
+    public static final Gson       gson   = new Gson();
     public static final JsonParser parser = new JsonParser();
     public static String GIT_AUTH;
     private static String CONFIG_FILE = "config.yml";
-    public JenkinsServer jenkins;
-    public CommandManager commandManager;
-    private WillieConfig willieConfig;
+    public  JenkinsServer  jenkins;
+    public  CommandManager commandManager;
+    private WillieConfig   willieConfig;
 
     public static Willie getInstance() {
         return instance;
@@ -80,10 +81,17 @@ public class Willie extends PircBotX {
         this.commandManager = new CommandManager(this);
 
         this.commandManager.registerCommand(new Command("repo", "show Willie's repo", new RepoCommandHandler()));
-        this.commandManager.registerCommand(new Command("latest", "<plugin_name> - Get latest file for plugin on BukkitDev", new LatestCommandHandler()));
+        this.commandManager
+                .registerCommand(new Command("latest",
+                                             "<plugin_name> - Get latest file for plugin on BukkitDev",
+                                             new LatestCommandHandler()));
         this.commandManager.registerCommand(new Command("plugin", "<name> - looks up a plugin on BukkitDev", new PluginCommandHandler()));
-        this.commandManager.registerCommand(new Command("author", "<name> [amount] - looks up an author on BukkitDev", new AuthorCommandHandler()));
-        this.commandManager.registerCommand(new Command("issues", "<job_name> [page] - check github issues for jobs on " + willieConfig.getJenkinsServer(), new IssuesCommandHandler()));
+        this.commandManager
+                .registerCommand(new Command("author", "<name> [amount] - looks up an author on BukkitDev", new AuthorCommandHandler()));
+        this.commandManager
+                .registerCommand(new Command("issues",
+                                             "<job_name> [page] - check github issues for jobs on " + willieConfig.getJenkinsServer(),
+                                             new IssuesCommandHandler()));
         this.commandManager.registerCommand(new Command("ci", "shows Jenkins info", new CICommandHandler()));
         this.commandManager.registerCommand(new Command("rules", "show channel rules", new RulesCommandHandler()));
         this.commandManager.registerCommand(new Command("help", "show this help info", new HelpCommandHandler()));
@@ -94,7 +102,10 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("fix", "[name] - Yell at someone to fix something", new FixCommandHandler()));
         this.commandManager.registerCommand(new Command("kick", "<name> - Kick a user", new KickCommandHandler()));
         this.commandManager.registerCommand(new Command("define", "<word|phrase> - defines a word", new DefineCommandHandler()));
-        this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
+        this.commandManager
+                .registerCommand(new Command("urban",
+                                             "<word|phrase> - defines a word using the urban dictionary",
+                                             new UrbanCommandHandler()));
         this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
         this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
         this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
@@ -108,21 +119,41 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
         this.commandManager.registerCommand(new Command("reload", "Reloads willie", new ReloadCommandHandler(), true));
         this.commandManager.registerCommand(new Command("save", "Saves configuration", new SaveCommandHandler(), true));
-        this.commandManager.registerCommand(new Command("admin", "add <user> | del <user> | list - Modifies the bot admin list.", new AdminCommandHandler(), true));
-        this.commandManager.registerCommand(new Command("prefix", "<prefix> changes command prefix for bot.", new PrefixCommandHandler(), true));
+        this.commandManager
+                .registerCommand(new Command("admin",
+                                             "add <user> | del <user> | list - Modifies the bot admin list.",
+                                             new AdminCommandHandler(),
+                                             true));
+        this.commandManager
+                .registerCommand(new Command("prefix", "<prefix> changes command prefix for bot.", new PrefixCommandHandler(), true));
 
         this.setName(willieConfig.getNick());
         this.setVerbose(false);
         this.getListenerManager().addListener(this.commandManager);
 
         try {
+            // Get Root Logger
+            Logger rootLogger = Logger.getLogger("");
+
+            // File handler
             FileHandler handler1 = new FileHandler("Willie.log");
             handler1.setLevel(Level.ALL);
-            ConsoleHandler handler2 = new ConsoleHandler();
+
+            // Console handler: re-use existing
+            ConsoleHandler handler2 = null;
+            for (Handler h : rootLogger.getHandlers()) {
+                if (h instanceof ConsoleHandler) {
+                    handler2 = (ConsoleHandler) h;
+                    break;
+                }
+            }
+            if (handler2 == null) {
+                handler2 = new ConsoleHandler();
+            }
             handler2.setLevel(Level.ALL);
-            Logger.getGlobal().addHandler(handler1);
-            Logger.getGlobal().addHandler(handler2);
-            Logger.getGlobal().setLevel(Level.ALL);
+
+            // Root Logger logs ALL
+            rootLogger.setLevel(Level.ALL);
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
