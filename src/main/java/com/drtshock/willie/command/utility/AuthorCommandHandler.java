@@ -21,8 +21,11 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 public class AuthorCommandHandler implements CommandHandler {
+
+    private static final Logger LOG = Logger.getLogger(AuthorCommandHandler.class.getName());
 
     private SimpleDateFormat dateFormat;
 
@@ -32,6 +35,7 @@ public class AuthorCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
+        LOG.info("Started to handle !author command from " + sender.getNick() + "...");
         if (args.length != 1 && args.length != 2) {
             nope(channel);
             return;
@@ -61,6 +65,7 @@ public class AuthorCommandHandler implements CommandHandler {
             String nextPageLink = profilePageLink + "/bukkit-plugins/";
             do {
                 // Get the page
+                LOG.info("Getting page \"" + nextPageLink + "\"...");
                 document = getPage(nextPageLink);
 
                 // Check if we will have to look at another page
@@ -82,7 +87,7 @@ public class AuthorCommandHandler implements CommandHandler {
                 // List stuff on this page
                 Elements pluginsTd = document.getElementsByClass("col-project");
                 for (Element e : pluginsTd) {
-                    if ("td".equals(e.tagName())) {
+                    if ("td".equalsIgnoreCase(e.tagName())) {
                         Plugin plugin = new Plugin();
                         plugin.name = e.getElementsByTag("h2").get(0).getElementsByTag("a").get(0).ownText().trim();
                         try {
@@ -128,7 +133,7 @@ public class AuthorCommandHandler implements CommandHandler {
     private final class Plugin implements Comparable<Plugin> {
 
         public String name;
-        public long   lastUpdate;
+        public long lastUpdate;
 
         @Override
         public int compareTo(Plugin o) {

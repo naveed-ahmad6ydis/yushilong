@@ -1,17 +1,9 @@
 package com.drtshock.willie.github;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import org.pircbotx.User;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -21,9 +13,9 @@ import java.util.logging.Logger;
 
 public class GistHelper {
 
-    private static final String GITHUB_API_URL    = "https://api.github.com/";
+    private static final String GITHUB_API_URL = "https://api.github.com/";
     private static final String GIST_API_LOCATION = "gists";
-    private static final String GIST_URL          = GITHUB_API_URL + GIST_API_LOCATION;
+    private static final String GIST_URL = GITHUB_API_URL + GIST_API_LOCATION;
 
     private static final String DESCRIPTION = "Willie pasted this on ";
 
@@ -33,10 +25,10 @@ public class GistHelper {
      * Paste a String to Gist then returns the link to the gist
      *
      * @param toGist the String to paste
-     *
      * @return the link to the paste
      */
-    public static String gist(String toGist, /* DEBUG */ User user) {
+    public static String gist(String toGist) {
+        LOG.info("Started to Gist something...");
         OutputStream out = null;
         InputStream in = null;
         try {
@@ -54,7 +46,7 @@ public class GistHelper {
             GistCreationJsonRequestFile file = new GistCreationJsonRequestFile();
             file.fileName = "WilliePaste-" + date().replace(' ', '-');
             file.fileContent = toGist;
-            req.files = new GistCreationJsonRequestFile[] {file};
+            req.files = new GistCreationJsonRequestFile[]{file};
             String jsonString = req.toJsonString();
 
             connection.setRequestProperty("Content-Length", Integer.toString(jsonString.length()));
@@ -75,21 +67,13 @@ public class GistHelper {
             }
             rd.close(); //close the reader
 
+            LOG.info("Gist successful! Response: " + response);
             return response;
         } catch (IOException e) {
-
-            // ### DEBUG ### //
-            Writer writer = new StringWriter();
-            PrintWriter printWriter = new PrintWriter(writer);
-            e.printStackTrace(printWriter);
-            String stackTrace = writer.toString();
-            user.sendMessage(stackTrace);
-            // ############# //
-
             LOG.severe("Failed to Gist, error follows:");
             LOG.log(Level.SEVERE, e.getMessage(), e);
             LOG.severe("This is what I was trying to Gist:");
-            LOG.severe("\n##########" + toGist + "\n##########");
+            LOG.severe("\n##########\n" + toGist + "\n##########");
             LOG.severe("Failed to Gist, error above.");
             return "ERROR";
         } finally {
@@ -116,8 +100,8 @@ public class GistHelper {
 
     private static class GistCreationJsonRequest {
 
-        public String                        description;
-        public boolean                       isPublic;
+        public String description;
+        public boolean isPublic;
         public GistCreationJsonRequestFile[] files;
 
         public String toJsonString() {
