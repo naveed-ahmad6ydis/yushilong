@@ -59,10 +59,12 @@ public class Willie extends PircBotX {
             handler1.setLevel(LOGGING_LEVEL);
 
             // Console handler: re-use existing
+            boolean originalConsoleHandler = false;
             ConsoleHandler handler2 = null;
             for (Handler h : rootLogger.getHandlers()) {
                 if (h instanceof ConsoleHandler) {
                     handler2 = (ConsoleHandler) h;
+                    originalConsoleHandler = true;
                     break;
                 }
             }
@@ -71,11 +73,13 @@ public class Willie extends PircBotX {
             }
             handler2.setLevel(LOGGING_LEVEL);
 
-            // Register handleers
+            // Register handlers
             rootLogger.addHandler(handler1);
-            rootLogger.addHandler(handler2);
+            if (!originalConsoleHandler) {
+                rootLogger.addHandler(handler2);
+            }
 
-            // Root Logger logs ALL
+            // Root Logger Level
             rootLogger.setLevel(LOGGING_LEVEL);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
