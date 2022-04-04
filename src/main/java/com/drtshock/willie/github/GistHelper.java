@@ -40,6 +40,8 @@ public class GistHelper {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("content-type", "application/json; charset=utf-8");
 
+            LOG.info("Request built, now creating JSON object to send...");
+
             GistCreationJsonRequest req = new GistCreationJsonRequest();
             req.description = DESCRIPTION + date();
             req.isPublic = true;
@@ -49,16 +51,20 @@ public class GistHelper {
             req.files = new GistCreationJsonRequestFile[]{file};
             String jsonString = req.toJsonString();
 
+            LOG.info("Json object created: " + jsonString);
+
             connection.setRequestProperty("Content-Length", Integer.toString(jsonString.length()));
 
             connection.connect();
 
+            LOG.info("Sending...");
             out = connection.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(out);
             writer.write(req.toJsonString());
             writer.flush();
             writer.close();
 
+            LOG.info("Reading response...");
             in = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(in));
             String line, response = "";
