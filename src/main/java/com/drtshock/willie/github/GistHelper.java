@@ -42,14 +42,14 @@ public class GistHelper {
 
             LOG.info("Request built, now creating JSON object to send...");
 
-            GistCreationJsonRequest req = new GistCreationJsonRequest();
-            req.description = DESCRIPTION + date();
-            req.isPublic = true;
-            GistCreationJsonRequestFile file = new GistCreationJsonRequestFile();
-            file.fileName = "WilliePaste-" + date().replace(' ', '-');
-            file.fileContent = toGist;
-            req.files = new GistCreationJsonRequestFile[]{file};
-            String jsonString = req.toJsonString();
+            JsonObject res = new JsonObject();
+            res.add("description", new JsonPrimitive(DESCRIPTION + date()));
+            res.add("public", new JsonPrimitive(true));
+
+            JsonObject fileList = new JsonObject();
+            fileList.add("WilliePaste-" + date().replace(' ', '-'), new JsonPrimitive(toGist));
+            res.add("files", fileList);
+            String jsonString = res.getAsString();
 
             LOG.info("Json object created: " + jsonString);
 
@@ -60,7 +60,7 @@ public class GistHelper {
             LOG.info("Sending...");
             out = connection.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(out);
-            writer.write(req.toJsonString());
+            writer.write(jsonString);
             writer.flush();
             writer.close();
 
@@ -102,31 +102,5 @@ public class GistHelper {
 
     private static String date() {
         return new SimpleDateFormat("EEEE dd MMMM YYYY").format(new Date());
-    }
-
-    private static class GistCreationJsonRequest {
-
-        public String description;
-        public boolean isPublic;
-        public GistCreationJsonRequestFile[] files;
-
-        public String toJsonString() {
-            JsonObject res = new JsonObject();
-            res.add("description", new JsonPrimitive(description));
-            res.add("public", new JsonPrimitive(isPublic));
-
-            JsonObject fileList = new JsonObject();
-            for (GistCreationJsonRequestFile file : files) {
-                fileList.add(file.fileName, new JsonPrimitive(file.fileContent));
-            }
-            res.add("files", fileList);
-            return res.getAsString();
-        }
-    }
-
-    private static class GistCreationJsonRequestFile {
-
-        public String fileName;
-        public String fileContent;
     }
 }
