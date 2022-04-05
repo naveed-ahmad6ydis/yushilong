@@ -57,6 +57,8 @@ public class AuthorCommandHandler implements CommandHandler {
                 }
             }
 
+            LOG.info("Selected amount: " + amount);
+
             SortedSet<Plugin> plugins = new TreeSet<>();
             boolean hasNextPage;
             Document document;
@@ -96,6 +98,7 @@ public class AuthorCommandHandler implements CommandHandler {
                             channel.sendMessage(Colors.RED + "An error occured");
                             return;
                         }
+                        LOG.info("Adding plugin " + plugin.name);
                         plugins.add(plugin);
                     }
                 }
@@ -122,6 +125,8 @@ public class AuthorCommandHandler implements CommandHandler {
                     i++;
                 }
             }
+
+            LOG.info("Command execution successful!");
         } catch (MalformedURLException e) {
             channel.sendMessage(Colors.RED + "Unable to find that user!");
         } catch (IOException e) {
