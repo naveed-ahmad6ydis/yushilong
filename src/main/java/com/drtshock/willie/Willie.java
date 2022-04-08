@@ -56,7 +56,7 @@ public class Willie extends PircBotX {
 
             // File handler
             final FileHandler handler1 = new FileHandler("Willie.log");
-            handler1.setLevel(LOGGING_LEVEL);
+            handler1.setLevel(Level.ALL);
 
             // Console handler: re-use existing
             boolean originalConsoleHandler = false;
