@@ -21,9 +21,9 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
     private static final Logger logger = Logger.getLogger(CommandManager.class.getName());
 
-    private Willie                   bot;
+    private Willie bot;
     private HashMap<String, Command> commands;
-    private String                   cmdPrefix;
+    private String cmdPrefix;
 
     public CommandManager(Willie bot) {
         this.bot = bot;
@@ -69,23 +69,26 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
         Command command = this.commands.get(commandName);
         if (command.isAdminOnly() && !Auth.checkAuth(event.getUser()).isAdmin) {
-            channel.sendMessage(Colors.RED +
-                                String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?",
-                                              event.getUser().getNick()));
+            channel.sendMessage(Colors.RED + String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?", event.getUser().getNick()));
             return;
         }
         try {
             command.getHandler().handle(this.bot, channel, event.getUser(), args);
         } catch (Exception e) {
-            Writer writer = new StringWriter();
-            PrintWriter printWriter = new PrintWriter(writer);
+            final Writer writer = new StringWriter();
+            final PrintWriter printWriter = new PrintWriter(writer);
             e.printStackTrace(printWriter);
-            String stackTrace = writer.toString();
-            String msg = "Exception catched when " + event.getUser().getNick() + " used the command " + commandName +
-                         ". I pasted the exception there: " + GistHelper.gist(stackTrace);
-            channel.sendMessage(Colors.RED + msg);
+            final String stackTrace = writer.toString();
+
             logger.log(Level.SEVERE, e.getMessage(), e);
-            logger.severe(msg);
+
+            final String msg1 = "Exception catched when " + event.getUser().getNick() + " used the command " + commandName + '.';
+            channel.sendMessage(Colors.RED + msg1);
+            logger.severe(msg1);
+
+            final String msg2 = "I pasted the exception there: " + GistHelper.gist(stackTrace);
+            channel.sendMessage(Colors.RED + msg2);
+            logger.severe(msg2);
         }
     }
 
