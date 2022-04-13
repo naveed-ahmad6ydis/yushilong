@@ -11,6 +11,7 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -127,7 +128,7 @@ public class AuthorCommandHandler implements CommandHandler {
             }
 
             LOG.info("Command execution successful!");
-        } catch (MalformedURLException e) {
+        } catch (FileNotFoundException | MalformedURLException e) {
             channel.sendMessage(Colors.RED + "Unable to find that user!");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
