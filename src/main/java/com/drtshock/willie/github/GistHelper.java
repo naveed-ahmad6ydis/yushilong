@@ -1,7 +1,6 @@
 package com.drtshock.willie.github;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -44,18 +43,18 @@ public class GistHelper {
 
             JsonObject res = new JsonObject();
             LOG.info("DEBUG - Just built the JsonObject");
-            res.add("description", new JsonPrimitive(DESCRIPTION + date()));
+            res.addProperty("description", DESCRIPTION + date());
             LOG.info("DEBUG - Just added description");
-            res.add("public", new JsonPrimitive(true));
+            res.addProperty("public", true);
             LOG.info("DEBUG - Just added public");
 
             JsonObject fileList = new JsonObject();
             LOG.info("DEBUG - Just built the files JsonObject");
-            fileList.add("WilliePaste-" + date().replace(' ', '-'), new JsonPrimitive(toGist));
+            fileList.addProperty("WilliePaste-" + date().replace(' ', '-'), toGist);
             LOG.info("DEBUG - Just created the file1");
             res.add("files", fileList);
             LOG.info("DEBUG - Just added the file1");
-            String jsonString = res.getAsString();
+            String jsonString = res.toString();
             LOG.info("DEBUG - Just converted to a String");
 
             LOG.info("Json object created: " + jsonString);
