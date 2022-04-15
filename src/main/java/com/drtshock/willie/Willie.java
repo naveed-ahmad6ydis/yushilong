@@ -130,6 +130,8 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("admin", "add <user> | del <user> | list - Modifies the bot admin list.", new AdminCommandHandler(), true));
         this.commandManager.registerCommand(new Command("prefix", "<prefix> changes command prefix for bot.", new PrefixCommandHandler(), true));
 
+        this.commandManager.registerCommand(new Command("paste", "Paste command for test purpose only", new PasteCommandHandler()));
+
         this.setName(willieConfig.getNick());
         this.setVerbose(false);
         this.getListenerManager().addListener(this.commandManager);
