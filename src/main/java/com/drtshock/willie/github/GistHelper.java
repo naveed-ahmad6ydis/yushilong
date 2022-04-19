@@ -42,31 +42,14 @@ public class GistHelper {
             LOG.info("Request built, now creating JSON object to send...");
 
             JsonObject res = new JsonObject();
-            LOG.info("DEBUG - Just built the JsonObject");
-
             res.addProperty("description", DESCRIPTION + date());
-            LOG.info("DEBUG - Just added description");
-
             res.addProperty("public", true);
-            LOG.info("DEBUG - Just added public");
-
             JsonObject fileList = new JsonObject();
-            LOG.info("DEBUG - Just built the files JsonObject");
-
             JsonObject file = new JsonObject();
-            LOG.info("DEBUG - Just build the file JsonObject");
-
             file.addProperty("content", toGist);
-            LOG.info("DEBUG - Just created the fiel content");
-
             fileList.add("WilliePaste-" + date().replace(' ', '-') + ".txt", file);
-            LOG.info("DEBUG - Just added the file to files");
-
             res.add("files", fileList);
-            LOG.info("DEBUG - Just added files to the JsonObject");
-
             String jsonString = res.toString();
-            LOG.info("DEBUG - Just converted to a String");
 
             LOG.info("Json object created: " + jsonString);
 
