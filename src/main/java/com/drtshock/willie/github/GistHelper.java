@@ -1,6 +1,7 @@
 package com.drtshock.willie.github;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -73,8 +74,14 @@ public class GistHelper {
             }
             rd.close(); //close the reader
 
+            LOG.info("Response received: " + response);
+
+            JsonObject responseJson = new JsonParser().parse(response).getAsJsonObject();
+
+            String link = responseJson.get("html_url").getAsString();
+
             LOG.info("Gist successful! Response: " + response);
-            return response;
+            return link;
         } catch (IOException e) {
             LOG.severe("Failed to Gist, error follows:");
             LOG.log(Level.SEVERE, e.getMessage(), e);
