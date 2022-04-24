@@ -95,11 +95,12 @@ public class AuthorCommandHandler implements CommandHandler {
                     if ("td".equalsIgnoreCase(e.tagName())) {
                         plugin = new Plugin();
                         plugin.name = e.getElementsByTag("h2").get(0).getElementsByTag("a").get(0).ownText().trim();
-                        date = e.parent().getElementsByClass("col-date").get(0).attr("data-epoch");
+                        date = e.nextElementSibling().attr("data-epoch");
                         try {
                             plugin.lastUpdate = Long.parseLong(date);
                         } catch (NumberFormatException ex) {
                             channel.sendMessage(Colors.RED + "An error occured: Cannot parse \"" + date + "\" as a long.");
+                            LOG.info(e.nextElementSibling().html());
                             return;
                         }
                         LOG.info("Adding plugin " + plugin.name);
