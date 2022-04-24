@@ -88,15 +88,18 @@ public class AuthorCommandHandler implements CommandHandler {
                 }
 
                 // List stuff on this page
+                Plugin plugin;
+                String date;
                 Elements pluginsTd = document.getElementsByClass("col-project");
                 for (Element e : pluginsTd) {
                     if ("td".equalsIgnoreCase(e.tagName())) {
-                        Plugin plugin = new Plugin();
+                        plugin = new Plugin();
                         plugin.name = e.getElementsByTag("h2").get(0).getElementsByTag("a").get(0).ownText().trim();
+                        date = e.parent().getElementsByClass("col-date").get(0).attr("data-epoch");
                         try {
-                            plugin.lastUpdate = Long.parseLong(e.parent().getElementsByClass("col-date").get(0).attr("data-epoch"));
+                            plugin.lastUpdate = Long.parseLong(date);
                         } catch (NumberFormatException ex) {
-                            channel.sendMessage(Colors.RED + "An error occured");
+                            channel.sendMessage(Colors.RED + "An error occured: Cannot parse \"" + date + "\" as a long.");
                             return;
                         }
                         LOG.info("Adding plugin " + plugin.name);
