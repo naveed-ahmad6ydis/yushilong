@@ -89,6 +89,8 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             final String msg2 = "I pasted the exception there: " + GistHelper.gist(stackTrace);
             channel.sendMessage(Colors.RED + msg2);
             logger.severe(msg2);
+
+            channel.sendMessage("Please enjoy your debug session.");
         }
     }
 
