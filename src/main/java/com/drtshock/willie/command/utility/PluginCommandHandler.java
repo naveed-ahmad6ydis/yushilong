@@ -2,6 +2,7 @@ package com.drtshock.willie.command.utility;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.NanoUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -20,9 +21,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class PluginCommandHandler implements CommandHandler {
-
-    private static final char   blankCharacter = 0x200b;
-    private static final String blankString    = String.valueOf(blankCharacter);
 
     private SimpleDateFormat dateFormat;
 
@@ -70,13 +68,13 @@ public class PluginCommandHandler implements CommandHandler {
             Elements containers = document.getElementsByClass("user-container");
 
             if (!containers.isEmpty()) {
-                authors.append(silence(containers.get(0).text().trim()));
+                authors.append(NanoUtils.silence(containers.get(0).text().trim()));
             }
 
             for (int i = 1; i < containers.size(); ++i) {
                 authors.append(", ");
                 String author = containers.get(i).text().trim();
-                authors.append(silence(author));
+                authors.append(NanoUtils.silence(author));
             }
 
             channel.sendMessage(name + " (" + connection.getURL().toExternalForm() + ")");
@@ -90,21 +88,6 @@ public class PluginCommandHandler implements CommandHandler {
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
-        }
-    }
-
-    /**
-     * Inserts a blank character inside the String to prevent pinging people
-     *
-     * @param string The username to silence
-     *
-     * @return The silenced username
-     */
-    private String silence(String string) {
-        if (string == null || string.length() < 3) {
-            return string;
-        } else {
-            return string.substring(0, 1) + blankString + string.substring(1, string.length());
         }
     }
 

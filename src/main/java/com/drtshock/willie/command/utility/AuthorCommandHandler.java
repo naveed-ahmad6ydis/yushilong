@@ -2,6 +2,7 @@ package com.drtshock.willie.command.utility;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.NanoUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -113,7 +114,7 @@ public class AuthorCommandHandler implements CommandHandler {
 
             Iterator<Plugin> it = plugins.iterator();
 
-            channel.sendMessage(name + " (" + profilePageLink + ")");
+            channel.sendMessage(NanoUtils.silence(name) + " (" + profilePageLink + ")");
             channel.sendMessage("Plugins: " + nbPlugins);
             if (plugins.isEmpty()) {
                 channel.sendMessage(Colors.RED + "Unknown user or user without plugins");
@@ -125,7 +126,7 @@ public class AuthorCommandHandler implements CommandHandler {
                 int i = 0;
                 while (it.hasNext() && i < amount) {
                     Plugin plugin = it.next();
-                    channel.sendMessage("- " + plugin.name + " (" + formatDate(plugin.lastUpdate) + ")");
+                    channel.sendMessage("- " + NanoUtils.silence(plugin.name) + " (" + formatDate(plugin.lastUpdate) + ")");
                     i++;
                 }
             }
