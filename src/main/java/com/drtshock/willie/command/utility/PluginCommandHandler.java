@@ -2,7 +2,7 @@ package com.drtshock.willie.command.utility;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
-import com.drtshock.willie.util.NanoUtils;
+import com.drtshock.willie.util.Tools;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -68,13 +68,13 @@ public class PluginCommandHandler implements CommandHandler {
             Elements containers = document.getElementsByClass("user-container");
 
             if (!containers.isEmpty()) {
-                authors.append(NanoUtils.silence(containers.get(0).text().trim()));
+                authors.append(Tools.silence(containers.get(0).text().trim()));
             }
 
             for (int i = 1; i < containers.size(); ++i) {
                 authors.append(", ");
                 String author = containers.get(i).text().trim();
-                authors.append(NanoUtils.silence(author));
+                authors.append(Tools.silence(author));
             }
 
             channel.sendMessage(name + " (" + connection.getURL().toExternalForm() + ")");

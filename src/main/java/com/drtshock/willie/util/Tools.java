@@ -3,7 +3,7 @@ package com.drtshock.willie.util;
 /**
  * This class contains VERY little tools
  */
-public class NanoUtils {
+public class Tools {
 
     /**
      * Inserts a blank character inside the String to prevent pinging people
