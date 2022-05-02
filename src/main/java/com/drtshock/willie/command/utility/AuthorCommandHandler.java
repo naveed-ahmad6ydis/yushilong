@@ -122,7 +122,7 @@ public class AuthorCommandHandler implements CommandHandler {
                 Plugin plugin = it.next();
                 channel.sendMessage("Last updated plugin: " + plugin.name + " (" + formatDate(plugin.lastUpdate) + ")");
             } else {
-                channel.sendMessage(amount + " last updated plugins:");
+                channel.sendMessage((amount < plugins.size() ? amount : plugins.size()) + " last updated plugins:");
                 int i = 0;
                 while (it.hasNext() && i < amount) {
                     Plugin plugin = it.next();
