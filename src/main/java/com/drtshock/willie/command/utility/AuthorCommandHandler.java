@@ -58,14 +58,17 @@ public class AuthorCommandHandler implements CommandHandler {
                     return;
                 }
             }
-
             LOG.info("Selected amount: " + amount);
+
+            LOG.info("Provided username: " + args[0]);
+            String user = getRealUserName(args[0]);
+            LOG.info("Real username: " + user);
 
             SortedSet<Plugin> plugins = new TreeSet<>();
             boolean hasNextPage;
             Document document;
             String devBukkitLink = "http://dev.bukkit.org/";
-            String profilePageLink = devBukkitLink + "profiles/" + args[0];
+            String profilePageLink = devBukkitLink + "profiles/" + user;
             String nextPageLink = profilePageLink + "/bukkit-plugins/";
             do {
                 // Get the page
@@ -109,12 +112,11 @@ public class AuthorCommandHandler implements CommandHandler {
                 }
             } while (hasNextPage);
 
-            String name = document.getElementsByTag("h1").get(1).ownText().trim();
             String nbPlugins = document.getElementsByClass("listing-pagination-pages-total").get(0).ownText().trim();
 
             Iterator<Plugin> it = plugins.iterator();
 
-            channel.sendMessage(Tools.silence(name) + " (" + profilePageLink + ")");
+            channel.sendMessage(Tools.silence(user) + " (" + profilePageLink + ")");
             channel.sendMessage("Plugins: " + nbPlugins);
             if (plugins.isEmpty()) {
                 channel.sendMessage(Colors.RED + "Unknown user or user without plugins");
@@ -175,6 +177,11 @@ public class AuthorCommandHandler implements CommandHandler {
         input.close();
 
         return Jsoup.parse(page);
+    }
+
+    private String getRealUserName(String bukkitDevUser) throws IOException {
+        Document doc = getPage("http://dev.bukkit.org/profiles/" + bukkitDevUser);
+        return doc.getElementsByTag("h1").get(1).ownText().trim();
     }
 
     private void nope(Channel channel) {
