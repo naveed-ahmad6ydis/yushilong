@@ -73,6 +73,9 @@ public class Willie extends PircBotX {
             }
             handler2.setLevel(LOGGING_LEVEL);
 
+            // Fix FileHandler format, we don't care about the default XML shit
+            handler1.setFormatter(handler2.getFormatter());
+
             // Register handlers
             rootLogger.addHandler(handler1);
             if (!originalConsoleHandler) {
