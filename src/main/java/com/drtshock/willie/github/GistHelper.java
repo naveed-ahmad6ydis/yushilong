@@ -28,7 +28,7 @@ public class GistHelper {
      * @return the link to the paste
      */
     public static String gist(String toGist) {
-        LOG.info("Started to Gist something...");
+        LOG.fine("Started to Gist something...");
         OutputStream out = null;
         InputStream in = null;
         try {
@@ -40,7 +40,7 @@ public class GistHelper {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("content-type", "application/json; charset=utf-8");
 
-            LOG.info("Request built, now creating JSON object to send...");
+            LOG.fine("Request built, now creating JSON object to send...");
 
             JsonObject res = new JsonObject();
             res.addProperty("description", DESCRIPTION + date());
@@ -52,20 +52,20 @@ public class GistHelper {
             res.add("files", fileList);
             String jsonString = res.toString();
 
-            LOG.info("Json object created: " + jsonString);
+            LOG.fine("Json object created: " + jsonString);
 
             connection.setRequestProperty("Content-Length", Integer.toString(jsonString.length()));
 
             connection.connect();
 
-            LOG.info("Sending...");
+            LOG.fine("Sending...");
             out = connection.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(out);
             writer.write(jsonString);
             writer.flush();
             writer.close();
 
-            LOG.info("Reading response...");
+            LOG.fine("Reading response...");
             in = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(in));
             String line, response = "";
@@ -74,13 +74,13 @@ public class GistHelper {
             }
             rd.close(); //close the reader
 
-            LOG.info("Response received: " + response);
+            LOG.fine("Response received: " + response);
 
             JsonObject responseJson = new JsonParser().parse(response).getAsJsonObject();
 
             String link = responseJson.get("html_url").getAsString();
 
-            LOG.info("Gist successful! Response: " + response);
+            LOG.fine("Gist successful! Link: " + link);
             return link;
         } catch (IOException e) {
             LOG.severe("Failed to Gist, error follows:");
