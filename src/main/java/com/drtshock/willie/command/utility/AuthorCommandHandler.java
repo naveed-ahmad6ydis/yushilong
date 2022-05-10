@@ -81,7 +81,7 @@ public class AuthorCommandHandler implements CommandHandler {
                     Element lastLink = pages.get(pages.size() - 1);
                     if (lastLink.children().size() > 0 && lastLink.child(0).ownText().trim().startsWith("Next")) {
                         hasNextPage = true;
-                        nextPageLink = devBukkitLink + lastLink.attr("href");
+                        nextPageLink = devBukkitLink + lastLink.child(0).attr("href");
                     } else {
                         hasNextPage = false;
                         nextPageLink = null;
