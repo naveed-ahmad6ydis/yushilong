@@ -53,7 +53,7 @@ public class AuthorCommandHandler implements CommandHandler {
                     return;
                 }
 
-                if (amount == 0) {
+                if (amount <= 0) {
                     nope(channel);
                     return;
                 }
