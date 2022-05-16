@@ -90,7 +90,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             channel.sendMessage(Colors.RED + msg2);
             logger.severe(msg2);
 
-            channel.sendMessage(Colors.RED + "Please enjoy your debug session.");
+            channel.sendMessage("!fix " + event.getUser().getNick());
         }
     }
 
