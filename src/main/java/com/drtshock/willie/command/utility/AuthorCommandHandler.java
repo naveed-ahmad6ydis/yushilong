@@ -122,7 +122,7 @@ public class AuthorCommandHandler implements CommandHandler {
                 channel.sendMessage(Colors.RED + "Unknown user or user without plugins");
             } else if (amount == 1) {
                 Plugin plugin = it.next();
-                channel.sendMessage("Last updated plugin: " + plugin.name + " (" + formatDate(plugin.lastUpdate) + ")");
+                channel.sendMessage("Last updated plugin: " + Tools.silence(plugin.name) + " (" + formatDate(plugin.lastUpdate) + ")");
             } else {
                 channel.sendMessage((amount < plugins.size() ? amount : plugins.size()) + " last updated plugins:");
                 int i = 0;
