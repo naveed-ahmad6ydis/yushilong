@@ -6,10 +6,7 @@ import com.drtshock.willie.command.admin.*;
 import com.drtshock.willie.command.fun.*;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.minecraft.ServerCommandHandler;
-import com.drtshock.willie.command.misc.DonateCommandHandler;
-import com.drtshock.willie.command.misc.HelpCommandHandler;
-import com.drtshock.willie.command.misc.PokeCommandHandler;
-import com.drtshock.willie.command.misc.RulesCommandHandler;
+import com.drtshock.willie.command.misc.*;
 import com.drtshock.willie.command.utility.*;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.google.gson.Gson;
@@ -124,6 +121,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
         this.commandManager.registerCommand(new Command("agree", "agree!", new AgreeDisagreeCommandHandler(true)));
         this.commandManager.registerCommand(new Command("disagree", "disagree!", new AgreeDisagreeCommandHandler(false)));
+        this.commandManager.registerCommand(new Command("ex", "throws an exception", new ExceptionCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
