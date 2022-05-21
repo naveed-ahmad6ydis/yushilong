@@ -5,6 +5,7 @@ import com.drtshock.willie.auth.Auth;
 import com.drtshock.willie.github.GistHelper;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
+import org.pircbotx.User;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -45,14 +46,26 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
     @Override
     public void onMessage(MessageEvent<Willie> event) {
-        String message = event.getMessage().trim();
+        handlerMessage(event.getMessage(), event.getChannel(), event.getUser());
+    }
 
+    /**
+     * Additional Step for handling command
+     * This allow Willie to use commands
+     * NOTE: Commands used by Willie should support it !
+     * A command is used by Willie when sender == null
+     *
+     * @param message The message
+     * @param channel The channel
+     * @param sender  The sender or Null if it's Willie
+     */
+    public void handlerMessage(String message, Channel channel, User sender) {
         if (message.toLowerCase().endsWith("o/") && (!message.contains("\\o/"))) {
-            event.getChannel().sendMessage("\\o");
+            channel.sendMessage("\\o");
             return;
         }
         if (message.toLowerCase().endsWith("\\o") && (!message.contains("\\o/"))) {
-            event.getChannel().sendMessage("o/");
+            channel.sendMessage("o/");
             return;
         }
 
@@ -61,19 +74,18 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
         }
 
         String[] parts = message.substring(1).split(" ");
-        Channel channel = event.getChannel();
 
         String commandName = parts[0].toLowerCase();
         String[] args = new String[parts.length - 1];
         System.arraycopy(parts, 1, args, 0, args.length);
 
         Command command = this.commands.get(commandName);
-        if (command.isAdminOnly() && (!Auth.checkAuth(event.getUser()).isAdmin || event.getUser().getNick().equals(bot.getNick()))) {
-            channel.sendMessage(Colors.RED + String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?", event.getUser().getNick()));
+        if (command.isAdminOnly() && (sender == null || !Auth.checkAuth(sender).isAdmin)) {
+            channel.sendMessage(Colors.RED + String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?", sender.getNick()));
             return;
         }
         try {
-            command.getHandler().handle(this.bot, channel, event.getUser(), args);
+            command.getHandler().handle(this.bot, channel, sender, args);
         } catch (Exception e) {
             final Writer writer = new StringWriter();
             final PrintWriter printWriter = new PrintWriter(writer);
@@ -82,7 +94,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
             logger.log(Level.SEVERE, e.getMessage(), e);
 
-            final String msg1 = "Exception caught when " + event.getUser().getNick() + " used the command \"" + message + "\".";
+            final String msg1 = "Exception caught when " + (sender == null ? "Willie" : sender.getNick()) + " used the command \"" + message + "\".";
             channel.sendMessage(Colors.RED + msg1);
             logger.severe(msg1);
 
@@ -90,7 +102,9 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             channel.sendMessage(Colors.RED + msg2);
             logger.severe(msg2);
 
-            channel.sendMessage("!fix " + event.getUser().getNick());
+            String willieCommand = "!fix " + (sender == null ? "Willie" : sender.getNick());
+            channel.sendMessage(willieCommand);
+            handlerMessage(willieCommand, channel, null);
         }
     }
 

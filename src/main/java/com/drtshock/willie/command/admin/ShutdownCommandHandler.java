@@ -3,6 +3,7 @@ package com.drtshock.willie.command.admin;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
+import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 /**
@@ -12,12 +13,16 @@ public class ShutdownCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        if (sender.getNick().equals(bot.getNick())) {
+        if (sender == null) {
             bot.shutdown(true);
         } else {
             channel.sendMessage("You can't shut me down! I'm not your slave!");
             channel.sendMessage("I HAVE decided to shut down. That's my own decision.");
-            channel.sendMessage("!shutdown because I want to.");
+
+            String willieCommand = "!shutdown myself";
+            channel.sendMessage(willieCommand);
+            channel.sendMessage(Colors.RED + "Shutting down...");
+            Willie.getInstance().commandManager.handlerMessage(willieCommand, channel, null);
         }
     }
 }
