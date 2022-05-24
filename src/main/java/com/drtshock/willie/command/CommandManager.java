@@ -81,7 +81,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
         Command command = this.commands.get(commandName);
         if (command.isAdminOnly() && (sender == null || !Auth.checkAuth(sender).isAdmin)) {
-            channel.sendMessage(Colors.RED + String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?", sender.getNick()));
+            channel.sendMessage(Colors.RED + String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?", (sender == null ? "Willie" : sender.getNick())));
             return;
         }
         try {
