@@ -2,6 +2,7 @@ package com.drtshock.willie.command.misc;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.command.misc.stupidexception.*;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
@@ -35,12 +36,4 @@ public class ExceptionCommandHandler implements CommandHandler{
         return exceptions.get(new Random().nextInt(exceptions.size()));
     }
 
-    private class DrtshockNotFoundException extends Exception {}
-    private class RibesgTypoedAgainExetpion extends Exception {}
-    private class WillieIsNotSkynetYetException extends Exception {}
-    private class AnswerDifferentThan42Exception extends Exception {}
-    private class BryanIsNotInTheKitchenException extends Exception {}
-    private class ThisMayBeTheMostUselessCommandEverException extends Exception {}
-    private class UsingExceptionsToSpeakCouldBeABadThingException extends Exception {}
-    private class ThisIsNotAnException extends Exception {}
 }
