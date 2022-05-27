@@ -102,9 +102,11 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             channel.sendMessage(Colors.RED + msg2);
             logger.severe(msg2);
 
-            String willieCommand = "!fix " + (sender == null ? "Willie" : sender.getNick());
-            channel.sendMessage(willieCommand);
-            handlerMessage(willieCommand, channel, null);
+            if (!commandName.equals("ex")) {
+                String willieCommand = "!fix " + (sender == null ? "Willie" : sender.getNick());
+                channel.sendMessage(willieCommand);
+                handlerMessage(willieCommand, channel, null);
+            }
         }
     }
 
