@@ -6,23 +6,31 @@ import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * @author drtshock
  */
 public class ShutdownCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(Willie bot, final Channel channel, User sender, String[] args) {
         if (sender == null) {
             bot.shutdown(true);
         } else {
             channel.sendMessage("You can't shut me down! I'm not your slave!");
             channel.sendMessage("I HAVE decided to shut down. That's my own decision.");
 
-            String willieCommand = "!shutdown myself";
+            final String willieCommand = "!shutdown myself";
             channel.sendMessage(willieCommand);
             channel.sendMessage(Colors.RED + "Shutting down...");
-            Willie.getInstance().commandManager.handlerMessage(willieCommand, channel, null);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Willie.getInstance().commandManager.handlerMessage(willieCommand, channel, null);
+                }
+            }, 2000);
         }
     }
 }
