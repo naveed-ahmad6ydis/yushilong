@@ -46,20 +46,10 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
     @Override
     public void onMessage(MessageEvent<Willie> event) {
-        handlerMessage(event.getMessage(), event.getChannel(), event.getUser());
-    }
+        final String message = event.getMessage();
+        final Channel channel = event.getChannel();
+        final User sender = event.getUser();
 
-    /**
-     * Additional Step for handling command
-     * This allow Willie to use commands
-     * NOTE: Commands used by Willie should support it !
-     * A command is used by Willie when sender == null
-     *
-     * @param message The message
-     * @param channel The channel
-     * @param sender  The sender or Null if it's Willie
-     */
-    public void handlerMessage(String message, Channel channel, User sender) {
         if (message.toLowerCase().endsWith("o/") && (!message.contains("\\o/"))) {
             channel.sendMessage("\\o");
             return;
@@ -80,7 +70,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
         System.arraycopy(parts, 1, args, 0, args.length);
 
         Command command = this.commands.get(commandName);
-        if (command.isAdminOnly() && (sender != null && !Auth.checkAuth(sender).isAdmin)) {
+        if (command.isAdminOnly() && !Auth.checkAuth(sender).isAdmin) {
             channel.sendMessage(Colors.RED + String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?", sender.getNick()));
             return;
         }
@@ -94,19 +84,13 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
             logger.log(Level.SEVERE, e.getMessage(), e);
 
-            final String msg1 = "Exception caught when " + (sender == null ? "Willie" : sender.getNick()) + " used the command \"" + message + "\".";
+            final String msg1 = "Exception caught when " + sender.getNick() + " used the command \"" + message + "\".";
             channel.sendMessage(Colors.RED + msg1);
             logger.severe(msg1);
 
             final String msg2 = "I pasted the exception there: " + GistHelper.gist(stackTrace);
             channel.sendMessage(Colors.RED + msg2);
             logger.severe(msg2);
-
-            if (!commandName.equals("ex")) {
-                String willieCommand = "!fix " + (sender == null ? "Willie" : sender.getNick());
-                channel.sendMessage(willieCommand);
-                handlerMessage(willieCommand, channel, null);
-            }
         }
     }
 

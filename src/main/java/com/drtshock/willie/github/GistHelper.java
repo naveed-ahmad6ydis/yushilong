@@ -88,7 +88,7 @@ public class GistHelper {
             LOG.severe("This is what I was trying to Gist:");
             LOG.severe("\n##########\n" + toGist + "\n##########");
             LOG.severe("Failed to Gist, error above.");
-            return "ERROR";
+            return "Error. Limit exceeded?";
         } finally {
             if (out != null) {
                 try {
