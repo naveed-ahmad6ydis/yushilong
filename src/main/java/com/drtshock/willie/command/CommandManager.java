@@ -84,7 +84,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
             logger.log(Level.SEVERE, e.getMessage(), e);
 
-            final String msg1 = "Exception caught when " + sender.getNick() + " used the command \"" + message + "\".";
+            final String msg1 = e.getClass().getSimpleName() + " caught when " + sender.getNick() + " used the command \"" + message + "\".";
             channel.sendMessage(Colors.RED + msg1);
             logger.severe(msg1);
 
