@@ -61,8 +61,8 @@ public class AuthorCommandHandler implements CommandHandler {
             LOG.info("Selected amount: " + amount);
 
             LOG.info("Provided username: " + args[0]);
-            String user = getRealUserName(args[0]);
-            LOG.info("Real username: " + user);
+            UserInfo user = getRealUserName(args[0]);
+            LOG.info("Real username: " + user.name);
 
             SortedSet<Plugin> plugins = new TreeSet<>();
             boolean hasNextPage;
@@ -74,6 +74,12 @@ public class AuthorCommandHandler implements CommandHandler {
                 // Get the page
                 LOG.info("Getting page \"" + nextPageLink + "\"...");
                 document = getPage(nextPageLink);
+
+                // Check if there is at least one plugin
+                if (document.getElementsByClass("listing-none-found").size() > 0) {
+                    channel.sendMessage(Tools.silence(user.name) + "(" + user.state + ")" + " has no plugin on BukkitDev (" + profilePageLink + ")");
+                    return;
+                }
 
                 // Check if we will have to look at another page
                 Elements pages = document.getElementsByClass("listing-pagination-pages").get(0).children();
@@ -116,9 +122,9 @@ public class AuthorCommandHandler implements CommandHandler {
 
             Iterator<Plugin> it = plugins.iterator();
 
-            channel.sendMessage(Tools.silence(user) + " (" + profilePageLink + ")");
+            channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + profilePageLink + ")");
             channel.sendMessage("Plugins: " + nbPlugins);
-            if (plugins.isEmpty()) {
+            if (plugins.isEmpty()) { // Should not happen
                 channel.sendMessage(Colors.RED + "Unknown user or user without plugins");
             } else if (amount == 1) {
                 Plugin plugin = it.next();
@@ -179,9 +185,28 @@ public class AuthorCommandHandler implements CommandHandler {
         return Jsoup.parse(page);
     }
 
-    private String getRealUserName(String bukkitDevUser) throws IOException {
+    private class UserInfo {
+        public String name;
+        public String state;
+    }
+
+    private UserInfo getRealUserName(String bukkitDevUser) throws IOException {
         Document doc = getPage("http://dev.bukkit.org/profiles/" + bukkitDevUser);
-        return doc.getElementsByTag("h1").get(1).ownText().trim();
+        UserInfo info = new UserInfo();
+        info.name = doc.getElementsByTag("h1").get(1).ownText().trim();
+        if (doc.getElementsByClass("avatar-author").size() > 0) {
+            info.state = Colors.DARK_BLUE + "Author";
+        } else if (doc.getElementsByClass("avatar-normal").size() > 0) {
+            info.state = Colors.DARK_GRAY + "Normal";
+        } else if (doc.getElementsByClass("avatar-moderator").size() > 0) {
+            info.state = Colors.DARK_GREEN + "Staff";
+        } else if (doc.getElementsByClass("avatar-banned").size() > 0) {
+            info.state = Colors.RED + "Banned";
+        } else {
+            info.state = Colors.PURPLE + "Unknown";
+        }
+        info.state += Colors.NORMAL;
+        return info;
     }
 
     private void nope(Channel channel) {
