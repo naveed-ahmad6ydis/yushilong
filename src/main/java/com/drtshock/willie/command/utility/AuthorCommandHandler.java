@@ -68,7 +68,7 @@ public class AuthorCommandHandler implements CommandHandler {
             boolean hasNextPage;
             Document document;
             String devBukkitLink = "http://dev.bukkit.org/";
-            String profilePageLink = devBukkitLink + "profiles/" + user;
+            String profilePageLink = devBukkitLink + "profiles/" + user.name;
             String nextPageLink = profilePageLink + "/bukkit-plugins/";
             do {
                 // Get the page
