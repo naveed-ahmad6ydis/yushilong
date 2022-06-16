@@ -44,7 +44,7 @@ public class AuthorCommandHandler implements CommandHandler {
         }
 
         try {
-            int amount = 5;
+            int amount = 3;
             if (args.length == 2) {
                 try {
                     amount = Integer.parseInt(args[1]);
@@ -124,6 +124,9 @@ public class AuthorCommandHandler implements CommandHandler {
             Iterator<Plugin> it = plugins.iterator();
 
             channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + profilePageLink + ")");
+            channel.sendMessage("Join date: " + user.joined);
+            channel.sendMessage("Status: " + user.lastLogin);
+            channel.sendMessage("Reputation: " + user.reputation);
             channel.sendMessage("Plugins: " + nbPlugins);
             if (plugins.isEmpty()) { // Should not happen
                 channel.sendMessage(Colors.RED + "Unknown user or user without plugins");
@@ -189,12 +192,19 @@ public class AuthorCommandHandler implements CommandHandler {
     private class UserInfo {
         public String name;
         public String state;
+        public String joined;
+        public String lastLogin;
+        public String reputation;
     }
 
     private UserInfo getRealUserName(String bukkitDevUser) throws IOException {
         Document doc = getPage("http://dev.bukkit.org/profiles/" + bukkitDevUser);
         UserInfo info = new UserInfo();
+
+        // Username
         info.name = doc.getElementsByTag("h1").get(1).ownText().trim();
+
+        // User state
         if (doc.getElementsByClass("avatar-author").size() > 0) {
             info.state = Colors.DARK_BLUE + "Author";
         } else if (doc.getElementsByClass("avatar-normal").size() > 0) {
@@ -207,6 +217,26 @@ public class AuthorCommandHandler implements CommandHandler {
             info.state = Colors.PURPLE + "Unknown";
         }
         info.state += Colors.NORMAL;
+
+        Element contentDiv = doc.getElementsByClass("content-box-inner").get(1);
+
+        // User joined date
+        String date = contentDiv.getElementsByClass("standard-date").get(0).attr("data-epoch");
+        long dateLong = Long.parseLong(date);
+        info.joined = formatDate(dateLong);
+
+        // Last login
+        if (contentDiv.getElementsByClass("user-online").size() > 0) {
+            info.lastLogin = Colors.GREEN + "Online" + Colors.NORMAL;
+        } else {
+            date = contentDiv.getElementsByClass("user-offline").get(0).getElementsByClass("standard-date").get(0).attr("data-epoch");
+            dateLong = Long.parseLong(date);
+            info.lastLogin = Colors.DARK_GRAY + "Offline, last login on " + formatDate(dateLong) + Colors.NORMAL;
+        }
+
+        // Reputation
+        info.reputation = contentDiv.getElementsByAttribute("data-value").get(0).ownText().trim();
+
         return info;
     }
 
