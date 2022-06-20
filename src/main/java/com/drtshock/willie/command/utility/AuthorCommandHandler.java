@@ -218,7 +218,8 @@ public class AuthorCommandHandler implements CommandHandler {
         }
         info.state += Colors.NORMAL;
 
-        Element contentDiv = doc.getElementsByClass("content-box-inner").get(1);
+        Elements elems = doc.getElementsByClass("content-box-inner");
+        Element contentDiv = elems.get(elems.size() - 1);
 
         // User joined date
         String date = contentDiv.getElementsByClass("standard-date").get(0).attr("data-epoch");
