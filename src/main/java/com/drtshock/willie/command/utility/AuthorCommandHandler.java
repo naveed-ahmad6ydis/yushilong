@@ -127,6 +127,9 @@ public class AuthorCommandHandler implements CommandHandler {
             channel.sendMessage("Join date: " + user.joined);
             channel.sendMessage("Status: " + user.lastLogin);
             channel.sendMessage("Reputation: " + user.reputation);
+            if (user.state.contains("Banned")) {
+                channel.sendMessage("Ban reason: " + user.banReason);
+            }
             channel.sendMessage("Plugins: " + nbPlugins);
             if (plugins.isEmpty()) { // Should not happen
                 channel.sendMessage(Colors.RED + "Unknown user or user without plugins");
@@ -195,6 +198,7 @@ public class AuthorCommandHandler implements CommandHandler {
         public String joined;
         public String lastLogin;
         public String reputation;
+        public String banReason;
     }
 
     private UserInfo getRealUserName(String bukkitDevUser) throws IOException {
@@ -238,6 +242,10 @@ public class AuthorCommandHandler implements CommandHandler {
         // Reputation
         info.reputation = contentDiv.getElementsByAttribute("data-value").get(0).ownText().trim();
 
+        // Ban reason
+        if (info.state.contains("Banned")) {
+            info.banReason = doc.getElementsByClass("warning-message-inner").get(0).child(0).ownText().trim().substring(28);
+        }
         return info;
     }
 
