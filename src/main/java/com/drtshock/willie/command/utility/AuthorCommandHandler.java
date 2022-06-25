@@ -244,7 +244,7 @@ public class AuthorCommandHandler implements CommandHandler {
 
         // Ban reason
         if (info.state.contains("Banned")) {
-            info.banReason = doc.getElementsByClass("warning-message-inner").get(0).child(0).ownText().trim().substring(28);
+            info.banReason = doc.getElementsByClass("warning-message-inner").get(0).child(0).ownText().trim().substring(27);
         }
         return info;
     }
