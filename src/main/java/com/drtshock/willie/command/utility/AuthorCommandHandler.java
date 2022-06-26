@@ -78,6 +78,12 @@ public class AuthorCommandHandler implements CommandHandler {
                 // Check if there is at least one plugin
                 if (document.getElementsByClass("listing-none-found").size() > 0) {
                     channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + profilePageLink + ")");
+                    channel.sendMessage("Join date: " + user.joined);
+                    channel.sendMessage("Status: " + user.lastLogin);
+                    channel.sendMessage("Reputation: " + user.reputation);
+                    if (user.state.contains("Banned")) {
+                        channel.sendMessage("Ban reason: " + user.banReason);
+                    }
                     channel.sendMessage("Has no plugins on BukkitDev.");
                     return;
                 }
