@@ -3,6 +3,7 @@ package com.drtshock.willie.command.utility;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import com.drtshock.willie.util.Tools;
+import com.drtshock.willie.util.WebHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -77,14 +78,11 @@ public class AuthorCommandHandler implements CommandHandler {
 
                 // Check if there is at least one plugin
                 if (document.getElementsByClass("listing-none-found").size() > 0) {
-                    channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + profilePageLink + ")");
-                    channel.sendMessage("Join date: " + user.joined);
-                    channel.sendMessage("Status: " + user.lastLogin);
-                    channel.sendMessage("Reputation: " + user.reputation);
+                    channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + WebHelper.shortenURL(profilePageLink) + ") | Reputation: " + user.reputation + " | No Project");
+                    channel.sendMessage("Join date: " + user.joined + " | Status: " + user.lastLogin);
                     if (user.state.contains("Banned")) {
                         channel.sendMessage("Ban reason: " + user.banReason);
                     }
-                    channel.sendMessage("Has no plugins on BukkitDev.");
                     return;
                 }
 
@@ -125,18 +123,13 @@ public class AuthorCommandHandler implements CommandHandler {
                 }
             } while (hasNextPage);
 
-            String nbPlugins = document.getElementsByClass("listing-pagination-pages-total").get(0).ownText().trim();
-
             Iterator<Plugin> it = plugins.iterator();
 
-            channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + profilePageLink + ")");
-            channel.sendMessage("Join date: " + user.joined);
-            channel.sendMessage("Status: " + user.lastLogin);
-            channel.sendMessage("Reputation: " + user.reputation);
+            channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + WebHelper.shortenURL(profilePageLink) + ") | Reputation: " + user.reputation + " | Projects: " + plugins.size());
+            channel.sendMessage("Join date: " + user.joined + " | Status: " + user.lastLogin);
             if (user.state.contains("Banned")) {
                 channel.sendMessage("Ban reason: " + user.banReason);
             }
-            channel.sendMessage("Plugins: " + nbPlugins);
             if (plugins.isEmpty()) { // Should not happen
                 channel.sendMessage(Colors.RED + "Unknown user or user without plugins");
             } else if (amount == 1) {
