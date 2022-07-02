@@ -33,7 +33,7 @@ public class AuthorCommandHandler implements CommandHandler {
     private SimpleDateFormat dateFormat;
 
     public AuthorCommandHandler() {
-        this.dateFormat = new SimpleDateFormat("EEEE dd MMMM YYYY");
+        this.dateFormat = new SimpleDateFormat("YYYY-MM-dd");
     }
 
     @Override
