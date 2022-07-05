@@ -5,6 +5,7 @@ import com.drtshock.willie.command.CommandManager;
 import com.drtshock.willie.command.admin.*;
 import com.drtshock.willie.command.fun.*;
 import com.drtshock.willie.command.management.KickCommandHandler;
+import com.drtshock.willie.command.minecraft.MCStatsCommandHandler;
 import com.drtshock.willie.command.minecraft.ServerCommandHandler;
 import com.drtshock.willie.command.misc.*;
 import com.drtshock.willie.command.utility.*;
@@ -122,6 +123,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("agree", "agree!", new AgreeDisagreeCommandHandler(true)));
         this.commandManager.registerCommand(new Command("disagree", "disagree!", new AgreeDisagreeCommandHandler(false)));
         this.commandManager.registerCommand(new Command("ex", "throws an exception", new ExceptionCommandHandler()));
+        this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats informations", new MCStatsCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
