@@ -35,9 +35,9 @@ public class MCStatsCommandHandler implements CommandHandler {
 
             PluginStats stats = PluginStats.get(doc);
 
-            channel.sendMessage("Plugin: " + stats.name + " - Rank: " + stats.rank + " - " + WebHelper.shortenURL(pluginStatsURL));
-            channel.sendMessage("Servers: " + stats.servers + " | Players: " + stats.players);
-        } catch (FileNotFoundException | MalformedURLException e) {
+            channel.sendMessage(Colors.BOLD + "MCStats" + Colors.NORMAL + " informations for plugin " + Colors.DARK_GREEN + stats.name);
+            channel.sendMessage("Rank: " + stats.rank + " | Servers: " + stats.servers + " | Players: " + stats.players + " | " + WebHelper.shortenURL(pluginStatsURL));
+        } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException e) {
             channel.sendMessage(Colors.RED + "Plugin unknown by MCStats");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
