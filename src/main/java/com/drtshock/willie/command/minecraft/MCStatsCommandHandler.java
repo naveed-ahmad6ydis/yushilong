@@ -36,7 +36,10 @@ public class MCStatsCommandHandler implements CommandHandler {
             PluginStats stats = PluginStats.get(doc);
 
             channel.sendMessage(Colors.BOLD + "MCStats" + Colors.NORMAL + " informations for plugin " + Colors.DARK_GREEN + stats.name);
-            channel.sendMessage("Rank: " + stats.rank + " | Servers: " + stats.servers + " | Players: " + stats.players + " | " + WebHelper.shortenURL(pluginStatsURL));
+            channel.sendMessage("Rank: " + Colors.BOLD + stats.rank + Colors.NORMAL + " (" + colorizeDiff(stats.rankDiff) +
+                                ") | Servers: " + Colors.BOLD + stats.servers + Colors.NORMAL + " (" + colorizeDiff(stats.serversDiff) +
+                                ") | Players: " + Colors.BOLD + stats.players + Colors.NORMAL + " (" + colorizeDiff(stats.playersDiff));
+            channel.sendMessage("For more informations: " + WebHelper.shortenURL(pluginStatsURL));
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException e) {
             channel.sendMessage(Colors.RED + "Plugin unknown by MCStats");
         } catch (IOException e) {
@@ -72,10 +75,14 @@ public class MCStatsCommandHandler implements CommandHandler {
     }
 
     private static class PluginStats {
+
         public String name;
         public String rank;
+        public String rankDiff;
         public String servers;
+        public String serversDiff;
         public String players;
+        public String playersDiff;
 
         private PluginStats() {
         }
@@ -96,6 +103,8 @@ public class MCStatsCommandHandler implements CommandHandler {
             } else {
                 res.rank = rankLiStrong.child(0).ownText().trim();
             }
+            res.rankDiff = rankLi.getElementsByClass("left").get(0).ownText().trim();
+            res.rankDiff = res.rankDiff.replace("&plusmn;", "±");
 
             Element serversLiStrong = serversLi.getElementsByClass("right").get(0).getElementsByTag("strong").get(0);
             if (serversLiStrong.children().size() == 0) {
@@ -103,6 +112,8 @@ public class MCStatsCommandHandler implements CommandHandler {
             } else {
                 res.servers = serversLiStrong.child(0).ownText().trim();
             }
+            res.serversDiff = serversLi.getElementsByClass("left").get(0).ownText().trim();
+            res.serversDiff = res.serversDiff.replace("&plusmn;", "±");
 
             Element playersLiStrong = playersLi.getElementsByClass("right").get(0).getElementsByTag("strong").get(0);
             if (playersLiStrong.children().size() == 0) {
@@ -110,8 +121,20 @@ public class MCStatsCommandHandler implements CommandHandler {
             } else {
                 res.players = playersLiStrong.child(0).ownText().trim();
             }
+            res.playersDiff = playersLi.getElementsByClass("left").get(0).ownText().trim();
+            res.playersDiff = res.playersDiff.replace("&plusmn;", "±");
 
             return res;
+        }
+    }
+
+    private String colorizeDiff(String diff) {
+        if (diff.contains("+")) {
+            return Colors.BOLD + Colors.DARK_GREEN + diff + Colors.NORMAL;
+        } else if (diff.contains("-")) {
+            return Colors.BOLD + Colors.RED + diff + Colors.NORMAL;
+        } else {
+            return Colors.BOLD + Colors.DARK_GRAY + diff + Colors.NORMAL;
         }
     }
 
