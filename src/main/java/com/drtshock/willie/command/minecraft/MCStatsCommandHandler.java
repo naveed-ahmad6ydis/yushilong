@@ -35,11 +35,12 @@ public class MCStatsCommandHandler implements CommandHandler {
 
             PluginStats stats = PluginStats.get(doc);
 
-            channel.sendMessage(Colors.BOLD + "MCStats" + Colors.NORMAL + " informations for plugin " + Colors.DARK_GREEN + stats.name);
+            channel.sendMessage(Colors.BOLD + "MCStats" + Colors.NORMAL + " informations for plugin " + Colors.DARK_GREEN + stats.name +
+                                Colors.NORMAL + " - " + WebHelper.shortenURL(pluginStatsURL));
             channel.sendMessage("Rank: " + Colors.BOLD + stats.rank + Colors.NORMAL + " (" + colorizeDiff(stats.rankDiff) +
                                 ") | Servers: " + Colors.BOLD + stats.servers + Colors.NORMAL + " (" + colorizeDiff(stats.serversDiff) +
-                                ") | Players: " + Colors.BOLD + stats.players + Colors.NORMAL + " (" + colorizeDiff(stats.playersDiff));
-            channel.sendMessage("For more informations: " + WebHelper.shortenURL(pluginStatsURL));
+                                ") | Players: " + Colors.BOLD + stats.players + Colors.NORMAL + " (" + colorizeDiff(stats.playersDiff) +
+                                ")");
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException e) {
             channel.sendMessage(Colors.RED + "Plugin unknown by MCStats");
         } catch (IOException e) {
