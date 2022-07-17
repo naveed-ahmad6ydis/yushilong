@@ -2,7 +2,11 @@ package com.drtshock.willie.command.minecraft;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.Tools;
 import com.drtshock.willie.util.WebHelper;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,8 +21,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MCStatsCommandHandler implements CommandHandler {
+
+    private static final Logger LOG = Logger.getLogger(MCStatsCommandHandler.class.getName());
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
@@ -31,7 +39,7 @@ public class MCStatsCommandHandler implements CommandHandler {
         String pluginStatsURL = mcStatsURL + args[0];
 
         try {
-            Document doc = getPage(pluginStatsURL);
+            Document doc = parse(getPage(pluginStatsURL));
 
             PluginStats stats = PluginStats.get(doc);
 
@@ -41,7 +49,31 @@ public class MCStatsCommandHandler implements CommandHandler {
                                 ") | Servers: " + Colors.BOLD + stats.servers + Colors.NORMAL + " (" + colorizeDiff(stats.serversDiff) +
                                 ") | Players: " + Colors.BOLD + stats.players + Colors.NORMAL + " (" + colorizeDiff(stats.playersDiff) +
                                 ")");
-        } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException e) {
+
+            String authModeJsonString = getPage("http://api.mcstats.org/1.0/" + stats.name + "/graph/Auth+Mode");
+            if (!authModeJsonString.contains("NO DATA")) {
+                JsonObject authModeJson = new JsonParser().parse(authModeJsonString).getAsJsonObject();
+                JsonArray array = authModeJson.getAsJsonArray("data");
+
+                String offlineModeAmount = array.get(0).getAsJsonArray().get(0).getAsString().substring(9);
+                offlineModeAmount = offlineModeAmount.substring(0, offlineModeAmount.length() - 1);
+                String offlineModePercentage = array.get(0).getAsJsonArray().get(1).getAsString();
+
+                String onlineModeAmount = array.get(1).getAsJsonArray().get(0).getAsString().substring(8);
+                onlineModeAmount = onlineModeAmount.substring(0, onlineModeAmount.length() - 1);
+                String onlineModePercentage = array.get(1).getAsJsonArray().get(1).getAsString();
+
+                double left = Double.parseDouble(onlineModePercentage);
+                double right = Double.parseDouble(offlineModePercentage);
+
+                channel.sendMessage("Auth: " + Tools.asciiBar(left, Colors.DARK_GREEN, right, Colors.RED, 20, '█') +
+                                    " | " + Colors.DARK_GREEN + onlineModePercentage + "% (" + onlineModeAmount + ")" + Colors.NORMAL +
+                                    " - " + Colors.RED + offlineModePercentage + "% (" + offlineModeAmount + ")");
+            } else {
+                channel.sendMessage("Sorry, no auth information :-(");
+            }
+        } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException | NumberFormatException e) {
+            LOG.log(Level.INFO, "Plugin could not be found.", e);
             channel.sendMessage(Colors.RED + "Plugin could not be found.");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
@@ -49,7 +81,7 @@ public class MCStatsCommandHandler implements CommandHandler {
         }
     }
 
-    private Document getPage(String urlString) throws IOException {
+    private String getPage(String urlString) throws IOException {
         URL url = new URL(urlString);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -72,6 +104,10 @@ public class MCStatsCommandHandler implements CommandHandler {
 
         input.close();
 
+        return page;
+    }
+
+    private Document parse(String page) {
         return Jsoup.parse(page);
     }
 
