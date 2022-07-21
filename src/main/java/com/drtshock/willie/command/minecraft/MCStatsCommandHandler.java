@@ -66,7 +66,7 @@ public class MCStatsCommandHandler implements CommandHandler {
                 double left = Double.parseDouble(onlineModePercentage);
                 double right = Double.parseDouble(offlineModePercentage);
 
-                channel.sendMessage("Auth: " + Tools.asciiBar(left, Colors.DARK_GREEN, right, Colors.RED, 20, '█') +
+                channel.sendMessage("Auth: " + Tools.asciiBar(left, Colors.DARK_GREEN, right, Colors.RED, 20, '█', '|', Colors.DARK_GRAY) +
                                     " | " + Colors.DARK_GREEN + onlineModePercentage + "% (" + onlineModeAmount + ")" + Colors.NORMAL +
                                     " - " + Colors.RED + offlineModePercentage + "% (" + offlineModeAmount + ")");
             } else {
