@@ -5,6 +5,7 @@ import com.drtshock.willie.command.CommandHandler;
 import com.drtshock.willie.util.Tools;
 import com.drtshock.willie.util.WebHelper;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.jsoup.Jsoup;
@@ -21,6 +22,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,24 +35,35 @@ public class MCStatsCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
-            channel.sendMessage(Colors.RED + "Look up a plugin with !plugin <name>");
+            channel.sendMessage(Colors.RED + "Outputs MCStats informations with !stats <name>");
             return;
         }
 
-        String mcStatsURL = "http://mcstats.org/plugin/";
-        String pluginStatsURL = mcStatsURL + args[0];
-
         try {
-            Document doc = parse(getPage(pluginStatsURL));
+            List<String> messages = new ArrayList<>();
 
+            String mcStatsURL = "http://mcstats.org/plugin/";
+            String pluginStatsURL = mcStatsURL + args[0];
+            Document doc = parse(getPage(pluginStatsURL));
             PluginStats stats = PluginStats.get(doc);
 
-            channel.sendMessage(Colors.BOLD + "MCStats" + Colors.NORMAL + " informations for plugin " + Colors.DARK_GREEN + stats.name +
-                                Colors.NORMAL + " - " + WebHelper.shortenURL(pluginStatsURL));
-            channel.sendMessage("Rank: " + Colors.BOLD + stats.rank + Colors.NORMAL + " (" + colorizeDiff(stats.rankDiff) +
-                                ") | Servers: " + Colors.BOLD + stats.servers + Colors.NORMAL + " (" + colorizeDiff(stats.serversDiff) +
-                                ") | Players: " + Colors.BOLD + stats.players + Colors.NORMAL + " (" + colorizeDiff(stats.playersDiff) +
-                                ")");
+            try {
+                String globalStatsJsonString = getPage("http://api.mcstats.org/1.0/" + stats.name + "/graph/Global+Statistics");
+                stats.getMax(new JsonParser().parse(globalStatsJsonString).getAsJsonObject());
+            } catch (Exception e) {
+                LOG.log(Level.WARNING, e.getMessage(), e);
+                stats.serversMax = "?";
+                stats.playersMax = "?";
+            }
+
+            messages.add(Colors.BOLD + "MCStats" + Colors.NORMAL + " informations for plugin " + Colors.DARK_GREEN + stats.name +
+                         Colors.NORMAL + " - " + WebHelper.shortenURL(pluginStatsURL));
+            messages.add("Rank: " + Colors.BOLD + stats.rank + Colors.NORMAL + " (" + colorizeDiff(stats.rankDiff, true) +
+                         ") | Servers: " + Colors.BOLD + stats.servers + Colors.NORMAL + " (" + colorizeDiff(stats.serversDiff, false) +
+                         ", " + Colors.DARK_BLUE + stats.serversMax + Colors.NORMAL +
+                         ") | Players: " + Colors.BOLD + stats.players + Colors.NORMAL + " (" + colorizeDiff(stats.playersDiff, false) +
+                         ", " + Colors.DARK_BLUE + stats.playersMax + Colors.NORMAL +
+                         ")");
 
             String authModeJsonString = getPage("http://api.mcstats.org/1.0/" + stats.name + "/graph/Auth+Mode");
             if (!authModeJsonString.contains("NO DATA")) {
@@ -66,11 +81,15 @@ public class MCStatsCommandHandler implements CommandHandler {
                 double left = Double.parseDouble(onlineModePercentage);
                 double right = Double.parseDouble(offlineModePercentage);
 
-                channel.sendMessage("Auth: " + Tools.asciiBar(left, Colors.DARK_GREEN, right, Colors.RED, 20, '█', '|', Colors.DARK_GRAY) +
-                                    " | " + Colors.DARK_GREEN + onlineModePercentage + "% (" + onlineModeAmount + ")" + Colors.NORMAL +
-                                    " - " + Colors.RED + offlineModePercentage + "% (" + offlineModeAmount + ")");
+                messages.add("Auth: " + Tools.asciiBar(left, Colors.DARK_GREEN, right, Colors.RED, 20, '█', '|', Colors.DARK_GRAY) +
+                             " | " + Colors.DARK_GREEN + onlineModePercentage + "% (" + onlineModeAmount + ")" + Colors.NORMAL +
+                             " - " + Colors.RED + offlineModePercentage + "% (" + offlineModeAmount + ")");
             } else {
-                channel.sendMessage("Sorry, no auth information :-(");
+                messages.add("Sorry, no auth information :-(");
+            }
+
+            for (String msg : messages) {
+                channel.sendMessage(msg);
             }
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException | NumberFormatException e) {
             LOG.log(Level.INFO, "Plugin could not be found.", e);
@@ -118,10 +137,36 @@ public class MCStatsCommandHandler implements CommandHandler {
         public String rankDiff;
         public String servers;
         public String serversDiff;
+        public String serversMax;
         public String players;
         public String playersDiff;
+        public String playersMax;
 
         private PluginStats() {
+        }
+
+        public void getMax(JsonObject json) {
+            JsonObject data = json.getAsJsonObject("data");
+            JsonArray players = data.getAsJsonArray("Players");
+            Iterator<JsonElement> itPlayers = players.iterator();
+            long maxPlayers = 0;
+            while (itPlayers.hasNext()) {
+                long amountPlayers = itPlayers.next().getAsJsonArray().get(1).getAsLong();
+                if (amountPlayers > maxPlayers) {
+                    maxPlayers = amountPlayers;
+                }
+            }
+            this.playersMax = Long.toString(maxPlayers);
+            JsonArray servers = data.getAsJsonArray("Servers");
+            Iterator<JsonElement> itServers = servers.iterator();
+            long maxServers = 0;
+            while (itServers.hasNext()) {
+                long amountServers = itServers.next().getAsJsonArray().get(1).getAsLong();
+                if (amountServers > maxServers) {
+                    maxServers = amountServers;
+                }
+            }
+            this.serversMax = Long.toString(maxServers);
         }
 
         public static PluginStats get(Document doc) {
@@ -165,10 +210,10 @@ public class MCStatsCommandHandler implements CommandHandler {
         }
     }
 
-    private String colorizeDiff(String diff) {
-        if (diff.contains("+")) {
+    private String colorizeDiff(String diff, boolean reverse) {
+        if (!reverse && diff.contains("+") || reverse && diff.contains("-")) {
             return Colors.BOLD + Colors.DARK_GREEN + diff + Colors.NORMAL;
-        } else if (diff.contains("-")) {
+        } else if (!reverse && diff.contains("-") || reverse && diff.contains("+")) {
             return Colors.BOLD + Colors.RED + diff + Colors.NORMAL;
         } else {
             return Colors.BOLD + Colors.DARK_GRAY + diff + Colors.NORMAL;
