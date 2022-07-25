@@ -22,6 +22,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -31,6 +33,18 @@ import java.util.logging.Logger;
 public class MCStatsCommandHandler implements CommandHandler {
 
     private static final Logger LOG = Logger.getLogger(MCStatsCommandHandler.class.getName());
+
+    private static DecimalFormat formatter;
+
+    public MCStatsCommandHandler() {
+        formatter = new DecimalFormat();
+        formatter.setMaximumFractionDigits(2);
+        formatter.setGroupingSize(3);
+        DecimalFormatSymbols symbol = new DecimalFormatSymbols();
+        symbol.setGroupingSeparator(' ');
+        symbol.setDecimalSeparator('.');
+        formatter.setDecimalFormatSymbols(symbol);
+    }
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
@@ -49,21 +63,26 @@ public class MCStatsCommandHandler implements CommandHandler {
 
             try {
                 String globalStatsJsonString = getPage("http://api.mcstats.org/1.0/" + stats.name + "/graph/Global+Statistics");
-                stats.getMax(new JsonParser().parse(globalStatsJsonString).getAsJsonObject());
+                stats.getMaxAverage(new JsonParser().parse(globalStatsJsonString).getAsJsonObject());
             } catch (Exception e) {
                 LOG.log(Level.WARNING, e.getMessage(), e);
                 stats.serversMax = "?";
                 stats.playersMax = "?";
+                stats.serversAverage = "?";
+                stats.playersAverage = "?";
             }
 
-            messages.add(Colors.BOLD + "MCStats" + Colors.NORMAL + " informations for plugin " + Colors.DARK_GREEN + stats.name +
-                         Colors.NORMAL + " - " + WebHelper.shortenURL(pluginStatsURL));
-            messages.add("Rank: " + Colors.BOLD + stats.rank + Colors.NORMAL + " (" + colorizeDiff(stats.rankDiff, true) +
-                         ") | Servers: " + Colors.BOLD + stats.servers + Colors.NORMAL + " (" + colorizeDiff(stats.serversDiff, false) +
-                         ", " + Colors.DARK_BLUE + stats.serversMax + Colors.NORMAL +
-                         ") | Players: " + Colors.BOLD + stats.players + Colors.NORMAL + " (" + colorizeDiff(stats.playersDiff, false) +
-                         ", " + Colors.DARK_BLUE + stats.playersMax + Colors.NORMAL +
-                         ")");
+            messages.add(Colors.BOLD + "MCStats " + Colors.DARK_GREEN + stats.name +
+                         Colors.NORMAL + " - Rank: " + Colors.BOLD + stats.rank +
+                         Colors.NORMAL + " (" + colorizeDiff(stats.rankDiff, true) + ") - " + WebHelper.shortenURL(pluginStatsURL));
+            messages.add(Colors.UNDERLINE + "Servers|" + Colors.NORMAL + " Current: " + Colors.BOLD + stats.servers + Colors.NORMAL +
+                         " | Diff: " + colorizeDiff(stats.serversDiff, false) +
+                         " | Max: " + Colors.BLUE + stats.serversMax + Colors.NORMAL +
+                         " | Month: ~" + Colors.BLUE + stats.serversAverage);
+            messages.add(Colors.UNDERLINE + "Players|" + Colors.NORMAL + " Current: " + Colors.BOLD + stats.players + Colors.NORMAL +
+                         " | Diff: " + colorizeDiff(stats.playersDiff, false) +
+                         " | Max: " + Colors.BLUE + stats.playersMax + Colors.NORMAL +
+                         " | Month: ~" + Colors.BLUE + stats.playersAverage);
 
             String authModeJsonString = getPage("http://api.mcstats.org/1.0/" + stats.name + "/graph/Auth+Mode");
             if (!authModeJsonString.contains("NO DATA")) {
@@ -138,35 +157,45 @@ public class MCStatsCommandHandler implements CommandHandler {
         public String servers;
         public String serversDiff;
         public String serversMax;
+        public String serversAverage;
         public String players;
         public String playersDiff;
         public String playersMax;
+        public String playersAverage;
 
         private PluginStats() {
         }
 
-        public void getMax(JsonObject json) {
+        public void getMaxAverage(JsonObject json) {
             JsonObject data = json.getAsJsonObject("data");
             JsonArray players = data.getAsJsonArray("Players");
             Iterator<JsonElement> itPlayers = players.iterator();
             long maxPlayers = 0;
+            double totalPlayers = 0, nbPlayers = 0;
             while (itPlayers.hasNext()) {
                 long amountPlayers = itPlayers.next().getAsJsonArray().get(1).getAsLong();
                 if (amountPlayers > maxPlayers) {
                     maxPlayers = amountPlayers;
                 }
+                totalPlayers += amountPlayers;
+                nbPlayers++;
             }
-            this.playersMax = Long.toString(maxPlayers);
+            this.playersMax = formatter.format(maxPlayers);
+            this.playersAverage = formatter.format(totalPlayers / nbPlayers);
             JsonArray servers = data.getAsJsonArray("Servers");
             Iterator<JsonElement> itServers = servers.iterator();
             long maxServers = 0;
+            double totalServers = 0, nbServers = 0;
             while (itServers.hasNext()) {
                 long amountServers = itServers.next().getAsJsonArray().get(1).getAsLong();
                 if (amountServers > maxServers) {
                     maxServers = amountServers;
                 }
+                totalServers += amountServers;
+                nbServers++;
             }
-            this.serversMax = Long.toString(maxServers);
+            this.serversMax = formatter.format(maxServers);
+            this.serversAverage = formatter.format(totalServers / nbServers);
         }
 
         public static PluginStats get(Document doc) {
@@ -181,27 +210,27 @@ public class MCStatsCommandHandler implements CommandHandler {
 
             Element rankLiStrong = rankLi.getElementsByClass("right").get(0).getElementsByTag("strong").get(0);
             if (rankLiStrong.children().size() == 0) {
-                res.rank = rankLiStrong.ownText().trim();
+                res.rank = formatter.format(Long.valueOf(rankLiStrong.ownText().trim().replace(",", "")));
             } else {
-                res.rank = rankLiStrong.child(0).ownText().trim();
+                res.rank = formatter.format(Long.valueOf(rankLiStrong.child(0).ownText().trim().replace(",", "")));
             }
             res.rankDiff = rankLi.getElementsByClass("left").get(0).ownText().trim();
             res.rankDiff = res.rankDiff.replace("&plusmn;", "±");
 
             Element serversLiStrong = serversLi.getElementsByClass("right").get(0).getElementsByTag("strong").get(0);
             if (serversLiStrong.children().size() == 0) {
-                res.servers = serversLiStrong.ownText().trim();
+                res.servers = formatter.format(Long.valueOf(serversLiStrong.ownText().trim().replace(",", "")));
             } else {
-                res.servers = serversLiStrong.child(0).ownText().trim();
+                res.servers = formatter.format(Long.valueOf(serversLiStrong.child(0).ownText().trim().replace(",", "")));
             }
             res.serversDiff = serversLi.getElementsByClass("left").get(0).ownText().trim();
             res.serversDiff = res.serversDiff.replace("&plusmn;", "±");
 
             Element playersLiStrong = playersLi.getElementsByClass("right").get(0).getElementsByTag("strong").get(0);
             if (playersLiStrong.children().size() == 0) {
-                res.players = playersLiStrong.ownText().trim();
+                res.players = formatter.format(Long.valueOf(playersLiStrong.ownText().trim().replace(",", "")));
             } else {
-                res.players = playersLiStrong.child(0).ownText().trim();
+                res.players = formatter.format(Long.valueOf(playersLiStrong.child(0).ownText().trim().replace(",", "")));
             }
             res.playersDiff = playersLi.getElementsByClass("left").get(0).ownText().trim();
             res.playersDiff = res.playersDiff.replace("&plusmn;", "±");
