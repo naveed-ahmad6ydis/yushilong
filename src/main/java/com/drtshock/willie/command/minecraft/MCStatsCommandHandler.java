@@ -89,13 +89,16 @@ public class MCStatsCommandHandler implements CommandHandler {
                 JsonObject authModeJson = new JsonParser().parse(authModeJsonString).getAsJsonObject();
                 JsonArray array = authModeJson.getAsJsonArray("data");
 
-                String offlineModeAmount = array.get(0).getAsJsonArray().get(0).getAsString().substring(9);
-                offlineModeAmount = offlineModeAmount.substring(0, offlineModeAmount.length() - 1);
-                String offlineModePercentage = array.get(0).getAsJsonArray().get(1).getAsString();
+                int offlineModeIndex = array.get(0).toString().contains("Online") ? 1 : 0;
+                int onlineModeIndex = offlineModeIndex == 1 ? 0 : 1;
 
-                String onlineModeAmount = array.get(1).getAsJsonArray().get(0).getAsString().substring(8);
+                String offlineModeAmount = array.get(offlineModeIndex).getAsJsonArray().get(0).getAsString().substring(9);
+                offlineModeAmount = offlineModeAmount.substring(0, offlineModeAmount.length() - 1);
+                String offlineModePercentage = array.get(offlineModeIndex).getAsJsonArray().get(1).getAsString();
+
+                String onlineModeAmount = array.get(onlineModeIndex).getAsJsonArray().get(0).getAsString().substring(8);
                 onlineModeAmount = onlineModeAmount.substring(0, onlineModeAmount.length() - 1);
-                String onlineModePercentage = array.get(1).getAsJsonArray().get(1).getAsString();
+                String onlineModePercentage = array.get(onlineModeIndex).getAsJsonArray().get(1).getAsString();
 
                 double left = Double.parseDouble(onlineModePercentage);
                 double right = Double.parseDouble(offlineModePercentage);
