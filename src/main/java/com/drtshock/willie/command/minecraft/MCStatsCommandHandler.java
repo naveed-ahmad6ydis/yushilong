@@ -114,8 +114,8 @@ public class MCStatsCommandHandler implements CommandHandler {
                 channel.sendMessage(msg);
             }
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException | NumberFormatException e) {
-            LOG.log(Level.INFO, "Plugin could not be found.", e);
-            channel.sendMessage(Colors.RED + "Plugin could not be found.");
+            LOG.log(Level.INFO, "No stats found for plugin " + args[0], e);
+            channel.sendMessage(Colors.RED + "No stats found for plugin " + args[0]);
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
