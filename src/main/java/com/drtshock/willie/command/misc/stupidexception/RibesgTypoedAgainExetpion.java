@@ -1,3 +1,3 @@
 package com.drtshock.willie.command.misc.stupidexception;
 
-public class RibesgTypoedAgainExetpion extends Exception {}
+public class RibesgTypoedAgainExetpion extends AbstractStupidException {}

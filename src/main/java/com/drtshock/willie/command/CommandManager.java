@@ -2,6 +2,7 @@ package com.drtshock.willie.command;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.auth.Auth;
+import com.drtshock.willie.command.misc.stupidexception.AbstractStupidException;
 import com.drtshock.willie.github.GistHelper;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
@@ -88,9 +89,14 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             channel.sendMessage(Colors.RED + msg1);
             logger.severe(msg1);
 
-            final String msg2 = "Got a stacktrace for you, human: " + GistHelper.gist(stackTrace);
-            channel.sendMessage(Colors.RED + msg2);
-            logger.severe(msg2);
+            if (!(e instanceof AbstractStupidException)) {
+                final String msg2 = "Got a stacktrace for you, human: " + GistHelper.gist(stackTrace);
+                channel.sendMessage(Colors.RED + msg2);
+                logger.severe(msg2);
+            } else {
+                final String msg2 = "I will not paste this, human.";
+                channel.sendMessage(Colors.RED + msg2);
+            }
         }
     }
 

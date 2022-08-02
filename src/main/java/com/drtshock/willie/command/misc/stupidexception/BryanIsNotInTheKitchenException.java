@@ -1,3 +1,3 @@
 package com.drtshock.willie.command.misc.stupidexception;
 
-public class BryanIsNotInTheKitchenException extends Exception {}
+public class BryanIsNotInTheKitchenException extends AbstractStupidException {}
