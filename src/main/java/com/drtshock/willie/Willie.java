@@ -2,13 +2,38 @@ package com.drtshock.willie;
 
 import com.drtshock.willie.command.Command;
 import com.drtshock.willie.command.CommandManager;
-import com.drtshock.willie.command.admin.*;
-import com.drtshock.willie.command.fun.*;
+import com.drtshock.willie.command.admin.AdminCommandHandler;
+import com.drtshock.willie.command.admin.JoinCommandHandler;
+import com.drtshock.willie.command.admin.LeaveCommandHandler;
+import com.drtshock.willie.command.admin.PrefixCommandHandler;
+import com.drtshock.willie.command.admin.ReloadCommandHandler;
+import com.drtshock.willie.command.admin.SaveCommandHandler;
+import com.drtshock.willie.command.admin.ShutdownCommandHandler;
+import com.drtshock.willie.command.fun.AgreeDisagreeCommandHandler;
+import com.drtshock.willie.command.fun.DrinkCommandHandler;
+import com.drtshock.willie.command.fun.FixCommandHandler;
+import com.drtshock.willie.command.fun.PopcornCommandHandler;
+import com.drtshock.willie.command.fun.TWSSCommandHandler;
+import com.drtshock.willie.command.fun.UrbanCommandHandler;
+import com.drtshock.willie.command.fun.WhipCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
+import com.drtshock.willie.command.minecraft.GlobalMCStatsCommandHandler;
 import com.drtshock.willie.command.minecraft.MCStatsCommandHandler;
 import com.drtshock.willie.command.minecraft.ServerCommandHandler;
-import com.drtshock.willie.command.misc.*;
-import com.drtshock.willie.command.utility.*;
+import com.drtshock.willie.command.misc.DonateCommandHandler;
+import com.drtshock.willie.command.misc.ExceptionCommandHandler;
+import com.drtshock.willie.command.misc.HelpCommandHandler;
+import com.drtshock.willie.command.misc.PokeCommandHandler;
+import com.drtshock.willie.command.misc.RulesCommandHandler;
+import com.drtshock.willie.command.utility.AuthorCommandHandler;
+import com.drtshock.willie.command.utility.CICommandHandler;
+import com.drtshock.willie.command.utility.DefineCommandHandler;
+import com.drtshock.willie.command.utility.IssuesCommandHandler;
+import com.drtshock.willie.command.utility.LatestCommandHandler;
+import com.drtshock.willie.command.utility.PluginCommandHandler;
+import com.drtshock.willie.command.utility.RepoCommandHandler;
+import com.drtshock.willie.command.utility.ShortenCommandHandler;
+import com.drtshock.willie.command.utility.UTimeCommandHandler;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -21,7 +46,11 @@ import org.pircbotx.exception.NickAlreadyInUseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Willie extends PircBotX {
 
@@ -123,7 +152,8 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("agree", "agree!", new AgreeDisagreeCommandHandler(true)));
         this.commandManager.registerCommand(new Command("disagree", "disagree!", new AgreeDisagreeCommandHandler(false)));
         this.commandManager.registerCommand(new Command("ex", "throws an exception", new ExceptionCommandHandler()));
-        this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats informations", new MCStatsCommandHandler()));
+        this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats stats for plugin", new MCStatsCommandHandler()));
+        this.commandManager.registerCommand(new Command("gstats", "[auth] - Global MCStats stats", new GlobalMCStatsCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
