@@ -25,6 +25,7 @@ import com.drtshock.willie.command.misc.ExceptionCommandHandler;
 import com.drtshock.willie.command.misc.HelpCommandHandler;
 import com.drtshock.willie.command.misc.PokeCommandHandler;
 import com.drtshock.willie.command.misc.RulesCommandHandler;
+import com.drtshock.willie.command.misc.XKCDCommandHandler;
 import com.drtshock.willie.command.utility.AuthorCommandHandler;
 import com.drtshock.willie.command.utility.CICommandHandler;
 import com.drtshock.willie.command.utility.DefineCommandHandler;
@@ -154,6 +155,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("ex", "throws an exception", new ExceptionCommandHandler()));
         this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats stats for plugin", new MCStatsCommandHandler()));
         this.commandManager.registerCommand(new Command("gstats", "[auth] - Global MCStats stats", new GlobalMCStatsCommandHandler()));
+        this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
