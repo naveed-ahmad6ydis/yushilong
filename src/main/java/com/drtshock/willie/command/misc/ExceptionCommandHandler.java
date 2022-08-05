@@ -24,6 +24,7 @@ public class ExceptionCommandHandler implements CommandHandler{
         exceptions.add(new ThisMayBeTheMostUselessCommandEverException());
         exceptions.add(new UsingExceptionsToSpeakCouldBeABadThingException());
         exceptions.add(new ThisIsNotAnException());
+        exceptions.add(new PopcornOutOfBoundsException());
     }
 
 
