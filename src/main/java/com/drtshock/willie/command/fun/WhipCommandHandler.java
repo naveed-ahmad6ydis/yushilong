@@ -13,6 +13,10 @@ public class WhipCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
+        if (channel.getName().equalsIgnoreCase("#hawkfalcon")) {
+            return;
+        }
+        
         if (args.length == 0) {
             bot.sendAction(channel, "whips everyone.");
         } else if (args.length == 1) {
