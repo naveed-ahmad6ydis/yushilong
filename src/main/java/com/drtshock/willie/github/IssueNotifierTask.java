@@ -16,7 +16,7 @@ public class IssueNotifierTask extends TimerTask {
 
     public IssueNotifierTask(Willie bot) {
         this.bot = bot;
-        this.lastIssues = new HashMap<String, Integer>();
+        this.lastIssues = new HashMap<>();
 
         try {
             for (JenkinsJobEntry job : this.bot.jenkins.getJobs()) {
@@ -72,4 +72,5 @@ public class IssueNotifierTask extends TimerTask {
             e.printStackTrace();
         }
     }
+
 }

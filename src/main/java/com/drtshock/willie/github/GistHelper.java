@@ -52,7 +52,7 @@ public class GistHelper {
             res.add("files", fileList);
             String jsonString = res.toString();
 
-            LOG.fine("Json object created: " + jsonString);
+            LOG.log(Level.FINE, "Json object created: {0}", jsonString);
 
             connection.setRequestProperty("Content-Length", Integer.toString(jsonString.length()));
 
@@ -60,10 +60,10 @@ public class GistHelper {
 
             LOG.fine("Sending...");
             out = connection.getOutputStream();
-            OutputStreamWriter writer = new OutputStreamWriter(out);
-            writer.write(jsonString);
-            writer.flush();
-            writer.close();
+            try (OutputStreamWriter writer = new OutputStreamWriter(out)) {
+                writer.write(jsonString);
+                writer.flush();
+            }
 
             LOG.fine("Reading response...");
             in = connection.getInputStream();
@@ -74,19 +74,19 @@ public class GistHelper {
             }
             rd.close(); //close the reader
 
-            LOG.fine("Response received: " + response);
+            LOG.log(Level.FINE, "Response received: {0}", response);
 
             JsonObject responseJson = new JsonParser().parse(response).getAsJsonObject();
 
             String link = responseJson.get("html_url").getAsString();
 
-            LOG.fine("Gist successful! Link: " + link);
+            LOG.log(Level.FINE, "Gist successful! Link: {0}", link);
             return link;
         } catch (IOException e) {
             LOG.severe("Failed to Gist, error follows:");
             LOG.log(Level.SEVERE, e.getMessage(), e);
             LOG.severe("This is what I was trying to Gist:");
-            LOG.severe("\n##########\n" + toGist + "\n##########");
+            LOG.log(Level.SEVERE, "\n##########\n{0}\n##########", toGist);
             LOG.severe("Failed to Gist, error above.");
             return "Error. Limit exceeded?";
         } finally {
@@ -110,4 +110,5 @@ public class GistHelper {
     private static String date() {
         return new SimpleDateFormat("EEEE dd MMMM YYYY").format(new Date());
     }
+
 }

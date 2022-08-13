@@ -226,4 +226,5 @@ public class WillieConfig {
     public ArrayList<String> getJenkinsAdmins() {
         return jenkinsAdmins;
     }
+
 }

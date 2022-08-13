@@ -25,6 +25,6 @@ public class ShortenCommandHandler implements CommandHandler {
         } else {
             channel.sendMessage("!shorten <url>");
         }
-
     }
+
 }

@@ -8,6 +8,7 @@ import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 
 public class LeaveCommandHandler implements CommandHandler {
+
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         Channel leaveChannel = channel;
@@ -16,8 +17,9 @@ public class LeaveCommandHandler implements CommandHandler {
             return;
         }
         if (args.length >= 1) {
-            if (!args[0].startsWith("#"))
+            if (!args[0].startsWith("#")) {
                 args[0] = "#" + args[0];
+            }
             leaveChannel = bot.getChannel(args[0]);
 
             if (!bot.isOnChannel(args[0])) {
@@ -27,7 +29,9 @@ public class LeaveCommandHandler implements CommandHandler {
                 channel.sendMessage(Colors.RED + String.format("Leaving channel %s", leaveChannel.getName()));
             }
         }
-        leaveChannel.sendMessage(Colors.RED + String.format("%s says I don't belong here...", sender.getNick()));
+        if (!(args.length == 2 && args[1].equalsIgnoreCase("silent"))) {
+            leaveChannel.sendMessage(Colors.RED + String.format("%s says I don't belong here...", sender.getNick()));
+        }
         bot.partChannel(leaveChannel);
     }
 }

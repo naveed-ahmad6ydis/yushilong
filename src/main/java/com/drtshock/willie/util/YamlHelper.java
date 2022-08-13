@@ -110,4 +110,5 @@ public final class YamlHelper {
     public LinkedHashMap<String, Double> getDoubleMap(String path) throws ClassCastException {
         return (LinkedHashMap<String, Double>) getObject(path);
     }
+
 }

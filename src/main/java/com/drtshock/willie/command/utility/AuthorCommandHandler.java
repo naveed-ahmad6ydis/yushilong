@@ -24,12 +24,12 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AuthorCommandHandler implements CommandHandler {
 
     private static final Logger LOG = Logger.getLogger(AuthorCommandHandler.class.getName());
-
     private SimpleDateFormat dateFormat;
 
     public AuthorCommandHandler() {
@@ -38,7 +38,7 @@ public class AuthorCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
-        LOG.info("Started to handle !author command from " + sender.getNick() + "...");
+        LOG.log(Level.INFO, "Started to handle !author command from {0}...", sender.getNick());
         if (args.length != 1 && args.length != 2) {
             nope(channel);
             return;
@@ -59,11 +59,11 @@ public class AuthorCommandHandler implements CommandHandler {
                     return;
                 }
             }
-            LOG.info("Selected amount: " + amount);
+            LOG.log(Level.INFO, "Selected amount: {0}", amount);
 
-            LOG.info("Provided username: " + args[0]);
+            LOG.log(Level.INFO, "Provided username: {0}", args[0]);
             UserInfo user = getRealUserName(args[0]);
-            LOG.info("Real username: " + user.name);
+            LOG.log(Level.INFO, "Real username: {0}", user.name);
 
             SortedSet<Plugin> plugins = new TreeSet<>();
             boolean hasNextPage;
@@ -73,7 +73,7 @@ public class AuthorCommandHandler implements CommandHandler {
             String nextPageLink = profilePageLink + "/bukkit-plugins/";
             do {
                 // Get the page
-                LOG.info("Getting page \"" + nextPageLink + "\"...");
+                LOG.log(Level.INFO, "Getting page \"{0}\"...", nextPageLink);
                 document = getPage(nextPageLink);
 
                 // Check if there is at least one plugin
@@ -117,7 +117,7 @@ public class AuthorCommandHandler implements CommandHandler {
                             channel.sendMessage(Colors.RED + "An error occured: Cannot parse \"" + date + "\" as a long.");
                             return;
                         }
-                        LOG.info("Adding plugin " + plugin.name);
+                        LOG.log(Level.INFO, "Adding plugin {0}", plugin.name);
                         plugins.add(plugin);
                     }
                 }
@@ -173,25 +173,22 @@ public class AuthorCommandHandler implements CommandHandler {
         connection.setConnectTimeout(10000);
         connection.setReadTimeout(10000);
         connection.setUseCaches(false);
-
-        BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        StringBuilder buffer = new StringBuilder();
-        String line;
-
-        while ((line = input.readLine()) != null) {
-            buffer.append(line);
-            buffer.append('\n');
+        String page;
+        try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            StringBuilder buffer = new StringBuilder();
+            String line;
+            while ((line = input.readLine()) != null) {
+                buffer.append(line);
+                buffer.append('\n');
+            }
+            page = buffer.toString();
         }
-
-        String page = buffer.toString();
-
-        input.close();
 
         return Jsoup.parse(page);
     }
 
     private class UserInfo {
+
         public String name;
         public String state;
         public String joined;

@@ -16,7 +16,7 @@ public class JenkinsServer {
 
     public JenkinsServer(String baseURL) {
         this.baseURL = baseURL;
-        this.jobs = new HashMap<String, JenkinsJob>();
+        this.jobs = new HashMap<>();
     }
 
     public JenkinsJobEntry[] getJobs() throws IOException {
@@ -27,14 +27,12 @@ public class JenkinsServer {
         connection.setConnectTimeout(5000);
         connection.setReadTimeout(5000);
         connection.setUseCaches(false);
+        JenkinsJobEntry[] jjobs;
+        try (BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            jjobs = Willie.gson.fromJson(Willie.parser.parse(input).getAsJsonObject().get("jobs"), JenkinsJobEntry[].class);
+        }
 
-        BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        JenkinsJobEntry[] jobs = Willie.gson.fromJson(Willie.parser.parse(input).getAsJsonObject().get("jobs"), JenkinsJobEntry[].class);
-
-        input.close();
-
-        return jobs;
+        return jjobs;
     }
 
     public JenkinsJob getJob(String jobName) throws IOException {
