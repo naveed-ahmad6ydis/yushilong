@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import org.yaml.snakeyaml.Yaml;
 
 import com.drtshock.willie.util.YamlHelper;
+import org.pircbotx.Channel;
 
 @SuppressWarnings("unchecked")
 public class WillieConfig {
@@ -100,6 +101,21 @@ public class WillieConfig {
 
     public String getGitHubApiKey() {
         return (String) configMap.get("github-api-key");
+    }
+
+    public String getJoinMessage(Channel c) {
+        return (String) configMap.get(c.toString());
+    }
+
+    public void setJoinMessage(Channel c, String s) {
+        configMap.put(c.toString(), s);
+    }
+
+    public boolean hasJoinMessage(Channel c) {
+        if (configMap.containsKey(c.toString()) && !(configMap.get(c.toString()).equals(""))) {
+            return true;
+        }
+        return false;
     }
 
     public String getJenkinsServer() {
@@ -226,5 +242,4 @@ public class WillieConfig {
     public ArrayList<String> getJenkinsAdmins() {
         return jenkinsAdmins;
     }
-
 }

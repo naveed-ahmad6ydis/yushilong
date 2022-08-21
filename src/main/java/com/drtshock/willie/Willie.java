@@ -1,19 +1,19 @@
 /*
  *  Willie - the best bot ever.
-    Copyright (C) 2013 drtshock
+ Copyright (C) 2013 drtshock
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.drtshock.willie;
 
@@ -34,6 +34,7 @@ import com.drtshock.willie.command.fun.PopcornCommandHandler;
 import com.drtshock.willie.command.fun.TWSSCommandHandler;
 import com.drtshock.willie.command.fun.UrbanCommandHandler;
 import com.drtshock.willie.command.fun.WhipCommandHandler;
+import com.drtshock.willie.command.management.JoinMessageCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.minecraft.GlobalMCStatsCommandHandler;
 import com.drtshock.willie.command.minecraft.MCStatsCommandHandler;
@@ -54,6 +55,7 @@ import com.drtshock.willie.command.utility.RepoCommandHandler;
 import com.drtshock.willie.command.utility.ShortenCommandHandler;
 import com.drtshock.willie.command.utility.UTimeCommandHandler;
 import com.drtshock.willie.jenkins.JenkinsServer;
+import com.drtshock.willie.listener.JoinListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import org.pircbotx.Channel;
@@ -75,7 +77,6 @@ public class Willie extends PircBotX {
 
     private static final Level LOGGING_LEVEL = Level.INFO;
     private static final Logger LOG = Logger.getLogger(Willie.class.getName());
-
     private static Willie instance;
     public static final Gson gson = new Gson();
     public static final JsonParser parser = new JsonParser();
@@ -83,6 +84,7 @@ public class Willie extends PircBotX {
     private static String CONFIG_FILE = "config.yml";
     public JenkinsServer jenkins;
     public CommandManager commandManager;
+    public JoinListener joinListener;
     private WillieConfig willieConfig;
 
     public static Willie getInstance() {
@@ -145,6 +147,7 @@ public class Willie extends PircBotX {
 
         this.jenkins = new JenkinsServer(willieConfig.getJenkinsServer());
         this.commandManager = new CommandManager(this);
+        this.joinListener = new JoinListener(this);
 
         LOG.info("Registering commands...");
         this.commandManager.registerCommand(new Command("repo", "show Willie's repo", new RepoCommandHandler()));
@@ -175,6 +178,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("gstats", "[auth] - Global MCStats stats", new GlobalMCStatsCommandHandler()));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
         this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));
+        this.commandManager.registerCommand(new Command("joinmsg", "<delete | ...> - sets a channels join message.", new JoinMessageCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
