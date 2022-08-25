@@ -37,7 +37,7 @@ public class JoinMessageCommandHandler implements CommandHandler {
                 sender.sendMessage("Usage: /joinmsg <delete | ...>");
             }
         } else {
-            bot.sendAction(sender, "You are not a channel op");
+            channel.sendMessage("You are not a channel op");
         }
     }
 }

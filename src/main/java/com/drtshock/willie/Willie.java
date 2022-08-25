@@ -191,6 +191,7 @@ public class Willie extends PircBotX {
         this.setName(willieConfig.getNick());
         this.setVerbose(false);
         this.getListenerManager().addListener(this.commandManager);
+        this.getListenerManager().addListener(this.joinListener);
     }
 
     public void connect() {
