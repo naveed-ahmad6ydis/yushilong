@@ -11,7 +11,7 @@ public class JoinCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        if (args.length < 2) {
+        if (args.length > 2) {
             return;
         }
         if (!args[0].startsWith("#")) {
