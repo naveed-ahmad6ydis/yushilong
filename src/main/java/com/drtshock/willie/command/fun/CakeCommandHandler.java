@@ -2,6 +2,8 @@ package com.drtshock.willie.command.fun;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
+import java.util.ArrayList;
+import java.util.Random;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
@@ -16,7 +18,7 @@ public class CakeCommandHandler  implements CommandHandler {
 
     public CakeCommandHandler() {
         this.rand = new Random();
-        this.messages = new ArrayList<String>();
+        this.messages = new ArrayList<>();
 
         this.messages.add("The cake is a lie!");
         this.messages.add("The cake isn't a lie!");
