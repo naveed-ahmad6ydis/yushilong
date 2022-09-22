@@ -9,7 +9,7 @@ import org.pircbotx.User;
  *
  * @author stuntguy3000
  */
-public class PingCommandHandler implements CommandHandler {
+public class PongCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {

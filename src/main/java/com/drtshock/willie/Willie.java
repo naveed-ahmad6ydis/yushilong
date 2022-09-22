@@ -35,7 +35,7 @@ import com.drtshock.willie.command.fun.TWSSCommandHandler;
 import com.drtshock.willie.command.fun.UrbanCommandHandler;
 import com.drtshock.willie.command.fun.WhipCommandHandler;
 import com.drtshock.willie.command.fun.CakeCommandHandler;
-import com.drtshock.willie.command.fun.PingCommandHandler;
+import com.drtshock.willie.command.fun.PongCommandHandler;
 import com.drtshock.willie.command.management.JoinMessageCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.minecraft.GlobalMCStatsCommandHandler;
@@ -182,7 +182,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));
         this.commandManager.registerCommand(new Command("joinmsg", "<delete | ...> - sets a channels join message.", new JoinMessageCommandHandler()));
         this.commandManager.registerCommand(new Command("cake", "is the cake a lie?", new CakeCommandHandler()));
-        this.commandManager.registerCommand(new Command("ping", "pong", new PingCommandHandler()));
+        this.commandManager.registerCommand(new Command("pong", "want to play some ping-pong?", new PongCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
