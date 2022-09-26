@@ -31,6 +31,7 @@ import com.drtshock.willie.command.fun.BotSnacksCommandHandler;
 import com.drtshock.willie.command.fun.DrinkCommandHandler;
 import com.drtshock.willie.command.fun.FixCommandHandler;
 import com.drtshock.willie.command.fun.PopcornCommandHandler;
+import com.drtshock.willie.command.fun.QuoteCommandHandler;
 import com.drtshock.willie.command.fun.TWSSCommandHandler;
 import com.drtshock.willie.command.fun.UrbanCommandHandler;
 import com.drtshock.willie.command.fun.WhipCommandHandler;
@@ -60,6 +61,7 @@ import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
@@ -183,7 +185,8 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("joinmsg", "<delete | ...> - sets a channels join message.", new JoinMessageCommandHandler()));
         this.commandManager.registerCommand(new Command("cake", "is the cake a lie?", new CakeCommandHandler()));
         this.commandManager.registerCommand(new Command("pong", "want to play some ping-pong?", new PongCommandHandler()));
-
+        this.commandManager.registerCommand(new Command("quote", "display a random quote", new QuoteCommandHandler()));
+        
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));

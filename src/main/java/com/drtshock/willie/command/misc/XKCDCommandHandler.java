@@ -36,7 +36,7 @@ public class XKCDCommandHandler implements CommandHandler {
             try {
                 final int number = Integer.parseInt(arg);
                 url = "http://xkcd.com/" + number + "/";
-                prefix = "xkcd number " + number + ": ";
+                prefix = "xkcd comic number " + number + ": ";
 
                 // Just check if valid
                 getPage(url);
@@ -48,8 +48,8 @@ public class XKCDCommandHandler implements CommandHandler {
             channel.sendMessage(prefix + shortImgUrl);
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException |
                 SocketTimeoutException e) {
-            LOG.log(Level.INFO, "Can't get that xkcd", e);
-            channel.sendMessage(Colors.RED + "Can't get that xkcd");
+            LOG.log(Level.INFO, "Can't get that xkcd comic. Does it exist?", e);
+            channel.sendMessage(Colors.RED + "Can't get that xkcd comic. Does it exist?");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
@@ -83,6 +83,6 @@ public class XKCDCommandHandler implements CommandHandler {
     }
 
     public void nope(Channel channel) {
-        channel.sendMessage(Colors.RED + "Get an xkcd with !xkcd <nb>");
+        channel.sendMessage(Colors.RED + "Get an xkcd comic with !xkcd <nb>");
     }
 }
