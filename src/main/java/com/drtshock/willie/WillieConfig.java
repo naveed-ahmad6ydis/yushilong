@@ -59,7 +59,6 @@ public class WillieConfig {
         return this;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void save(String fileName) {
         update();
         try {
