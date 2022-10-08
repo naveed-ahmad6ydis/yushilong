@@ -7,7 +7,7 @@ import java.util.Random;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
-// @author stuntguy3000
+/** @author stuntguy3000 */
 public class CakeCommandHandler  implements CommandHandler {
 
     private Random rand;
