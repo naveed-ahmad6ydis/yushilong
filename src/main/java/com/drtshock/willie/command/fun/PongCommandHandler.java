@@ -9,10 +9,7 @@ import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
-/**
- *
- * @author stuntguy3000
- */
+/** @author stuntguy3000 */
 public class PongCommandHandler implements CommandHandler {
 
 	private Random rand;

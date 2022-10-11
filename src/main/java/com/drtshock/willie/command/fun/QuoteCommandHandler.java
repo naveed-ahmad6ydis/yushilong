@@ -12,6 +12,7 @@ import org.pircbotx.User;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 
+/** @author stuntguy3000 */
 public class QuoteCommandHandler implements CommandHandler {
 	
 	@Override

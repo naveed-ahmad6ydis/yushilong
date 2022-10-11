@@ -79,7 +79,7 @@ import java.util.logging.Logger;
 
 public class Willie extends PircBotX {
 
-    private static final Level LOGGING_LEVEL = Level.INFO;
+	private static final Level LOGGING_LEVEL = Level.INFO;
     private static final Logger LOG = Logger.getLogger(Willie.class.getName());
     private static Willie instance;
     public static final Gson gson = new Gson();
@@ -154,46 +154,47 @@ public class Willie extends PircBotX {
         this.joinListener = new JoinListener(this);
 
         LOG.info("Registering commands...");
-        this.commandManager.registerCommand(new Command("repo", "show Willie's repo", new RepoCommandHandler()));
-        this.commandManager.registerCommand(new Command("latest", "<plugin_name> - Get latest file for plugin on BukkitDev", new LatestCommandHandler()));
-        this.commandManager.registerCommand(new Command("plugin", "<name> - looks up a plugin on BukkitDev", new PluginCommandHandler()));
+        // Now in alphabetical order :D
+        // Thank god for http://www.alphabetize.org/ - stuntguy3000
+        this.commandManager.registerCommand(new Command("admin", "add <user> | del <user> | list - Modifies the bot admin list.", new AdminCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("agree", "agree!", new AgreeDisagreeCommandHandler(true)));
         this.commandManager.registerCommand(new Command("author", "<name> [amount] - looks up an author on BukkitDev", new AuthorCommandHandler()));
-        this.commandManager.registerCommand(new Command("issues", "<job_name> [page] - check github issues for jobs on " + willieConfig.getJenkinsServer(), new IssuesCommandHandler()));
+        this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));
+        this.commandManager.registerCommand(new Command("cake", "is the cake a lie?", new CakeCommandHandler()));
         this.commandManager.registerCommand(new Command("ci", "shows Jenkins info", new CICommandHandler()));
-        this.commandManager.registerCommand(new Command("rules", "show channel rules", new RulesCommandHandler()));
-        this.commandManager.registerCommand(new Command("help", "show this help info", new HelpCommandHandler()));
-        this.commandManager.registerCommand(new Command("p", "pop some popcorn!", new PopcornCommandHandler()));
-        this.commandManager.registerCommand(new Command("twss", "that's what she said!", new TWSSCommandHandler()));
+        this.commandManager.registerCommand(new Command("define", "<word|phrase> - defines a word", new DefineCommandHandler()));
+        this.commandManager.registerCommand(new Command("disagree", "disagree!", new AgreeDisagreeCommandHandler(false)));
         this.commandManager.registerCommand(new Command("donate", "shows donation info", new DonateCommandHandler()));
         this.commandManager.registerCommand(new Command("drink", "<name> - gives someone a drink!", new DrinkCommandHandler()));
+        this.commandManager.registerCommand(new Command("ex", "throws an exception", new ExceptionCommandHandler()));
         this.commandManager.registerCommand(new Command("fix", "[name] - Yell at someone to fix something", new FixCommandHandler()));
+        this.commandManager.registerCommand(new Command("gstats", "[auth] - Global MCStats stats", new GlobalMCStatsCommandHandler()));
+        this.commandManager.registerCommand(new Command("help", "show this help info", new HelpCommandHandler()));
+        this.commandManager.registerCommand(new Command("issues", "<job_name> [page] - check github issues for jobs on " + willieConfig.getJenkinsServer(), new IssuesCommandHandler()));
+        this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("joinmsg", "<delete | ...> - sets a channels join message.", new JoinMessageCommandHandler()));
         this.commandManager.registerCommand(new Command("kick", "<name> - Kick a user", new KickCommandHandler()));
-        this.commandManager.registerCommand(new Command("define", "<word|phrase> - defines a word", new DefineCommandHandler()));
+        this.commandManager.registerCommand(new Command("latest", "<plugin_name> - Get latest file for plugin on BukkitDev", new LatestCommandHandler()));
+        this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("p", "pop some popcorn!", new PopcornCommandHandler()));
+        this.commandManager.registerCommand(new Command("plugin", "<name> - looks up a plugin on BukkitDev", new PluginCommandHandler()));
+        this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
+        this.commandManager.registerCommand(new Command("pong", "want to play some ping-pong?", new PongCommandHandler()));
+        this.commandManager.registerCommand(new Command("prefix", "<prefix> changes command prefix for bot.", new PrefixCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("quote", "display a random quote", new QuoteCommandHandler()));
+        this.commandManager.registerCommand(new Command("reload", "Reloads willie", new ReloadCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("repo", "show Willie's repo", new RepoCommandHandler()));
+        this.commandManager.registerCommand(new Command("rules", "show channel rules", new RulesCommandHandler()));
+        this.commandManager.registerCommand(new Command("save", "Saves configuration", new SaveCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
+        this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
+        this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats stats for plugin", new MCStatsCommandHandler()));
+        this.commandManager.registerCommand(new Command("twss", "that's what she said!", new TWSSCommandHandler()));
         this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
         this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
-        this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
-        this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
         this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
-        this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
-        this.commandManager.registerCommand(new Command("agree", "agree!", new AgreeDisagreeCommandHandler(true)));
-        this.commandManager.registerCommand(new Command("disagree", "disagree!", new AgreeDisagreeCommandHandler(false)));
-        this.commandManager.registerCommand(new Command("ex", "throws an exception", new ExceptionCommandHandler()));
-        this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats stats for plugin", new MCStatsCommandHandler()));
-        this.commandManager.registerCommand(new Command("gstats", "[auth] - Global MCStats stats", new GlobalMCStatsCommandHandler()));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
-        this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));
-        this.commandManager.registerCommand(new Command("joinmsg", "<delete | ...> - sets a channels join message.", new JoinMessageCommandHandler()));
-        this.commandManager.registerCommand(new Command("cake", "is the cake a lie?", new CakeCommandHandler()));
-        this.commandManager.registerCommand(new Command("pong", "want to play some ping-pong?", new PongCommandHandler()));
-        this.commandManager.registerCommand(new Command("quote", "display a random quote", new QuoteCommandHandler()));
-        
-        this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
-        this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
-        this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
-        this.commandManager.registerCommand(new Command("reload", "Reloads willie", new ReloadCommandHandler(), true));
-        this.commandManager.registerCommand(new Command("save", "Saves configuration", new SaveCommandHandler(), true));
-        this.commandManager.registerCommand(new Command("admin", "add <user> | del <user> | list - Modifies the bot admin list.", new AdminCommandHandler(), true));
-        this.commandManager.registerCommand(new Command("prefix", "<prefix> changes command prefix for bot.", new PrefixCommandHandler(), true));
 
         this.setName(willieConfig.getNick());
         this.setVerbose(false);
