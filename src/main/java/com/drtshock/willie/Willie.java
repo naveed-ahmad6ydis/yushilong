@@ -79,7 +79,7 @@ import java.util.logging.Logger;
 
 public class Willie extends PircBotX {
 
-	private static final Level LOGGING_LEVEL = Level.INFO;
+    private static final Level LOGGING_LEVEL = Level.INFO;
     private static final Logger LOG = Logger.getLogger(Willie.class.getName());
     private static Willie instance;
     public static final Gson gson = new Gson();
