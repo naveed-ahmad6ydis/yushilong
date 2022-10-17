@@ -5,10 +5,7 @@ import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
-/**
- *
- * @author drtshock
- */
+/** @author drtshock */
 public class WhipCommandHandler implements CommandHandler {
 
     @Override
@@ -16,7 +13,7 @@ public class WhipCommandHandler implements CommandHandler {
         if (channel.getName().equalsIgnoreCase("#hawkfalcon")) {
             return;
         }
-        
+
         if (args.length == 0) {
             bot.sendAction(channel, "whips everyone.");
         } else if (args.length == 1) {

@@ -1,55 +1,54 @@
 package com.drtshock.willie.command.fun;
 
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
+import org.pircbotx.Channel;
+import org.pircbotx.User;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.pircbotx.Channel;
-import org.pircbotx.User;
-
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-
 /** @author stuntguy3000 */
 public class QuoteCommandHandler implements CommandHandler {
-	
-	@Override
-	public void handle(Willie bot, Channel channel, User sender, String[] args) {
-		try {
-			channel.sendMessage(getPage("http://www.iheartquotes.com/api/v1/random?show_permalink=false"));
-		} catch (IOException e) {
-			channel.sendMessage("Error fetching quote");
-			e.printStackTrace();
-		}
-	}
-	 
-	private String getPage(String urlString) throws IOException {
-		URL url = new URL(urlString);
 
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    @Override
+    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+        try {
+            channel.sendMessage(getPage("http://www.iheartquotes.com/api/v1/random?show_permalink=false"));
+        } catch (IOException e) {
+            channel.sendMessage("Error fetching quote");
+            e.printStackTrace();
+        }
+    }
 
-	    connection.setConnectTimeout(10000);
-	    connection.setReadTimeout(10000);
-	    connection.setUseCaches(false);
+    private String getPage(String urlString) throws IOException {
+        URL url = new URL(urlString);
 
-	    BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-	    StringBuilder buffer = new StringBuilder();
-	    String line;
-	    
-	    while ((line = input.readLine()) != null) {
-	    	if (!line.startsWith("[")) {
-	    		buffer.append(line.replace("&quot;", ""));
-		        buffer.append('\n');
-	    	}
-	    }
+        connection.setConnectTimeout(10000);
+        connection.setReadTimeout(10000);
+        connection.setUseCaches(false);
 
-	    String page = buffer.toString();
+        BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-	    input.close();
+        StringBuilder buffer = new StringBuilder();
+        String line;
 
-	    return page;
-	}
+        while ((line = input.readLine()) != null) {
+            if (!line.startsWith("[")) {
+                buffer.append(line.replace("&quot;", ""));
+                buffer.append('\n');
+            }
+        }
+
+        String page = buffer.toString();
+
+        input.close();
+
+        return page;
+    }
 }

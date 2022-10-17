@@ -1,15 +1,15 @@
 package com.drtshock.willie.util;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-public enum Dictionary{
+public enum Dictionary {
 
     URBAN_DICTIONARY("http://api.urbandictionary.com/v0/define?term=%WORD%", 0, "Urban Dictionary"),
     DUCK_DUCK_GO("http://api.duckduckgo.com/?q=%WORD%&format=json", 1, "Duck Duck Go");

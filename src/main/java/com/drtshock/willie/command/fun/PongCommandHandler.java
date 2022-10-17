@@ -1,21 +1,20 @@
 package com.drtshock.willie.command.fun;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
-
 import org.pircbotx.Channel;
 import org.pircbotx.User;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /** @author stuntguy3000 */
 public class PongCommandHandler implements CommandHandler {
 
-	private Random rand;
+    private Random rand;
     private ArrayList<String> messages;
-	
-	public PongCommandHandler() {
+
+    public PongCommandHandler() {
         this.rand = new Random();
         this.messages = new ArrayList<>();
 

@@ -19,7 +19,7 @@ import java.net.URL;
 public class LatestCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args)throws Exception {
+    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
             channel.sendMessage(Colors.RED + "Check latest BukkitDev version of a plugin by doing " + Willie.getInstance().getConfig().getCommandPrefix() + "latest <slug>");
             return;

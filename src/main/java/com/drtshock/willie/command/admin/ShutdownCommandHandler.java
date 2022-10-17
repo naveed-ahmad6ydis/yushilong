@@ -5,9 +5,7 @@ import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
-/**
- * @author drtshock
- */
+/** @author drtshock */
 public class ShutdownCommandHandler implements CommandHandler {
 
     @Override

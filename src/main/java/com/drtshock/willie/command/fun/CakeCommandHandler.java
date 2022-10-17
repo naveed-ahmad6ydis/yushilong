@@ -2,13 +2,14 @@ package com.drtshock.willie.command.fun;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
-import java.util.ArrayList;
-import java.util.Random;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /** @author stuntguy3000 */
-public class CakeCommandHandler  implements CommandHandler {
+public class CakeCommandHandler implements CommandHandler {
 
     private Random rand;
     private ArrayList<String> messages;

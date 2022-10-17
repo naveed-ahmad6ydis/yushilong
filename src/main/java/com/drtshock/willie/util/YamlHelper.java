@@ -1,5 +1,7 @@
 package com.drtshock.willie.util;
 
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,9 +11,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
-import org.yaml.snakeyaml.Yaml;
-
-@SuppressWarnings ("unchecked")
+@SuppressWarnings("unchecked")
 public final class YamlHelper {
     private static final Logger logger = Logger.getLogger(YamlHelper.class.getName());
     private LinkedHashMap<String, Object> dataMap;

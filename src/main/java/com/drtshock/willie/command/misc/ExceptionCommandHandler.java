@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ExceptionCommandHandler implements CommandHandler{
+public class ExceptionCommandHandler implements CommandHandler {
 
     private final List<Exception> exceptions;
 
@@ -29,9 +29,9 @@ public class ExceptionCommandHandler implements CommandHandler{
 
 
     @Override
-	public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
+    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         throw getRandomException();
-	}
+    }
 
     private Exception getRandomException() {
         return exceptions.get(new Random().nextInt(exceptions.size()));

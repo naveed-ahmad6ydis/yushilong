@@ -14,7 +14,7 @@ import java.io.IOException;
 public class IssuesCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception{
+    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length == 0) {
             channel.sendMessage(Colors.RED + "Usage: .issues <job_name> [page]");
             return;

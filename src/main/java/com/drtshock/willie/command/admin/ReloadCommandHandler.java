@@ -1,15 +1,12 @@
 package com.drtshock.willie.command.admin;
 
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-
-/**
- * @author B2OJustin
- */
+/** @author B2OJustin */
 public class ReloadCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {

@@ -24,14 +24,7 @@ public class Tools {
      * Return a colorized String containing nbChars c characters, with left% of them colored with
      * leftColor and right% of them colored with rightColor.
      */
-    public static String asciiBar(double left,
-                                  String leftColor,
-                                  double right,
-                                  String rightColor,
-                                  int nbChars,
-                                  char barCharacter,
-                                  char separator,
-                                  String separatorColor) {
+    public static String asciiBar(double left, String leftColor, double right, String rightColor, int nbChars, char barCharacter, char separator, String separatorColor) {
         double total = left + right;
         int nbLeftChars = (int) Math.round(left * nbChars / total);
         int nbRightChars = nbChars - nbLeftChars;
