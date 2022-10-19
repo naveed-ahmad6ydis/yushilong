@@ -15,7 +15,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,13 +25,13 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
     private static final Logger logger = Logger.getLogger(CommandManager.class.getName());
 
     private Willie bot;
-    private HashMap<String, Command> commands;
+    private Map<String, Command> commands;
     private String cmdPrefix;
 
     public CommandManager(Willie bot) {
         this.bot = bot;
         this.cmdPrefix = bot.getConfig().getCommandPrefix();
-        this.commands = new HashMap<>();
+        this.commands = new LinkedHashMap<>();
     }
 
     public void registerCommand(Command command) {
