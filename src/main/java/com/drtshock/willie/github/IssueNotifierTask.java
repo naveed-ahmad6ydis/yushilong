@@ -71,5 +71,4 @@ public class IssueNotifierTask extends TimerTask {
             e.printStackTrace();
         }
     }
-
 }

@@ -8,7 +8,9 @@ import org.pircbotx.User;
 import java.util.ArrayList;
 import java.util.Random;
 
-/** @author stuntguy3000 */
+/**
+ * @author stuntguy3000
+ */
 public class PongCommandHandler implements CommandHandler {
 
     private Random rand;
@@ -31,5 +33,4 @@ public class PongCommandHandler implements CommandHandler {
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         channel.sendMessage(this.messages.get(this.rand.nextInt(this.messages.size())).replace("{u}", sender.getNick()));
     }
-
 }

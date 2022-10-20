@@ -40,5 +40,4 @@ public class DefineCommandHandler implements CommandHandler {
             channel.sendMessage("For a full definition visit: " + def.getUrl());
         }
     }
-
 }

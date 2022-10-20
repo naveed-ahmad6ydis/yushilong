@@ -252,5 +252,4 @@ public class AuthorCommandHandler implements CommandHandler {
     private String formatDate(long date) {
         return this.dateFormat.format(new Date(date * 1000));
     }
-
 }

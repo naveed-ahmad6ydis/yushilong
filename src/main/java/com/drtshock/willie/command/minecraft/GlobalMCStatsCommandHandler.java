@@ -30,7 +30,6 @@ import java.util.logging.Logger;
 public class GlobalMCStatsCommandHandler implements CommandHandler {
 
     private static final Logger LOG = Logger.getLogger(GlobalMCStatsCommandHandler.class.getName());
-
     private static DecimalFormat formatter;
 
     public GlobalMCStatsCommandHandler() {
@@ -108,7 +107,6 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
         public final String serversMax;
         public final String serversMin;
         public final String serversAvg;
-
         public final String playersAmount;
         public final String playersDiff;
         public final String playersMax;
@@ -127,7 +125,6 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
 
             // Convert the Json map to a reversed Java SortedMap
             final SortedMap<Long, Long> playersMap = new TreeMap<>(new Comparator<Long>() {
-
                 @Override
                 public int compare(Long x, Long y) {
                     return -Long.compare(x, y);
@@ -168,7 +165,6 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
 
             // Convert the Json map to a reversed Java SortedMap
             final SortedMap<Long, Long> serversMap = new TreeMap<>(new Comparator<Long>() {
-
                 @Override
                 public int compare(Long x, Long y) {
                     return -Long.compare(x, y);
@@ -236,7 +232,6 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
 
             return res;
         }
-
     }
 
     // !gstats auth
@@ -280,17 +275,16 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
     }
 
     /*
-        TODO
-    // !gstats java
-    // !gstats os
-    // !gstats arch
-    // !gstats cores
-    // !gstats location
-    // !gstats version
-    // !gstats software
+     TODO
+     // !gstats java
+     // !gstats os
+     // !gstats arch
+     // !gstats cores
+     // !gstats location
+     // !gstats version
+     // !gstats software
 
-    */
-
+     */
     public void nope(Channel channel) {
         channel.sendMessage(Colors.RED + "Global MCStats stats with !gstats [auth]");
     }

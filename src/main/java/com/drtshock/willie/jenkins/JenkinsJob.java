@@ -18,6 +18,7 @@ public class JenkinsJob {
     private ArrayList<HealthReport> healthReport;
 
     public static class HealthReport {
+
         public String description;
         public int score;
     }
@@ -92,5 +93,4 @@ public class JenkinsJob {
 
         return issues;
     }
-
 }

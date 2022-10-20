@@ -16,7 +16,7 @@ public class CICommandHandler implements CommandHandler {
         if (args.length != 1) {
             String message = String.format(Colors.BLUE + "Get dev builds at %s If you're interesting in hosting a project there, talk to %s", bot.getConfig().getJenkinsServer(), bot.getConfig().getJenkinsAdmins());
             channel.sendMessage(message);
-        } else
+        } else {
             try {
                 JenkinsJob job = bot.jenkins.getJob(args[0]);
                 channel.sendMessage(String.format("Project %s %s -", job.getDisplayName(), job.getUrl()));
@@ -52,6 +52,6 @@ public class CICommandHandler implements CommandHandler {
             } catch (IOException e) {
                 channel.sendMessage(Colors.RED + "Sorry, I don't know anything about that project.");
             }
+        }
     }
-
 }

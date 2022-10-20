@@ -29,5 +29,4 @@ public class DonateCommandHandler implements CommandHandler {
         String message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), bot.getConfig().getDonateUrl());
         channel.sendMessage(message);
     }
-
 }

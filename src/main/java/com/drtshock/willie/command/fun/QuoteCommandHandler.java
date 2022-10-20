@@ -11,7 +11,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/** @author stuntguy3000 */
+/**
+ * @author stuntguy3000
+ */
 public class QuoteCommandHandler implements CommandHandler {
 
     @Override

@@ -27,7 +27,6 @@ public class ExceptionCommandHandler implements CommandHandler {
         exceptions.add(new PopcornOutOfBoundsException());
     }
 
-
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         throw getRandomException();
@@ -36,5 +35,4 @@ public class ExceptionCommandHandler implements CommandHandler {
     private Exception getRandomException() {
         return exceptions.get(new Random().nextInt(exceptions.size()));
     }
-
 }

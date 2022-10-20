@@ -11,5 +11,4 @@ public class TWSSCommandHandler implements CommandHandler {
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         channel.sendMessage("That's what she said!");
     }
-
 }

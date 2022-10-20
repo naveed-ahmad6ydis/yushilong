@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
 
     private static final Logger logger = Logger.getLogger(CommandManager.class.getName());
-
     private Willie bot;
     private Map<String, Command> commands;
     private String cmdPrefix;
@@ -100,5 +99,4 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             }
         }
     }
-
 }

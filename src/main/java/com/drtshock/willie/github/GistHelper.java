@@ -16,9 +16,7 @@ public class GistHelper {
     private static final String GITHUB_API_URL = "https://api.github.com/";
     private static final String GIST_API_LOCATION = "gists";
     private static final String GIST_URL = GITHUB_API_URL + GIST_API_LOCATION;
-
     private static final String DESCRIPTION = "Willie pasted this on ";
-
     private static final Logger LOG = Logger.getLogger(GistHelper.class.getName());
 
     /**
@@ -111,5 +109,4 @@ public class GistHelper {
     private static String date() {
         return new SimpleDateFormat("EEEE dd MMMM YYYY").format(new Date());
     }
-
 }

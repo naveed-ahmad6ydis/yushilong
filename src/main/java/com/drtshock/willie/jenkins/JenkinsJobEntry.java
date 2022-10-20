@@ -17,5 +17,4 @@ public class JenkinsJobEntry {
     public String getColor() {
         return this.color;
     }
-
 }

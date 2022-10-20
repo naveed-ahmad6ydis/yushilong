@@ -42,5 +42,4 @@ public class KickCommandHandler implements CommandHandler {
             bot.sendNotice(sender, "Usage: !kick <user>");
         }
     }
-
 }

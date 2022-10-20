@@ -9,7 +9,9 @@ import org.pircbotx.User;
 
 import java.io.IOException;
 
-/** @author drtshock */
+/**
+ * @author drtshock
+ */
 public class ServerCommandHandler implements CommandHandler {
 
     @Override

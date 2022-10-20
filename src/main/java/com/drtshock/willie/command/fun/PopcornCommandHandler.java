@@ -30,5 +30,4 @@ public class PopcornCommandHandler implements CommandHandler {
         }
         bot.sendAction(channel, this.messages.get(this.rand.nextInt(this.messages.size())));
     }
-
 }

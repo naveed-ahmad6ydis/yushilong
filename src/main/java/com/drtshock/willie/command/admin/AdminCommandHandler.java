@@ -9,6 +9,7 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 public class AdminCommandHandler implements CommandHandler {
+
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length == 0) {
@@ -16,8 +17,9 @@ public class AdminCommandHandler implements CommandHandler {
         }
         switch (args[0].toLowerCase()) {
             case "add":
-                if (args.length != 2)
+                if (args.length != 2) {
                     return;
+                }
                 User user = bot.getUser(args[1]);
                 if (sender.getNick().toLowerCase().equals(args[1].toLowerCase())) {
                     channel.sendMessage("Huh?");
@@ -38,9 +40,9 @@ public class AdminCommandHandler implements CommandHandler {
             case "remove":
             case "del":
             case "delete":
-                if (args.length != 2)
+                if (args.length != 2) {
                     return;
-                else if (sender.getNick().toLowerCase().equals(args[1].toLowerCase())) {
+                } else if (sender.getNick().toLowerCase().equals(args[1].toLowerCase())) {
                     channel.sendMessage(Colors.CYAN + "Huh?");
                     return;
                 } else if (!bot.getConfig().getAdmins().contains(args[1])) {

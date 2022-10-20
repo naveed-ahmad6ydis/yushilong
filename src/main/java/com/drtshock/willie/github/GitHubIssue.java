@@ -52,5 +52,4 @@ public class GitHubIssue {
     public String getBody() {
         return this.body;
     }
-
 }

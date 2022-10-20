@@ -15,5 +15,4 @@ public class FixCommandHandler implements CommandHandler {
             channel.sendMessage(String.format("Fix it %s!", args[0]));
         }
     }
-
 }

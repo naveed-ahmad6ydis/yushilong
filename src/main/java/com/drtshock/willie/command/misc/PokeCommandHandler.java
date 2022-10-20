@@ -15,5 +15,4 @@ public class PokeCommandHandler implements CommandHandler {
         }
         bot.sendAction(channel, "pokes " + poke);
     }
-
 }

@@ -56,5 +56,4 @@ public class LatestCommandHandler implements CommandHandler {
             throw e;
         }
     }
-
 }

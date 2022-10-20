@@ -7,6 +7,7 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 public class SaveCommandHandler implements CommandHandler {
+
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         bot.save();

@@ -8,7 +8,9 @@ import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.JoinEvent;
 
-/** @author drtshock */
+/**
+ * @author drtshock
+ */
 public class JoinListener extends ListenerAdapter<Willie> implements Listener<Willie> {
 
     private Willie bot;

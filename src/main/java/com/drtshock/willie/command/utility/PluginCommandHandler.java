@@ -90,5 +90,4 @@ public class PluginCommandHandler implements CommandHandler {
             throw e; // Gist
         }
     }
-
 }

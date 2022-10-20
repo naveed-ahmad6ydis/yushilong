@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 public class MCStatsCommandHandler implements CommandHandler {
 
     private static final Logger LOG = Logger.getLogger(MCStatsCommandHandler.class.getName());
-
     private static DecimalFormat formatter;
 
     public MCStatsCommandHandler() {
@@ -72,17 +71,17 @@ public class MCStatsCommandHandler implements CommandHandler {
                 stats.playersAverage = "?";
             }
 
-            messages.add(Colors.BOLD + "MCStats " + Colors.DARK_GREEN + stats.name +
-                    Colors.NORMAL + " - Rank: " + Colors.BOLD + stats.rank +
-                    Colors.NORMAL + " (" + colorizeDiff(stats.rankDiff, true) + ") - " + WebHelper.shortenURL(pluginStatsURL));
-            messages.add(Colors.UNDERLINE + "Servers|" + Colors.NORMAL + " Current: " + Colors.BOLD + stats.servers + Colors.NORMAL +
-                    " | Diff: " + colorizeDiff(stats.serversDiff, false) +
-                    " | Max: " + Colors.BLUE + stats.serversMax + Colors.NORMAL +
-                    " | Month: ~" + Colors.BLUE + stats.serversAverage);
-            messages.add(Colors.UNDERLINE + "Players|" + Colors.NORMAL + " Current: " + Colors.BOLD + stats.players + Colors.NORMAL +
-                    " | Diff: " + colorizeDiff(stats.playersDiff, false) +
-                    " | Max: " + Colors.BLUE + stats.playersMax + Colors.NORMAL +
-                    " | Month: ~" + Colors.BLUE + stats.playersAverage);
+            messages.add(Colors.BOLD + "MCStats " + Colors.DARK_GREEN + stats.name
+                    + Colors.NORMAL + " - Rank: " + Colors.BOLD + stats.rank
+                    + Colors.NORMAL + " (" + colorizeDiff(stats.rankDiff, true) + ") - " + WebHelper.shortenURL(pluginStatsURL));
+            messages.add(Colors.UNDERLINE + "Servers|" + Colors.NORMAL + " Current: " + Colors.BOLD + stats.servers + Colors.NORMAL
+                    + " | Diff: " + colorizeDiff(stats.serversDiff, false)
+                    + " | Max: " + Colors.BLUE + stats.serversMax + Colors.NORMAL
+                    + " | Month: ~" + Colors.BLUE + stats.serversAverage);
+            messages.add(Colors.UNDERLINE + "Players|" + Colors.NORMAL + " Current: " + Colors.BOLD + stats.players + Colors.NORMAL
+                    + " | Diff: " + colorizeDiff(stats.playersDiff, false)
+                    + " | Max: " + Colors.BLUE + stats.playersMax + Colors.NORMAL
+                    + " | Month: ~" + Colors.BLUE + stats.playersAverage);
 
             String authModeJsonString = getPage("http://api.mcstats.org/1.0/" + stats.name + "/graph/Auth+Mode");
             if (!authModeJsonString.contains("NO DATA")) {
@@ -103,9 +102,9 @@ public class MCStatsCommandHandler implements CommandHandler {
                 double left = Double.parseDouble(onlineModePercentage);
                 double right = Double.parseDouble(offlineModePercentage);
 
-                messages.add("Auth: " + Tools.asciiBar(left, Colors.DARK_GREEN, right, Colors.RED, 20, '█', '|', Colors.DARK_GRAY) +
-                        " | " + Colors.DARK_GREEN + onlineModePercentage + "% (" + onlineModeAmount + ")" + Colors.NORMAL +
-                        " - " + Colors.RED + offlineModePercentage + "% (" + offlineModeAmount + ")");
+                messages.add("Auth: " + Tools.asciiBar(left, Colors.DARK_GREEN, right, Colors.RED, 20, '█', '|', Colors.DARK_GRAY)
+                        + " | " + Colors.DARK_GREEN + onlineModePercentage + "% (" + onlineModeAmount + ")" + Colors.NORMAL
+                        + " - " + Colors.RED + offlineModePercentage + "% (" + offlineModeAmount + ")");
             } else {
                 messages.add("Sorry, no auth information :-(");
             }
@@ -251,5 +250,4 @@ public class MCStatsCommandHandler implements CommandHandler {
             return Colors.BOLD + Colors.DARK_GRAY + diff + Colors.NORMAL;
         }
     }
-
 }

@@ -6,6 +6,7 @@ import org.pircbotx.hooks.WaitForQueue;
 import org.pircbotx.hooks.events.NoticeEvent;
 
 public class Auth {
+
     public static AuthResponse checkAuth(User user) {
         Willie willie = Willie.getInstance();
 

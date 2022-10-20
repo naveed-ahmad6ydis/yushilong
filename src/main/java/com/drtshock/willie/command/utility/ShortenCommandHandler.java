@@ -7,7 +7,9 @@ import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 
-/** @author drtshock */
+/**
+ * @author drtshock
+ */
 public class ShortenCommandHandler implements CommandHandler {
 
     @Override
@@ -23,5 +25,4 @@ public class ShortenCommandHandler implements CommandHandler {
             channel.sendMessage("!shorten <url>");
         }
     }
-
 }

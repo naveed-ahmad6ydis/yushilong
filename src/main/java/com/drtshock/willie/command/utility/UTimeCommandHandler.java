@@ -49,5 +49,4 @@ public class UTimeCommandHandler implements CommandHandler {
             channel.sendMessage("(" + sender.getNick() + ") " + formatted);
         }
     }
-
 }

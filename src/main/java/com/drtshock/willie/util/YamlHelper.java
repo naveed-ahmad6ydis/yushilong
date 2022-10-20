@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 @SuppressWarnings("unchecked")
 public final class YamlHelper {
+
     private static final Logger logger = Logger.getLogger(YamlHelper.class.getName());
     private LinkedHashMap<String, Object> dataMap;
     private Yaml yaml = new Yaml();
@@ -36,15 +37,17 @@ public final class YamlHelper {
     }
 
     public Object getObject(String path) throws ClassCastException {
-        if (path.isEmpty())
+        if (path.isEmpty()) {
             return dataMap;
+        }
         LinkedHashMap<String, Object> currentMap = dataMap;
         String[] pathArray = path.split("\\.");
         for (int i = 0; i < pathArray.length; i++) {
             if (i == pathArray.length - 1) {
                 return currentMap.get(pathArray[i]);
-            } else
+            } else {
                 currentMap = (LinkedHashMap) currentMap.get(pathArray[i]);
+            }
         }
         return null;
     }
@@ -110,5 +113,4 @@ public final class YamlHelper {
     public LinkedHashMap<String, Double> getDoubleMap(String path) throws ClassCastException {
         return (LinkedHashMap<String, Double>) getObject(path);
     }
-
 }

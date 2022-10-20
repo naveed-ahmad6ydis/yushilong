@@ -9,7 +9,9 @@ import org.pircbotx.User;
 import java.util.ArrayList;
 import java.util.Random;
 
-/** @author drtshock */
+/**
+ * @author drtshock
+ */
 public class DrinkCommandHandler implements CommandHandler {
 
     private Random rand;

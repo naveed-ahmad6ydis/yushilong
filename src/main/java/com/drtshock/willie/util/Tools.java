@@ -2,7 +2,9 @@ package com.drtshock.willie.util;
 
 import org.pircbotx.Colors;
 
-/** This class contains VERY little tools */
+/**
+ * This class contains VERY little tools
+ */
 public class Tools {
 
     /**
@@ -21,8 +23,8 @@ public class Tools {
     }
 
     /**
-     * Return a colorized String containing nbChars c characters, with left% of them colored with
-     * leftColor and right% of them colored with rightColor.
+     * Return a colorized String containing nbChars c characters, with left% of
+     * them colored with leftColor and right% of them colored with rightColor.
      */
     public static String asciiBar(double left, String leftColor, double right, String rightColor, int nbChars, char barCharacter, char separator, String separatorColor) {
         double total = left + right;
