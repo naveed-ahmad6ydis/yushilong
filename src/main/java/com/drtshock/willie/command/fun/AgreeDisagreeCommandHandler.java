@@ -13,7 +13,7 @@ public class AgreeDisagreeCommandHandler implements CommandHandler {
      * Creates a new YesNoCommandHandler
      *
      * @param isAgree if true then this handler will act as an "!agree" handler,
-     * otherwise "!disagree"
+     *                otherwise "!disagree"
      */
     public AgreeDisagreeCommandHandler(boolean isAgree) {
         this.yes = isAgree;

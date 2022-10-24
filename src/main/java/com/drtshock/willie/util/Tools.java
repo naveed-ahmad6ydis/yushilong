@@ -11,7 +11,6 @@ public class Tools {
      * Inserts a blank character inside the String to prevent pinging people
      *
      * @param string The username to silence
-     *
      * @return The silenced username
      */
     public static String silence(String string) {
