@@ -40,7 +40,7 @@ public class WTweetCommandHandler implements CommandHandler {
                 channel.sendMessage(Colors.CYAN + "Check out Willie on Twitter! https://twitter.com/WillieIRC");
             } catch (TwitterException e) {
                 e.printStackTrace();
-                channel.sendMessage(Colors.RED + "Error occurred while updating tweeting!");
+                channel.sendMessage(Colors.RED + "Error occurred while tweeting! Is it configured correctly?");
             }
         }
     }
