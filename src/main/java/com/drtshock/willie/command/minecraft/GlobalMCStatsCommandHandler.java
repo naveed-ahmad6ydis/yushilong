@@ -156,7 +156,7 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
             if (diff > 0) {
                 this.playersDiff = Colors.DARK_GREEN + Colors.BOLD + "+" + diff + Colors.NORMAL;
             } else if (diff == 0) {
-                this.playersDiff = Colors.DARK_GRAY + Colors.BOLD + "±" + diff + Colors.NORMAL;
+                this.playersDiff = Colors.DARK_GRAY + Colors.BOLD + "Â±" + diff + Colors.NORMAL;
             } else {
                 this.playersDiff = Colors.RED + Colors.BOLD + diff + Colors.NORMAL;
             }
@@ -198,7 +198,7 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
             if (diff > 0) {
                 this.serversDiff = Colors.DARK_GREEN + Colors.BOLD + "+" + diff + Colors.NORMAL;
             } else if (diff == 0) {
-                this.serversDiff = Colors.DARK_GRAY + Colors.BOLD + "±" + diff + Colors.NORMAL;
+                this.serversDiff = Colors.DARK_GRAY + Colors.BOLD + "Â±" + diff + Colors.NORMAL;
             } else {
                 this.serversDiff = Colors.RED + Colors.BOLD + diff + Colors.NORMAL;
             }
