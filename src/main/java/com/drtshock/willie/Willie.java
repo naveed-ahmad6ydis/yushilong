@@ -128,6 +128,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));
         this.commandManager.registerCommand(new Command("cake", "is the cake a lie?", new CakeCommandHandler()));
         this.commandManager.registerCommand(new Command("ci", "shows Jenkins info", new CICommandHandler()));
+        this.commandManager.registerCommand(new Command("chuck", "Chuck Norris.", new ChuckCommandHandler()));
         this.commandManager.registerCommand(new Command("define", "<word|phrase> - defines a word", new DefineCommandHandler()));
         this.commandManager.registerCommand(new Command("disagree", "disagree!", new AgreeDisagreeCommandHandler(false)));
         this.commandManager.registerCommand(new Command("donate", "shows donation info", new DonateCommandHandler()));
