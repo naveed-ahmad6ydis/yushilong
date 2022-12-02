@@ -27,9 +27,9 @@ public class TrendsCommandHandler implements CommandHandler {
 		
 		try {
 			Trends trend = twitter.getPlaceTrends(1);
-			int trendsToShow = 5;
+			int trendsToShow = bot.getConfig().getTwitterTrendsToShow();
 			
-			channel.sendMessage(Colors.CYAN + "Top " + trendsToShow + " trends on Twitter right now...");
+			channel.sendMessage(Colors.CYAN + "Top " + trendsToShow + " trend(s) on Twitter right now...");
 			
 			for (Trend t : trend.getTrends()) {
 				if (trendsToShow > 0) {

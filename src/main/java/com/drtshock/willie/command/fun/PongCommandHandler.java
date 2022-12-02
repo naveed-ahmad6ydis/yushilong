@@ -25,7 +25,6 @@ public class PongCommandHandler implements CommandHandler {
         this.messages.add("Who wants to challenge {u} to a game of ping-pong?");
         this.messages.add("Taking all bets - Willie vs {u} at ping-pong. First to 11.");
         this.messages.add("{u} has uber ping-pong hacks. Like a bionic hand or something...");
-        this.messages.add("Who wants to pong {u} with me?");
         this.messages.add("Grab your bats is time to play ping-pong! Come at me {u}");
     }
 

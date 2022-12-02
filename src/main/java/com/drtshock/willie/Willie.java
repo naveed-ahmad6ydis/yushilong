@@ -162,7 +162,8 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
         this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
         this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
-        this.commandManager.registerCommand(new Command("wtweet", "<message> tweet a message from @WillieIRC", new WTweetCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("wdtbs", "<question/prase> what does the bot say?", new WDTBSCommandHandler()));
+        this.commandManager.registerCommand(new Command("wtweet", "<message> tweet a message through @WillieIRC", new WTweetCommandHandler(), true));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
 
         this.setName(willieConfig.getNick());
