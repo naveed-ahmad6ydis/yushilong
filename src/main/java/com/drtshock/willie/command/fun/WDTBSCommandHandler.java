@@ -18,8 +18,8 @@ public class WDTBSCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length < 1) {
-        	channel.sendMessage(Colors.RED + "Please supply a message " + sender.getNick() + "!");
-        	return;
+            channel.sendMessage(Colors.RED + "Please supply a message " + sender.getNick() + "!");
+            return;
         }
         
         ChatterBotFactory factory = new ChatterBotFactory();
@@ -32,7 +32,7 @@ public class WDTBSCommandHandler implements CommandHandler {
 
         StringBuilder question = new StringBuilder();
         for (String arg : args) {
-        	question.append(arg + " ");
+            question.append(arg + " ");
         }
 
         String cBotResponce = cBotSession.think(question.toString());
