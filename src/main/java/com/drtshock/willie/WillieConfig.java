@@ -49,7 +49,6 @@ public class WillieConfig {
         configMap.put("twitter-consumer-key-secret", "change-me");
         configMap.put("twitter-access-token", "change-me");
         configMap.put("twitter-access-token-secret", "change-me");
-        configMap.put("twitter-trends-to-show", "5");
     }
 
     public LinkedHashMap<String, Object> getConfigMap() {
@@ -260,9 +259,5 @@ public class WillieConfig {
 
     public String getTwitterAccessTokenSecret() {
         return (String) configMap.get("twitter-access-token-secret");
-    }
-    
-    public int getTwitterTrendsToShow() {
-        return (int) configMap.get("twitter-trends-to-show");
     }
 }

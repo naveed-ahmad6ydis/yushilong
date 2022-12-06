@@ -12,14 +12,11 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-/**
- * @author stuntguy3000
- */
 public class TrendsCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        ConfigurationBuilder cb = new ConfigurationBuilder();
+    	ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
                 .setOAuthConsumerKey(bot.getConfig().getTwitterConsumerKey())
                 .setOAuthConsumerSecret(bot.getConfig().getTwitterConsumerKeySecret())
@@ -27,33 +24,22 @@ public class TrendsCommandHandler implements CommandHandler {
                 .setOAuthAccessTokenSecret(bot.getConfig().getTwitterAccessTokenSecret());
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
-        
-        try {
-            Trends trend = twitter.getPlaceTrends(1);
-            int trendsToShow = bot.getConfig().getTwitterTrendsToShow();
-            
-            if (trendsToShow < 1) {
-                channel.sendMessage(Colors.RED + "Invalid amount of trends!");
-                return;
-            }
-            
-            if (trendsToShow < 2) {
-            	channel.sendMessage(Colors.CYAN + "The top trend on twitter right now...");
-            } else {
-            	channel.sendMessage(Colors.CYAN + "Top " + trendsToShow + " trends on Twitter right now...");
-            }
-            
-            int count = 0;
-            for (Trend t : trend.getTrends()) {
-                if (trendsToShow > 0) {
-                	count = count + 1;
-                    channel.sendMessage(count + ". " + t.getName());
-                }
-                
-                trendsToShow =- 1;
-            }
-        } catch (TwitterException e) {
-            e.printStackTrace();
-        }
+		
+		try {
+			Trends trend = twitter.getPlaceTrends(1);
+			int trendsToShow = 5;
+			
+			channel.sendMessage(Colors.CYAN + "Top " + trendsToShow + " trends on Twitter right now...");
+			
+			for (Trend t : trend.getTrends()) {
+				if (trendsToShow > 0) {
+					channel.sendMessage(t.getName());
+				}
+				
+				trendsToShow =- 1;
+			}
+		} catch (TwitterException e) {
+			e.printStackTrace();
+		}
     }
 }
