@@ -21,7 +21,7 @@ public class WDTBSCommandHandler implements CommandHandler {
             channel.sendMessage(Colors.RED + "Please supply a message " + sender.getNick() + "!");
             return;
         }
-        
+
         ChatterBotFactory factory = new ChatterBotFactory();
 
         ChatterBot cbot = factory.create(ChatterBotType.CLEVERBOT);
@@ -37,7 +37,7 @@ public class WDTBSCommandHandler implements CommandHandler {
 
         String cBotResponce = cBotSession.think(question.toString());
         String pBotResponce = pBotSession.think(question.toString());
-        
+
         channel.sendMessage(Colors.BROWN + "What does the bot say?");
         channel.sendMessage(Colors.CYAN + "Cleverbot: " + Colors.DARK_GREEN + cBotResponce);
         channel.sendMessage(Colors.CYAN + "Pandorabot: " + Colors.DARK_GREEN + pBotResponce);
