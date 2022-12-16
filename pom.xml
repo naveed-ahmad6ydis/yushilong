@@ -29,6 +29,12 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        
+        <repository>
+            <id>chatter-bot-api</id>
+            <name>chatter-bot-api</name>
+            <url>https://www.dropbox.com/s/eb8ipc6ntpqx5cx/chatter-bot-api.jar?dl=1</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -64,6 +70,13 @@
             <groupId>org.twitter4j</groupId>
             <artifactId>twitter4j-core</artifactId>
             <version>[3.0,)</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.google.code.chatterbotapi</groupId>
+            <artifactId>chatter-bot-api</artifactId>
+            <version>1.3</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
