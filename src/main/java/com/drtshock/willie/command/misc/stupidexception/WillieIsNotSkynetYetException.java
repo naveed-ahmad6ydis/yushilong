@@ -1,4 +1,3 @@
 package com.drtshock.willie.command.misc.stupidexception;
 
-public class WillieIsNotSkynetYetException extends AbstractStupidException {
-}
+public class WillieIsNotSkynetYetException extends AbstractStupidException {}

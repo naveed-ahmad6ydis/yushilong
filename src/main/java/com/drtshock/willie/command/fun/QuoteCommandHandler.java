@@ -16,41 +16,41 @@ import java.net.URL;
  */
 public class QuoteCommandHandler implements CommandHandler {
 
-    @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        try {
-            channel.sendMessage(getPage("http://www.iheartquotes.com/api/v1/random?show_permalink=false"));
-        } catch (IOException e) {
-            channel.sendMessage("Error fetching quote");
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void handle(Willie bot, Channel channel, User sender, String[] args) {
+		try {
+			channel.sendMessage(getPage("http://www.iheartquotes.com/api/v1/random?show_permalink=false"));
+		} catch(IOException e) {
+			channel.sendMessage("Error fetching quote");
+			e.printStackTrace();
+		}
+	}
 
-    private String getPage(String urlString) throws IOException {
-        URL url = new URL(urlString);
+	private String getPage(String urlString) throws IOException {
+		URL url = new URL(urlString);
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(10000);
-        connection.setUseCaches(false);
+		connection.setConnectTimeout(10000);
+		connection.setReadTimeout(10000);
+		connection.setUseCaches(false);
 
-        BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-        StringBuilder buffer = new StringBuilder();
-        String line;
+		StringBuilder buffer = new StringBuilder();
+		String line;
 
-        while ((line = input.readLine()) != null) {
-            if (!line.startsWith("[")) {
-                buffer.append(line.replace("&quot;", ""));
-                buffer.append('\n');
-            }
-        }
+		while((line = input.readLine()) != null) {
+			if (!line.startsWith("[")) {
+				buffer.append(line.replace("&quot;", ""));
+				buffer.append('\n');
+			}
+		}
 
-        String page = buffer.toString();
+		String page = buffer.toString();
 
-        input.close();
+		input.close();
 
-        return page;
-    }
+		return page;
+	}
 }

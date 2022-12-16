@@ -6,5 +6,5 @@ import org.pircbotx.User;
 
 public interface CommandHandler {
 
-    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception;
+	public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception;
 }

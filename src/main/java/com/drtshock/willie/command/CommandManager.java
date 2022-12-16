@@ -22,81 +22,81 @@ import java.util.logging.Logger;
 
 public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
 
-    private static final Logger logger = Logger.getLogger(CommandManager.class.getName());
-    private Willie bot;
-    private Map<String, Command> commands;
-    private String cmdPrefix;
+	private static final Logger logger = Logger.getLogger(CommandManager.class.getName());
+	private Willie bot;
+	private Map<String, Command> commands;
+	private String cmdPrefix;
 
-    public CommandManager(Willie bot) {
-        this.bot = bot;
-        this.cmdPrefix = bot.getConfig().getCommandPrefix();
-        this.commands = new LinkedHashMap<>();
-    }
+	public CommandManager(Willie bot) {
+		this.bot = bot;
+		this.cmdPrefix = bot.getConfig().getCommandPrefix();
+		this.commands = new LinkedHashMap<>();
+	}
 
-    public void registerCommand(Command command) {
-        this.commands.put(command.getName(), command);
-    }
+	public void registerCommand(Command command) {
+		this.commands.put(command.getName(), command);
+	}
 
-    public Collection<Command> getCommands() {
-        return this.commands.values();
-    }
+	public Collection<Command> getCommands() {
+		return this.commands.values();
+	}
 
-    public void setCommandPrefix(String prefix) {
-        this.cmdPrefix = prefix;
-    }
+	public void setCommandPrefix(String prefix) {
+		this.cmdPrefix = prefix;
+	}
 
-    @Override
-    public void onMessage(MessageEvent<Willie> event) {
-        final String message = event.getMessage();
-        final Channel channel = event.getChannel();
-        final User sender = event.getUser();
+	@Override
+	public void onMessage(MessageEvent<Willie> event) {
+		final String message = event.getMessage();
+		final Channel channel = event.getChannel();
+		final User sender = event.getUser();
 
-        if (message.toLowerCase().endsWith("o/") && (!message.contains("\\o/"))) {
-            channel.sendMessage("\\o");
-            return;
-        }
-        if (message.toLowerCase().endsWith("\\o") && (!message.contains("\\o/"))) {
-            channel.sendMessage("o/");
-            return;
-        }
+		if (message.toLowerCase().endsWith("o/") && (!message.contains("\\o/"))) {
+			channel.sendMessage("\\o");
+			return;
+		}
+		if (message.toLowerCase().endsWith("\\o") && (!message.contains("\\o/"))) {
+			channel.sendMessage("o/");
+			return;
+		}
 
-        if (!message.startsWith(cmdPrefix)) {
-            return;
-        }
+		if (!message.startsWith(cmdPrefix)) {
+			return;
+		}
 
-        String[] parts = message.substring(1).split(" ");
+		String[] parts = message.substring(1).split(" ");
 
-        String commandName = parts[0].toLowerCase();
-        String[] args = new String[parts.length - 1];
-        System.arraycopy(parts, 1, args, 0, args.length);
+		String commandName = parts[0].toLowerCase();
+		String[] args = new String[parts.length - 1];
+		System.arraycopy(parts, 1, args, 0, args.length);
 
-        Command command = this.commands.get(commandName);
-        if (command.isAdminOnly() && !Auth.checkAuth(sender).isAdmin) {
-            channel.sendMessage(Colors.RED + String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?", sender.getNick()));
-            return;
-        }
-        try {
-            command.getHandler().handle(this.bot, channel, sender, args);
-        } catch (Exception e) {
-            final Writer writer = new StringWriter();
-            final PrintWriter printWriter = new PrintWriter(writer);
-            e.printStackTrace(printWriter);
-            final String stackTrace = writer.toString();
+		Command command = this.commands.get(commandName);
+		if (command.isAdminOnly() && !Auth.checkAuth(sender).isAdmin) {
+			channel.sendMessage(Colors.RED + String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?", sender.getNick()));
+			return;
+		}
+		try {
+			command.getHandler().handle(this.bot, channel, sender, args);
+		} catch(Exception e) {
+			final Writer writer = new StringWriter();
+			final PrintWriter printWriter = new PrintWriter(writer);
+			e.printStackTrace(printWriter);
+			final String stackTrace = writer.toString();
 
-            logger.log(Level.SEVERE, e.getMessage(), e);
+			logger.log(Level.SEVERE, e.getMessage(), e);
 
-            final String msg1 = e.getClass().getSimpleName() + " caught when " + sender.getNick() + " used the command \"" + message + "\".";
-            channel.sendMessage(Colors.RED + msg1);
-            logger.severe(msg1);
+			final String msg1 = e.getClass().getSimpleName() + " caught when " + sender.getNick() + " used the command \"" + message + "\".";
+			channel.sendMessage(Colors.RED + msg1);
+			logger.severe(msg1);
 
-            if (!(e instanceof AbstractStupidException)) {
-                final String msg2 = "Got a stacktrace for you, human: " + GistHelper.gist(stackTrace);
-                channel.sendMessage(Colors.RED + msg2);
-                logger.severe(msg2);
-            } else {
-                final String msg2 = "I will not paste this, human.";
-                channel.sendMessage(Colors.RED + msg2);
-            }
-        }
-    }
+			if (!(e instanceof AbstractStupidException)) {
+				final String msg2 = "Got a stacktrace for you, human: " + GistHelper.gist(stackTrace);
+				channel.sendMessage(Colors.RED + msg2);
+				logger.severe(msg2);
+			} else {
+				final String msg2 = "I will not paste this, human.";
+				channel.sendMessage(Colors.RED + msg2);
+			}
+		}
+	}
 }

@@ -8,17 +8,17 @@ import org.pircbotx.User;
 
 public class HelpCommandHandler implements CommandHandler {
 
-    @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        String cmdPrefix = bot.getConfig().getCommandPrefix();
-        for (Command command : bot.commandManager.getCommands()) {
-            if (command.isAdminOnly()) {
-                if (bot.getConfig().getAdmins().contains(sender)) {
-                    sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
-                }
-            } else {
-                sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
-            }
-        }
-    }
+	@Override
+	public void handle(Willie bot, Channel channel, User sender, String[] args) {
+		String cmdPrefix = bot.getConfig().getCommandPrefix();
+		for(Command command : bot.commandManager.getCommands()) {
+			if (command.isAdminOnly()) {
+				if (bot.getConfig().getAdmins().contains(sender)) {
+					sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
+				}
+			} else {
+				sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
+			}
+		}
+	}
 }

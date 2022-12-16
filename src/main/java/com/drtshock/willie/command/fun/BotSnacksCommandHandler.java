@@ -7,8 +7,8 @@ import org.pircbotx.User;
 
 public class BotSnacksCommandHandler implements CommandHandler {
 
-    @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        bot.sendAction(channel, "NOM NOM NOM");
-    }
+	@Override
+	public void handle(Willie bot, Channel channel, User sender, String[] args) {
+		bot.sendAction(channel, "NOM NOM NOM");
+	}
 }
