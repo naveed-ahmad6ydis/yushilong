@@ -1,15 +1,16 @@
 package com.drtshock.willie.command.fun;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-import org.pircbotx.Channel;
-import org.pircbotx.User;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import org.pircbotx.Channel;
+import org.pircbotx.User;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 
 /**
  * @author stuntguy3000

@@ -1,7 +1,5 @@
 package com.drtshock.willie.util;
 
-import org.yaml.snakeyaml.Yaml;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,12 +7,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.logging.Logger;
+
+import org.yaml.snakeyaml.Yaml;
 
 @SuppressWarnings ("unchecked")
 public final class YamlHelper {
 
-	private static final Logger logger = Logger.getLogger(YamlHelper.class.getName());
 	private LinkedHashMap<String, Object> dataMap;
 	private Yaml yaml = new Yaml();
 
@@ -22,7 +20,7 @@ public final class YamlHelper {
 		loadFile(filePath);
 	}
 
-	public YamlHelper(LinkedHashMap dataMap) {
+	public YamlHelper(LinkedHashMap<String, Object> dataMap) {
 		this.dataMap = dataMap;
 	}
 
@@ -45,7 +43,7 @@ public final class YamlHelper {
 			if (i == pathArray.length - 1) {
 				return currentMap.get(pathArray[i]);
 			} else {
-				currentMap = (LinkedHashMap) currentMap.get(pathArray[i]);
+				currentMap = (LinkedHashMap<String, Object>) currentMap.get(pathArray[i]);
 			}
 		}
 		return null;
@@ -66,7 +64,7 @@ public final class YamlHelper {
 		} else {
 			LinkedHashMap<String, Object> currentMap = dataMap;
 			for(String pathKey : path.split("\\.")) {
-				currentMap = (LinkedHashMap) currentMap.get(pathKey);
+				currentMap = (LinkedHashMap<String, Object>) currentMap.get(pathKey);
 			}
 			if (currentMap != null) {
 				keys.addAll(currentMap.keySet());

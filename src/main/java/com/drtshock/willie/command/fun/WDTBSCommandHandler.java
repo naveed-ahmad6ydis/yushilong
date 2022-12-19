@@ -1,14 +1,15 @@
 package com.drtshock.willie.command.fun;
 
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import com.google.code.chatterbotapi.ChatterBot;
 import com.google.code.chatterbotapi.ChatterBotFactory;
 import com.google.code.chatterbotapi.ChatterBotSession;
 import com.google.code.chatterbotapi.ChatterBotType;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
 
 /**
  * @author stuntguy3000

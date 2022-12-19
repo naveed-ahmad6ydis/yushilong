@@ -1,13 +1,14 @@
 package com.drtshock.willie.command.utility;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-import org.pircbotx.Channel;
-import org.pircbotx.User;
-
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
+import org.pircbotx.Channel;
+import org.pircbotx.User;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 
 public class UTimeCommandHandler implements CommandHandler {
 

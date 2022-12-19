@@ -1,14 +1,23 @@
 package com.drtshock.willie.command.misc;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-import com.drtshock.willie.command.misc.stupidexception.*;
-import org.pircbotx.Channel;
-import org.pircbotx.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import org.pircbotx.Channel;
+import org.pircbotx.User;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.command.misc.stupidexception.AnswerDifferentThan42Exception;
+import com.drtshock.willie.command.misc.stupidexception.BryanIsNotInTheKitchenException;
+import com.drtshock.willie.command.misc.stupidexception.DrtshockNotFoundException;
+import com.drtshock.willie.command.misc.stupidexception.PopcornOutOfBoundsException;
+import com.drtshock.willie.command.misc.stupidexception.RibesgTypoedAgainExetpion;
+import com.drtshock.willie.command.misc.stupidexception.ThisIsNotAnException;
+import com.drtshock.willie.command.misc.stupidexception.ThisMayBeTheMostUselessCommandEverException;
+import com.drtshock.willie.command.misc.stupidexception.UsingExceptionsToSpeakCouldBeABadThingException;
+import com.drtshock.willie.command.misc.stupidexception.WillieIsNotSkynetYetException;
 
 public class ExceptionCommandHandler implements CommandHandler {
 

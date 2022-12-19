@@ -1,14 +1,16 @@
 package com.drtshock.willie.command.admin;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
+
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 
 /**
  * @author stuntguy3000

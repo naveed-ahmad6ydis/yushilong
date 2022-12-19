@@ -1,16 +1,5 @@
 package com.drtshock.willie.command.minecraft;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-import com.drtshock.willie.util.Tools;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,6 +15,18 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.Tools;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class GlobalMCStatsCommandHandler implements CommandHandler {
 
@@ -237,9 +238,7 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
 	// !gstats auth
 	private class AuthStats {
 
-		public final String authOnAmount;
 		public final double authOnPercentage;
-		public final String authOffAmount;
 		public final double authOffPercentage;
 
 		public AuthStats() throws IOException {
@@ -251,20 +250,15 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
 			final JsonArray secondArray = data.get(1).getAsJsonArray();
 			final String firstArrayString1 = firstArray.get(0).getAsString();
 			final String firstArrayString2 = firstArray.get(1).getAsString();
-			final String secondArrayString1 = secondArray.get(0).getAsString();
 			final String secondArrayString2 = secondArray.get(1).getAsString();
 
 			if (firstArrayString1.contains("Online")) {
 				// First is Online, Second is Offline
-				this.authOnAmount = firstArrayString1.substring(8, firstArrayString1.length() - 1);
 				this.authOnPercentage = Double.parseDouble(firstArrayString2);
-				this.authOffAmount = secondArrayString1.substring(9, secondArrayString1.length() - 1);
 				this.authOffPercentage = Double.parseDouble(secondArrayString2);
 			} else {
 				// First is Offline, Second is Online
-				this.authOffAmount = firstArrayString1.substring(9, firstArrayString1.length() - 1);
 				this.authOffPercentage = Double.parseDouble(firstArrayString2);
-				this.authOnAmount = secondArrayString1.substring(8, secondArrayString1.length() - 1);
 				this.authOnPercentage = Double.parseDouble(secondArrayString2);
 			}
 		}

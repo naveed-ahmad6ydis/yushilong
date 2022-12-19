@@ -1,12 +1,13 @@
 package com.drtshock.willie.command.fun;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 
 /**
  * @author stuntguy3000

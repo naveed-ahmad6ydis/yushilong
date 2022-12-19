@@ -1,13 +1,14 @@
 package com.drtshock.willie.command.fun;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-import com.drtshock.willie.util.Dictionary;
+import java.io.IOException;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 
-import java.io.IOException;
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.Dictionary;
 
 public class UrbanCommandHandler implements CommandHandler {
 

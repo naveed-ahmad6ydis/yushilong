@@ -1,20 +1,5 @@
 package com.drtshock.willie.command.minecraft;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-import com.drtshock.willie.util.Tools;
-import com.drtshock.willie.util.WebHelper;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,6 +14,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.Tools;
+import com.drtshock.willie.util.WebHelper;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class MCStatsCommandHandler implements CommandHandler {
 

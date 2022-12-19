@@ -1,12 +1,5 @@
 package com.drtshock.willie.command.misc;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-import com.drtshock.willie.util.WebHelper;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,6 +10,14 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.WebHelper;
 
 public class XKCDCommandHandler implements CommandHandler {
 

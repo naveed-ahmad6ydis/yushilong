@@ -1,15 +1,20 @@
 package com.drtshock.willie.github;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class GistHelper {
 

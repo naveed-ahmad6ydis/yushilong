@@ -1,16 +1,5 @@
 package com.drtshock.willie.command;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.auth.Auth;
-import com.drtshock.willie.command.misc.stupidexception.AbstractStupidException;
-import com.drtshock.willie.github.GistHelper;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
-import org.pircbotx.hooks.Listener;
-import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.events.MessageEvent;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -19,6 +8,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+import org.pircbotx.hooks.Listener;
+import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.events.MessageEvent;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.auth.Auth;
+import com.drtshock.willie.command.misc.stupidexception.AbstractStupidException;
+import com.drtshock.willie.github.GistHelper;
 
 public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
 

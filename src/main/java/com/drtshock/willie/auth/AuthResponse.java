@@ -1,8 +1,9 @@
 package com.drtshock.willie.auth;
 
-import com.drtshock.willie.Willie;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.NoticeEvent;
+
+import com.drtshock.willie.Willie;
 
 public class AuthResponse {
 
@@ -11,7 +12,7 @@ public class AuthResponse {
 	public boolean isAdmin = false;
 	public String accountName = "";
 
-	protected AuthResponse(Willie willie, NoticeEvent event, User user) {
+	protected AuthResponse(Willie willie, NoticeEvent<?> event, User user) {
 		if (!event.getUser().getNick().equals("NickServ")) {
 			return;
 		}

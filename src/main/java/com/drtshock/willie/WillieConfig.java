@@ -1,9 +1,5 @@
 package com.drtshock.willie;
 
-import com.drtshock.willie.util.YamlHelper;
-import org.pircbotx.Channel;
-import org.yaml.snakeyaml.Yaml;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,6 +10,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.pircbotx.Channel;
+import org.yaml.snakeyaml.Yaml;
+
+import com.drtshock.willie.util.YamlHelper;
 
 @SuppressWarnings ("unchecked")
 public class WillieConfig {
