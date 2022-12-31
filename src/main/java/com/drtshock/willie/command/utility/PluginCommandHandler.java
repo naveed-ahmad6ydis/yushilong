@@ -83,9 +83,9 @@ public class PluginCommandHandler implements CommandHandler {
 		        Element latest = filesList.get(0);
 		        String version = latest.nextElementSibling().ownText();
 		        String bukkitVersion = latest.parent().ownText().split("for")[1].trim();
-		        long fileDate = Long.parseLong(latest.nextElementSibling().attr("data-epoch"));
+		        long fileDate = Long.parseLong(latest.nextElementSibling().nextElementSibling().attr("data-epoch"));
 		        String date = this.dateFormat.format(new Date(fileDate * 1000));
-		        files = "Latest File: " + version + " for " + bukkitVersion + "(" + date + ")";
+		        files = "Latest File: " + version + " for " + bukkitVersion + " (" + date + ")";
 	        } else {
 		        files = "No files (yet!)";
 	        }
