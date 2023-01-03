@@ -25,15 +25,17 @@ public class TrendsCommandHandler implements CommandHandler {
             Trends trend = twitter.getPlaceTrends(1);
             int trendsToShow = 5;
 
-            channel.sendMessage(Colors.CYAN + "Top " + trendsToShow + " trends on Twitter right now...");
+            StringBuilder sb = new StringBuilder();
 
-            for (Trend t : trend.getTrends()) {
-                if (trendsToShow > 0) {
-                    channel.sendMessage(t.getName());
+            for(Trend t : trend.getTrends()) {
+                if(trendsToShow > 0) {
+                sb.append(t.getName()).append(" ");
+                    trendsToShow--;
                 }
-
-                trendsToShow = -1;
             }
+
+            channel.sendMessage(Colors.NORMAL + "Top " + trendsToShow + " trends on Twitter right now: " + sb.toString().trim());
+
         } catch (TwitterException e) {
             e.printStackTrace();
         }
