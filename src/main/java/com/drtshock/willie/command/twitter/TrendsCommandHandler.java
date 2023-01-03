@@ -1,4 +1,4 @@
-package com.drtshock.willie.command.fun;
+package com.drtshock.willie.command.twitter;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
@@ -27,9 +27,9 @@ public class TrendsCommandHandler implements CommandHandler {
 
             StringBuilder sb = new StringBuilder();
 
-            for(Trend t : trend.getTrends()) {
-                if(trendsToShow > 0) {
-                sb.append(t.getName()).append(" ");
+            for (Trend t : trend.getTrends()) {
+                if (trendsToShow > 0) {
+                    sb.append(t.getName()).append(" ");
                     trendsToShow--;
                 }
             }
