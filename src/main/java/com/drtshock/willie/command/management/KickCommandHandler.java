@@ -13,7 +13,7 @@ public class KickCommandHandler implements CommandHandler {
             if (channel.getVoices().contains(sender) || channel.getOps().contains(sender)) {
                 if (channel.getUsers().contains(bot.getUser(args[0]))) {
                     if (args.length == 1) {
-                        if (!channel.getVoices().contains(bot.getUser(args[0])) || !channel.getOps().contains(bot.getUser(args[0]))) {
+                        if (!channel.getVoices().contains(bot.getUser(args[0])) || !channel.getOps().contains(bot.getUser(args[0])) || !bot.getNick().equalsIgnoreCase(args[0])) {
                             bot.kick(channel, bot.getUser(args[0]));
                         } else {
                             bot.sendNotice(sender, "I'm not allowed to kick that person!");
