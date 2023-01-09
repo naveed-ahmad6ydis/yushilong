@@ -26,7 +26,7 @@ public class KickCommandHandler implements CommandHandler {
                             }
                         }
                         String reason = sb.toString().trim();
-                        if (!channel.getVoices().contains(bot.getUser(args[0])) || !channel.getOps().contains(bot.getUser(args[0]))) {
+                        if (!channel.getVoices().contains(bot.getUser(args[0])) || !channel.getOps().contains(bot.getUser(args[0])) || !bot.getNick().equalsIgnoreCase(args[0])) {
                             bot.kick(channel, bot.getUser(args[0]), reason);
                         } else {
                             bot.sendNotice(sender, "I'm not allowed to kick that person!");
