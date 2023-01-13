@@ -1,5 +1,9 @@
 package com.drtshock.willie;
 
+import com.drtshock.willie.util.YamlHelper;
+import org.pircbotx.Channel;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,10 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.yaml.snakeyaml.Yaml;
-
-import com.drtshock.willie.util.YamlHelper;
 
 @SuppressWarnings("unchecked")
 public class WillieConfig {
@@ -45,6 +45,10 @@ public class WillieConfig {
         configMap.put("port", "5555");
         configMap.put("channels", botChannels);
         configMap.put("command-prefix", "!");
+        configMap.put("twitter-consumer-key", "change-me");
+        configMap.put("twitter-consumer-key-secret", "change-me");
+        configMap.put("twitter-access-token", "change-me");
+        configMap.put("twitter-access-token-secret", "change-me");
     }
 
     public LinkedHashMap<String, Object> getConfigMap() {
@@ -58,7 +62,6 @@ public class WillieConfig {
         return this;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void save(String fileName) {
         update();
         try {
@@ -100,6 +103,21 @@ public class WillieConfig {
 
     public String getGitHubApiKey() {
         return (String) configMap.get("github-api-key");
+    }
+
+    public String getJoinMessage(Channel c) {
+        return (String) configMap.get(c.toString());
+    }
+
+    public void setJoinMessage(Channel c, String s) {
+        configMap.put(c.toString(), s);
+    }
+
+    public boolean hasJoinMessage(Channel c) {
+        if (configMap.containsKey(c.toString()) && !(configMap.get(c.toString()).equals(""))) {
+            return true;
+        }
+        return false;
     }
 
     public String getJenkinsServer() {
@@ -225,5 +243,21 @@ public class WillieConfig {
 
     public ArrayList<String> getJenkinsAdmins() {
         return jenkinsAdmins;
+    }
+
+    public String getTwitterConsumerKey() {
+        return (String) configMap.get("twitter-consumer-key");
+    }
+
+    public String getTwitterConsumerKeySecret() {
+        return (String) configMap.get("twitter-consumer-key-secret");
+    }
+
+    public String getTwitterAccessToken() {
+        return (String) configMap.get("twitter-access-token");
+    }
+
+    public String getTwitterAccessTokenSecret() {
+        return (String) configMap.get("twitter-access-token-secret");
     }
 }

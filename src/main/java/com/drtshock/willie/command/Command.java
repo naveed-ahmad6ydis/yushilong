@@ -1,6 +1,7 @@
 package com.drtshock.willie.command;
 
 public class Command {
+
     private String name;
     private String help;
     private CommandHandler handler;
@@ -32,5 +33,4 @@ public class Command {
     public CommandHandler getHandler() {
         return this.handler;
     }
-
 }

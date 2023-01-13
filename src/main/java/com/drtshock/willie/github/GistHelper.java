@@ -1,34 +1,32 @@
 package com.drtshock.willie.github;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GistHelper {
 
-    private static final String GITHUB_API_URL    = "https://api.github.com/";
+    private static final String GITHUB_API_URL = "https://api.github.com/";
     private static final String GIST_API_LOCATION = "gists";
-    private static final String GIST_URL          = GITHUB_API_URL + GIST_API_LOCATION;
-
+    private static final String GIST_URL = GITHUB_API_URL + GIST_API_LOCATION;
     private static final String DESCRIPTION = "Willie pasted this on ";
-
     private static final Logger LOG = Logger.getLogger(GistHelper.class.getName());
 
     /**
      * Paste a String to Gist then returns the link to the gist
      *
      * @param toGist the String to paste
-     *
      * @return the link to the paste
      */
     public static String gist(String toGist) {
+        LOG.fine("Started to Gist something...");
         OutputStream out = null;
         InputStream in = null;
         try {
@@ -40,25 +38,32 @@ public class GistHelper {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("content-type", "application/json; charset=utf-8");
 
-            GistCreationJsonRequest req = new GistCreationJsonRequest();
-            req.description = DESCRIPTION + date();
-            req.isPublic = true;
-            GistCreationJsonRequestFile file = new GistCreationJsonRequestFile();
-            file.fileName = "WilliePaste-" + date().replace(' ', '-');
-            file.fileContent = toGist;
-            req.files = new GistCreationJsonRequestFile[] {file};
-            String jsonString = req.toJsonString();
+            LOG.fine("Request built, now creating JSON object to send...");
+
+            JsonObject res = new JsonObject();
+            res.addProperty("description", DESCRIPTION + date());
+            res.addProperty("public", true);
+            JsonObject fileList = new JsonObject();
+            JsonObject file = new JsonObject();
+            file.addProperty("content", toGist);
+            fileList.add("WilliePaste-" + date().replace(' ', '-') + ".txt", file);
+            res.add("files", fileList);
+            String jsonString = res.toString();
+
+            LOG.log(Level.FINE, "Json object created: {0}", jsonString);
 
             connection.setRequestProperty("Content-Length", Integer.toString(jsonString.length()));
 
             connection.connect();
 
+            LOG.fine("Sending...");
             out = connection.getOutputStream();
-            OutputStreamWriter writer = new OutputStreamWriter(out);
-            writer.write(req.toJsonString());
-            writer.flush();
-            writer.close();
+            try (OutputStreamWriter writer = new OutputStreamWriter(out)) {
+                writer.write(jsonString);
+                writer.flush();
+            }
 
+            LOG.fine("Reading response...");
             in = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(in));
             String line, response = "";
@@ -67,14 +72,21 @@ public class GistHelper {
             }
             rd.close(); //close the reader
 
-            return response;
+            LOG.log(Level.FINE, "Response received: {0}", response);
+
+            JsonObject responseJson = new JsonParser().parse(response).getAsJsonObject();
+
+            String link = responseJson.get("html_url").getAsString();
+
+            LOG.log(Level.FINE, "Gist successful! Link: {0}", link);
+            return link;
         } catch (IOException e) {
             LOG.severe("Failed to Gist, error follows:");
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, e.getMessage(), e);
             LOG.severe("This is what I was trying to Gist:");
-            LOG.severe("\n##########" + toGist + "\n##########");
+            LOG.log(Level.SEVERE, "\n##########\n{0}\n##########", toGist);
             LOG.severe("Failed to Gist, error above.");
-            return "ERROR";
+            return "Error. Limit exceeded?";
         } finally {
             if (out != null) {
                 try {
@@ -95,40 +107,5 @@ public class GistHelper {
 
     private static String date() {
         return new SimpleDateFormat("EEEE dd MMMM YYYY").format(new Date());
-    }
-
-    private static class GistCreationJsonRequest {
-
-        public String                        description;
-        public boolean                       isPublic;
-        public GistCreationJsonRequestFile[] files;
-
-        public String toJsonString() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append("{\"description\":\"");
-            builder.append(description);
-            builder.append("\",\"public\":");
-            builder.append(isPublic);
-            builder.append(",\"files\":{");
-            for (int i = 0; i < files.length; i++) {
-                GistCreationJsonRequestFile file = files[i];
-                builder.append('"');
-                builder.append(file.fileName);
-                builder.append("\":{\"content\":\"");
-                builder.append(file.fileContent);
-                builder.append("\"}");
-                if (i != files.length - 1) {
-                    builder.append(',');
-                }
-            }
-            builder.append("}}");
-            return builder.toString();
-        }
-    }
-
-    private static class GistCreationJsonRequestFile {
-
-        public String fileName;
-        public String fileContent;
     }
 }

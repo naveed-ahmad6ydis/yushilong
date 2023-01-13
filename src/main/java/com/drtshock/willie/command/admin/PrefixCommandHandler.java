@@ -6,7 +6,6 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 /**
- *
  * @author drtshock
  */
 public class PrefixCommandHandler implements CommandHandler {

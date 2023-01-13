@@ -8,7 +8,6 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 /**
- *
  * @author drtshock
  */
 public class ShortenCommandHandler implements CommandHandler {
@@ -25,6 +24,5 @@ public class ShortenCommandHandler implements CommandHandler {
         } else {
             channel.sendMessage("!shorten <url>");
         }
-
     }
 }

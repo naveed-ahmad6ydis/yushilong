@@ -2,8 +2,10 @@ package com.drtshock.willie.command.utility;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.Tools;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
@@ -24,7 +26,7 @@ public class PluginCommandHandler implements CommandHandler {
     private SimpleDateFormat dateFormat;
 
     public PluginCommandHandler() {
-        this.dateFormat = new SimpleDateFormat("EEEE dd MMMM YYYY");
+        this.dateFormat = new SimpleDateFormat("YYYY-MM-dd");
     }
 
     @Override
@@ -61,30 +63,37 @@ public class PluginCommandHandler implements CommandHandler {
 
             String name = document.getElementsByTag("h1").get(1).ownText().trim();
             StringBuilder authors = new StringBuilder();
-            long lastUpdate = Long.parseLong(document.getElementsByClass("standard-date").get(1).attr("data-epoch"));
             int downloads = Integer.parseInt(document.getElementsByAttribute("data-value").first().attr("data-value"));
 
             Elements containers = document.getElementsByClass("user-container");
 
             if (!containers.isEmpty()) {
-                authors.append(containers.get(0).text().trim());
+                authors.append(Tools.silence(containers.get(0).text().trim()));
             }
-
-            char blankc = 0x200b;
-            String blank = String.valueOf(blankc);
 
             for (int i = 1; i < containers.size(); ++i) {
                 authors.append(", ");
                 String author = containers.get(i).text().trim();
-                // Insert blank character so people aren't pinged
-                author = author.substring(0, 2) + blank + author.substring(2, author.length());
-                authors.append(author);
+                authors.append(Tools.silence(author));
+            }
+
+            String files;
+            Elements filesList = document.getElementsByClass("file-type");
+            if (filesList.size() > 0) {
+                Element latest = filesList.get(0);
+                String version = latest.nextElementSibling().ownText();
+                String bukkitVersion = latest.parent().ownText().split("for")[1].trim();
+                long fileDate = Long.parseLong(latest.nextElementSibling().nextElementSibling().attr("data-epoch"));
+                String date = this.dateFormat.format(new Date(fileDate * 1000));
+                files = "Latest File: " + version + " for " + bukkitVersion + " (" + date + ")";
+            } else {
+                files = "No files (yet!)";
             }
 
             channel.sendMessage(name + " (" + connection.getURL().toExternalForm() + ")");
             channel.sendMessage("Authors: " + authors.toString());
             channel.sendMessage("Downloads: " + downloads);
-            channel.sendMessage("Last Update: " + this.dateFormat.format(new Date(lastUpdate * 1000)));
+            channel.sendMessage(files);
         } catch (FileNotFoundException e) {
             channel.sendMessage(Colors.RED + "Project not found");
         } catch (MalformedURLException e) {
@@ -94,5 +103,4 @@ public class PluginCommandHandler implements CommandHandler {
             throw e; // Gist
         }
     }
-
 }
