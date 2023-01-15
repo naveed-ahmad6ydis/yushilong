@@ -37,7 +37,7 @@ public class PluginCommandHandler implements CommandHandler {
         }
 
         try {
-            URL url = new URL("http://dev.bukkit.org/projects/" + args[0] + "/");
+            URL url = new URL("http://dev.bukkit.org/bukkit-plugins/" + args[0] + "/");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
