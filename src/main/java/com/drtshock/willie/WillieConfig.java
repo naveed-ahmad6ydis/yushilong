@@ -20,13 +20,11 @@ public class WillieConfig {
 
     private static final Logger logger = Logger.getLogger(WillieConfig.class.getName());
     private LinkedHashMap<String, Object> configMap = new LinkedHashMap<>();
-    private ArrayList<String> botAdmins = new ArrayList<>();
     private ArrayList<String> botChannels = new ArrayList<>();
     ArrayList<String> jenkinsAdmins = new ArrayList<>();
 
     public WillieConfig() {
         // Default configuration
-        botAdmins.add("drtshock");
         botChannels.add("#willie");
 
         jenkinsAdmins.add("drtshock");
@@ -37,7 +35,6 @@ public class WillieConfig {
         configMap.put("jenkins-admins", jenkinsAdmins);
         configMap.put("bot-source-url", "https://github.com/drtshock/willie");
         configMap.put("donate-url", "http://tinyurl.com/drtdonate");
-        configMap.put("bot-admins", botAdmins);
         configMap.put("bot-nick", "Willie");
         configMap.put("account-pass", "");
         configMap.put("server-pass", "");
@@ -57,7 +54,6 @@ public class WillieConfig {
 
     public WillieConfig update() {
         botChannels = (ArrayList<String>) configMap.get("channels");
-        botAdmins = (ArrayList<String>) configMap.get("bot-admins");
         jenkinsAdmins = (ArrayList<String>) configMap.get("jenkins-admins");
         return this;
     }
@@ -126,26 +122,6 @@ public class WillieConfig {
 
     public WillieConfig setJenkinsServer(String server) {
         configMap.put("jenkins-server", server);
-        return this;
-    }
-
-    public ArrayList<String> getAdmins() {
-        return botAdmins;
-    }
-
-    public WillieConfig addAdmin(String name) {
-        botAdmins.add(name);
-        return this;
-    }
-
-    public WillieConfig removeAdmin(String name) {
-        botAdmins.remove(name);
-        return this;
-    }
-
-    public WillieConfig setAdmins(String... admins) {
-        botAdmins.clear();
-        Collections.addAll(botAdmins, admins);
         return this;
     }
 

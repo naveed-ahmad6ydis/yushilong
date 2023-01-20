@@ -122,7 +122,6 @@ public class Willie extends PircBotX {
         LOG.info("Registering commands...");
         // Now in alphabetical order :D
         // Thank god for http://www.alphabetize.org/ - stuntguy3000
-        this.commandManager.registerCommand(new Command("admin", "add <user> | del <user> | list - Modifies the bot admin list.", new AdminCommandHandler(), true));
         this.commandManager.registerCommand(new Command("agree", "agree!", new AgreeDisagreeCommandHandler(true)));
         this.commandManager.registerCommand(new Command("author", "<name> [amount] - looks up an author on BukkitDev", new AuthorCommandHandler()));
         this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));

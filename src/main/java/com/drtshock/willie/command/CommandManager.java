@@ -71,7 +71,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
         System.arraycopy(parts, 1, args, 0, args.length);
 
         Command command = this.commands.get(commandName);
-        if (command.isAdminOnly() && !Auth.checkAuth(sender).isAdmin) {
+        if (command.isAdminOnly() && !Auth.checkAuth(sender)) {
             bot.sendAction(sender, "You are not an admin.");
             return;
         }
