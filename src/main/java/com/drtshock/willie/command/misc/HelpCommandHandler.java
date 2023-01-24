@@ -1,6 +1,7 @@
 package com.drtshock.willie.command.misc;
 
 import com.drtshock.willie.Willie;
+import com.drtshock.willie.auth.Auth;
 import com.drtshock.willie.command.Command;
 import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
@@ -13,7 +14,7 @@ public class HelpCommandHandler implements CommandHandler {
         String cmdPrefix = bot.getConfig().getCommandPrefix();
         for (Command command : bot.commandManager.getCommands()) {
             if (command.isAdminOnly()) {
-                if (bot.getConfig().getAdmins().contains(sender)) {
+                if (Auth.checkAuth(sender)) {
                     sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
                 }
             } else {
