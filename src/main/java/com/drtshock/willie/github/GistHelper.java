@@ -23,6 +23,7 @@ public class GistHelper {
      * Paste a String to Gist then returns the link to the gist
      *
      * @param toGist the String to paste
+     *
      * @return the link to the paste
      */
     public static String gist(String toGist) {

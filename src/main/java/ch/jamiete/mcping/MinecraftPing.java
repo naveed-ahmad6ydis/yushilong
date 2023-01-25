@@ -32,27 +32,29 @@ import java.net.Socket;
 public class MinecraftPing {
 
     /**
-     * Fetches a {@link MinecraftPingReply} for the supplied hostname on default
-     * port (25565). Will revert to pre-12w42b ping message if required.
+     * Fetches a {@link MinecraftPingReply} for the supplied hostname on default port (25565). Will revert to pre-12w42b
+     * ping message if required.
      *
      * @param hostname - the IP of the server to request ping from
+     *
      * @return {@link MinecraftPingReply} - list of basic server information
-     * @throws IOException thrown when failed to receive packet or when
-     *                     incorrect packet is received
+     *
+     * @throws IOException thrown when failed to receive packet or when incorrect packet is received
      */
     public MinecraftPingReply getPing(final String hostname) throws IOException {
         return this.getPing(hostname, 25565);
     }
 
     /**
-     * Fetches a {@link MinecraftPingReply} for the supplied hostname and port.
-     * Will revert to pre-12w42b ping message if required.
+     * Fetches a {@link MinecraftPingReply} for the supplied hostname and port. Will revert to pre-12w42b ping message
+     * if required.
      *
      * @param hostname - the IP of the server to request ping from
-     * @param port     - the port of the server to request ping from
+     * @param port - the port of the server to request ping from
+     *
      * @return {@link MinecraftPingReply} - list of basic server information
-     * @throws IOException thrown when failed to receive packet or when
-     *                     incorrect packet is received
+     *
+     * @throws IOException thrown when failed to receive packet or when incorrect packet is received
      */
     public MinecraftPingReply getPing(final String hostname, final int port) throws IOException {
         validate(hostname, "Hostname cannot be null.");
@@ -103,16 +105,18 @@ public class MinecraftPing {
     }
 
     /**
-     * Returns a {@link MinecraftPingReply} for the response supplied. <b>Only
-     * call from {@link MinecraftPing#getPing(String, int)}.</b>
+     * Returns a {@link MinecraftPingReply} for the response supplied. <b>Only call from {@link
+     * MinecraftPing#getPing(String, int)}.</b>
      * <p/>
      * <p/>
      * This method isn't intended for use outside of the {@link MinecraftPing} class.
      *
      * @param response - the pre-12w42b ping reply message
      * @param hostname - the IP of the server ping was requested from
-     * @param port     - the port of the server ping was requested from
+     * @param port - the port of the server ping was requested from
+     *
      * @return {@link MinecraftPingReply} - list of basic server information
+     *
      * @throws IOException thrown when incorrect message supplied
      */
     @Deprecated

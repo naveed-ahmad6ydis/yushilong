@@ -132,8 +132,7 @@ public class MinecraftPingReply {
     }
 
     /**
-     * Returns a JSON representation of the data contained within this ping
-     * reply.
+     * Returns a JSON representation of the data contained within this ping reply.
      */
     @Override
     public String toString() {
