@@ -195,6 +195,7 @@ public class Willie extends PircBotX {
         } catch (IrcException | IOException ignored) {
         }
         LOG.info("Connected!");
+        getChannel("#willie").sendMessage("Deployed!");
     }
 
     @Override
