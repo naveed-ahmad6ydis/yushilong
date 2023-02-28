@@ -33,10 +33,10 @@ public class MCStatusCommandHandler implements CommandHandler {
         // Poor code, but it works
         while (i.hasNext()) {
             String[] status = entries.get(count).getAsJsonObject().toString().replace("{", "").replace("}", "").replace("\"", "").replace(".mojang.com", "").replace(".minecraft.net", "").split(":");
-            services.put(status[0].substring(0,1).toUpperCase() + status[0].substring(1), status[1]);
+            services.put(status[0].substring(0, 1).toUpperCase() + status[0].substring(1), status[1]);
 
             i.next();
-            count ++;
+            count++;
         }
 
         StringBuilder status = new StringBuilder();
