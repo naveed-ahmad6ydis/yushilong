@@ -149,6 +149,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("pong", "want to play some ping-pong?", new PongCommandHandler()));
         this.commandManager.registerCommand(new Command("prefix", "<prefix> changes command prefix for bot.", new PrefixCommandHandler(), true));
         this.commandManager.registerCommand(new Command("quote", "display a random quote", new QuoteCommandHandler()));
+        this.commandManager.registerCommand(new Command("r", "<name> shortcut to a Reddit subreddit", new SubRedditCommandHandler()));
         this.commandManager.registerCommand(new Command("reload", "Reloads willie", new ReloadCommandHandler(), true));
         this.commandManager.registerCommand(new Command("repo", "show Willie's repo", new RepoCommandHandler()));
         this.commandManager.registerCommand(new Command("rules", "show channel rules", new RulesCommandHandler()));
