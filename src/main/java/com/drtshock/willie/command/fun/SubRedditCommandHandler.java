@@ -16,7 +16,7 @@ public class SubRedditCommandHandler implements CommandHandler {
         if (args.length == 0) {
             channel.sendMessage(Colors.RED + "Please specify a subreddit!");
         } else {
-            if (!args[0].matches("^[a-zA-Z0-9]*$")) {
+            if (!args[0].matches("^[A-Za-z0-9][A-Za-z0-9_]{2,20}$")) {
                 channel.sendMessage(Colors.RED + "Only subreddits with letters and numbers are valid!");
             } else {
                 channel.sendMessage(Colors.BOLD + "http://www.reddit.com/r/" + args[0]);
