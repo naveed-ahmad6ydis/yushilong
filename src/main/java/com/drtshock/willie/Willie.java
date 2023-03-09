@@ -168,6 +168,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("wtweet", "<message> tweet a message through @WillieIRC", new WTweetCommandHandler(), true));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
         this.commandManager.registerCommand(new Command("tw", "tw <handle> - get the most recent tweet", new RecentTweetCommandHandler()));
+        this.commandManager.registerCommand(new Command("blacklist", "blacklist <words...> - add or remove blacklisted words.", new BlacklistCommandHandler(), true));
 
         this.setName(willieConfig.getNick());
         this.setVerbose(false);

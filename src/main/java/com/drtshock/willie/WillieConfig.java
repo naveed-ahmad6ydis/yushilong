@@ -21,7 +21,8 @@ public class WillieConfig {
     private static final Logger logger = Logger.getLogger(WillieConfig.class.getName());
     private LinkedHashMap<String, Object> configMap = new LinkedHashMap<>();
     private ArrayList<String> botChannels = new ArrayList<>();
-    ArrayList<String> jenkinsAdmins = new ArrayList<>();
+    private ArrayList<String> jenkinsAdmins = new ArrayList<>();
+    private ArrayList<String> blacklistedWords = new ArrayList<>();
 
     public WillieConfig() {
         // Default configuration
@@ -46,6 +47,7 @@ public class WillieConfig {
         configMap.put("twitter-consumer-key-secret", "change-me");
         configMap.put("twitter-access-token", "change-me");
         configMap.put("twitter-access-token-secret", "change-me");
+        configMap.put("blacklisted-words", blacklistedWords);
     }
 
     public LinkedHashMap<String, Object> getConfigMap() {
@@ -55,6 +57,7 @@ public class WillieConfig {
     public WillieConfig update() {
         botChannels = (ArrayList<String>) configMap.get("channels");
         jenkinsAdmins = (ArrayList<String>) configMap.get("jenkins-admins");
+        blacklistedWords = (ArrayList<String>) configMap.get("blacklisted-words");
         return this;
     }
 
@@ -219,6 +222,27 @@ public class WillieConfig {
 
     public ArrayList<String> getJenkinsAdmins() {
         return jenkinsAdmins;
+    }
+
+    public ArrayList<String> getBlacklistedWords() {
+        return blacklistedWords;
+    }
+
+    public boolean isBlacklisted(String string) {
+        for (String s : string.split(" ")) {
+            if (blacklistedWords.contains(s)) return true;
+        }
+        return false;
+    }
+
+    public boolean blacklistWord(String s) {
+        if (blacklistedWords.contains(s)) {
+            blacklistedWords.remove(s);
+            return false;
+        } else {
+            blacklistedWords.add(s);
+            return true;
+        }
     }
 
     public String getTwitterConsumerKey() {
