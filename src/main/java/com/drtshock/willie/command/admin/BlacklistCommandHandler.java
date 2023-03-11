@@ -10,7 +10,7 @@ public class BlacklistCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         StringBuilder sb = new StringBuilder();
-        if (args.length > 1) {
+        if (args.length > 0) {
             for (String s : args) {
                 if (Willie.getInstance().getConfig().blacklistWord(s)) {
                     sb.append("+" + s + " ");

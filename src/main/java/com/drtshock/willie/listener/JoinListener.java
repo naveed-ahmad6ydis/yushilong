@@ -41,7 +41,7 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
     public void onMessage(MessageEvent<Willie> event) {
         Channel channel = event.getChannel();
         User sender = event.getUser();
-        if (!exempt(sender, channel) || Willie.getInstance().getConfig().isBlacklisted(event.getMessage())) {
+        if (!exempt(sender, channel) && Willie.getInstance().getConfig().isBlacklisted(event.getMessage())) {
             kickban(sender, channel, "Please do not spam.");
         }
         if (users.containsKey(sender.getRealName()) && users.get(sender.getRealName()).equalsIgnoreCase(channel.getName()) && (!channel.getVoices().contains(sender) && !channel.getOps().contains(sender))) {
