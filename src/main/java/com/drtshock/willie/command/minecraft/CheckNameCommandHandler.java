@@ -20,7 +20,7 @@ public class CheckNameCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
-            channel.sendMessage(Colors.RED + "Check if a Minecraft username is available " + bot.getConfig().getCommandPrefix() + "checkname <username>");
+            channel.sendMessage("Check if a Minecraft username is available " + bot.getConfig().getCommandPrefix() + "checkname <username>");
             return;
         }
 
@@ -31,14 +31,14 @@ public class CheckNameCommandHandler implements CommandHandler {
         }
 
         if (!user.matches("^[a-zA-Z0-9_]*$")) {
-            channel.sendMessage(Colors.RED + "Only usernames with letters, numbers and underscores are valid!");
+            channel.sendMessage("Only usernames with letters, numbers and underscores are valid!");
             return;
         }
 
         String result = getPage("https://account.minecraft.net/buy/frame/checkName/" + user);
 
         if (result.equalsIgnoreCase("OK")) {
-            channel.sendMessage(Colors.DARK_GREEN + Colors.BOLD + user + Colors.NORMAL + Colors.DARK_GREEN + " is available!");
+            channel.sendMessage(Colors.GREEN + Colors.BOLD + user + Colors.NORMAL + Colors.GREEN + " is available!");
         } else if (result.equalsIgnoreCase("TAKEN")) {
             channel.sendMessage(Colors.RED + Colors.BOLD + user + Colors.NORMAL + Colors.RED + " is NOT available!");
         } else {

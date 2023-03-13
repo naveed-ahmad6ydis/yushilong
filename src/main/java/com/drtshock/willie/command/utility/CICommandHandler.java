@@ -14,7 +14,7 @@ public class CICommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length != 1) {
-            String message = String.format(Colors.BLUE + "Get dev builds at %s If you're interesting in hosting a project there, talk to %s", bot.getConfig().getJenkinsServer(), bot.getConfig().getJenkinsAdmins());
+            String message = String.format("Get dev builds at %s If you're interesting in hosting a project there, talk to %s", bot.getConfig().getJenkinsServer(), bot.getConfig().getJenkinsAdmins());
             channel.sendMessage(message);
         } else {
             try {

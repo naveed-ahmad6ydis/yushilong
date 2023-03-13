@@ -21,7 +21,7 @@ public class LatestCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
-            channel.sendMessage(Colors.RED + "Check latest BukkitDev version of a plugin by doing " + Willie.getInstance().getConfig().getCommandPrefix() + "latest <slug>");
+            channel.sendMessage("Check latest BukkitDev version of a plugin by doing " + Willie.getInstance().getConfig().getCommandPrefix() + "latest <slug>");
             return;
         }
 
@@ -44,7 +44,7 @@ public class LatestCommandHandler implements CommandHandler {
                 return;
             }
 
-            channel.sendMessage(Colors.PURPLE + "Latest release: " + titles.item(1).getTextContent() + " | Link: " + links.item(1).getTextContent());
+            channel.sendMessage(Colors.PURPLE + "Latest release: " + Colors.NORMAL + titles.item(1).getTextContent() + " | Link: " + links.item(1).getTextContent());
         } catch (FileNotFoundException e) {
             channel.sendMessage(Colors.RED + "Project not found");
         } catch (SAXException e) {

@@ -20,7 +20,7 @@ public class HasPaidCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
-            channel.sendMessage(Colors.RED + "Check if a Minecraft user has paid with " + bot.getConfig().getCommandPrefix() + "haspaid <username>");
+            channel.sendMessage("Check if a Minecraft user has paid with " + bot.getConfig().getCommandPrefix() + "haspaid <username>");
             return;
         }
 
@@ -38,7 +38,7 @@ public class HasPaidCommandHandler implements CommandHandler {
         String result = getPage("https://minecraft.net/haspaid.jsp?user=" + user);
 
         if (result.equalsIgnoreCase("true")) {
-            channel.sendMessage(Colors.DARK_GREEN + Colors.BOLD + user + Colors.NORMAL + Colors.DARK_GREEN + " has paid!");
+            channel.sendMessage(Colors.GREEN + Colors.BOLD + user + Colors.NORMAL + Colors.GREEN + " has paid!");
         } else if (result.equalsIgnoreCase("false")) {
             channel.sendMessage(Colors.RED + Colors.BOLD + user + Colors.NORMAL + Colors.RED + " has NOT paid!");
         } else {

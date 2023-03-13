@@ -18,14 +18,14 @@ public class JoinCommandHandler implements CommandHandler {
         }
 
         if (bot.isOnChannel(args[0])) {
-            channel.sendMessage(String.format(Colors.GREEN + "Already there!"));
+            channel.sendMessage(String.format("Already there!"));
         } else {
-            channel.sendMessage(Colors.GREEN + String.format("See you in %s!", args[0]));
+            channel.sendMessage(String.format("See you in %s!", args[0]));
             bot.joinChannel(args[0]);
             if (args.length == 2 && args[1].equalsIgnoreCase("silent")) {
                 return;
             }
-            bot.getChannel(args[0]).sendMessage(Colors.GREEN + String.format("%s told me I belong here.", sender.getNick()));
+            bot.getChannel(args[0]).sendMessage(String.format("%s told me I belong here.", sender.getNick()));
         }
     }
 }
