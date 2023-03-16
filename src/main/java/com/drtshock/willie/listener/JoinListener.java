@@ -46,7 +46,7 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
         }
         if (users.containsKey(sender.getRealName()) && users.get(sender.getRealName()).equalsIgnoreCase(channel.getName()) && (!channel.getVoices().contains(sender) && !channel.getOps().contains(sender))) {
             if (pattern.matcher(event.getMessage()).find()) {
-                kickban(sender, channel, "Joining and posting links is not permitted.");
+                kick(sender, channel, "Joining and posting links is not permitted.");
             } else {
                 users.remove(sender.getRealName());
             }
@@ -55,6 +55,11 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
 
     private boolean exempt(User user, Channel channel) {
         return channel.getOps().contains(user) || channel.getVoices().contains(user);
+    }
+    
+    private void kick(User user, Channel channel, String reason) {
+        Willie.getInstance().kick(channel, user, reason);
+
     }
 
     private void kickban(User user, Channel channel, String reason) {
