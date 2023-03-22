@@ -3,7 +3,6 @@ package com.drtshock.willie.command.admin;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
-import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 public class JoinCommandHandler implements CommandHandler {

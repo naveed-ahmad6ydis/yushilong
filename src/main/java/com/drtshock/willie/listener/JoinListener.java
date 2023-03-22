@@ -56,7 +56,7 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
     private boolean exempt(User user, Channel channel) {
         return channel.getOps().contains(user) || channel.getVoices().contains(user);
     }
-    
+
     private void kick(User user, Channel channel, String reason) {
         Willie.getInstance().kick(channel, user, reason);
     }
