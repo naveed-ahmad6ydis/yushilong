@@ -42,15 +42,15 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
         Channel channel = event.getChannel();
         User sender = event.getUser();
         if (!exempt(sender, channel) && Willie.getInstance().getConfig().isBlacklisted(event.getMessage())) {
-            kickban(sender, channel, "Please do not spam.");
+            kick(sender, channel, "Please do not spam.");
         }
-        if (users.containsKey(sender.getRealName()) && users.get(sender.getRealName()).equalsIgnoreCase(channel.getName()) && (!channel.getVoices().contains(sender) && !channel.getOps().contains(sender))) {
+        /*if (users.containsKey(sender.getRealName()) && users.get(sender.getRealName()).equalsIgnoreCase(channel.getName()) && (!channel.getVoices().contains(sender) && !channel.getOps().contains(sender))) {
             if (pattern.matcher(event.getMessage()).find()) {
                 kick(sender, channel, "Joining and posting links is not permitted.");
             } else {
                 users.remove(sender.getRealName());
             }
-        }
+        }*/
     }
 
     private boolean exempt(User user, Channel channel) {
