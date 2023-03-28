@@ -59,12 +59,10 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
     
     private void kick(User user, Channel channel, String reason) {
         Willie.getInstance().kick(channel, user, reason);
-
     }
 
     private void kickban(User user, Channel channel, String reason) {
         Willie.getInstance().ban(channel, user.getHostmask());
         Willie.getInstance().kick(channel, user, reason);
-
     }
 }
