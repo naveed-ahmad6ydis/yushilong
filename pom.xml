@@ -67,6 +67,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.5</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.twitter4j</groupId>
             <artifactId>twitter4j-core</artifactId>
             <version>[3.0,)</version>
@@ -130,6 +136,7 @@
                             <include>org.yaml:snakeyaml</include>
                             <include>org.jsoup:jsoup</include>
                             <include>org.twitter4j:twitter4j-core</include>
+                            <include>org.jdom:jdom2</include>
                         </includes>
                     </artifactSet>
                 </configuration>
