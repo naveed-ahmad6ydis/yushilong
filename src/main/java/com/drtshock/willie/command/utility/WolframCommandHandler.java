@@ -3,7 +3,6 @@ package com.drtshock.willie.command.utility;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import com.drtshock.willie.util.WebHelper;
-import javafx.scene.paint.Color;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -16,23 +15,23 @@ import java.net.URLEncoder;
 public class WolframCommandHandler implements CommandHandler {
 
     private static final String API_URL = "http://api.wolframalpha.com/v2/query?format=plaintext&appid=%s&input=%s",
-    QUERY_URL = "http://www.wolframalpha.com/input/?i=%s";
+            QUERY_URL = "http://www.wolframalpha.com/input/?i=%s";
 
     private SAXBuilder builder = new SAXBuilder();
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
-        if(args.length == 0) {
-            channel.sendMessage(Color.RED + "Usage: wa <query>");
+        if (args.length == 0) {
+            channel.sendMessage("Usage: wa <query>");
         } else {
             String key = bot.getConfig().getWolframApiKey();
 
             StringBuilder argsBuilder = new StringBuilder();
 
-            for(String arg : args) {
+            for (String arg : args) {
                 argsBuilder.append(arg);
 
-                if(arg != args[args.length - 1]) {
+                if (arg != args[args.length - 1]) {
                     argsBuilder.append(" ");
                 }
             }
@@ -45,7 +44,7 @@ public class WolframCommandHandler implements CommandHandler {
 
             Element root = document.getRootElement();
 
-            if(root.getAttribute("success").getBooleanValue()) {
+            if (root.getAttribute("success").getBooleanValue()) {
                 for (Element pod : root.getChildren("pod")) {
                     if (pod.getAttribute("primary") != null && pod.getAttribute("primary").getBooleanValue()) {
                         for (Element subPod : pod.getChildren("subpod")) {
