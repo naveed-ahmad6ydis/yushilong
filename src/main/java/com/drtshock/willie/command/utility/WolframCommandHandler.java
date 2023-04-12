@@ -25,6 +25,7 @@ public class WolframCommandHandler implements CommandHandler {
             channel.sendMessage("Usage: wa <query>");
         } else {
             String key = bot.getConfig().getWolframApiKey();
+            System.out.println("Key: " + key);
 
             StringBuilder argsBuilder = new StringBuilder();
 
@@ -59,7 +60,7 @@ public class WolframCommandHandler implements CommandHandler {
 
                 channel.sendMessage(String.format("%s - %s", answer, WebHelper.shortenURL(String.format(QUERY_URL, input))));
             } else {
-                throw new IllegalStateException("Query failed - " + root.getChild("error").getChild("msg").getText());
+                channel.sendMessage("Query failed - " + root.getChild("error").getChild("msg").getText());
             }
         }
     }
